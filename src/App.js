@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
+import TextInput from './components/input/TextInput.jsx';
 
 function App() {
   return (
     <div>
-      
+      <TextInput />
     </div>
   );
 }
