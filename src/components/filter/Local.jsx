@@ -1,100 +1,104 @@
-import React, { useState } from 'react';
-import { Unstable_Popup as BasePopup } from '@mui/base/Unstable_Popup';
-import { styled } from '@mui/system';
+import React from "react";
 import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import { Box } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import Typography from '@mui/material/Typography';
 
-const Local = () => {
-    const [anchor, setAnchor] = useState(null);
+// 제목 넣고 싶을 때 -> <ContentsPopup title="title"></ContentsPopup>
+// 내용 넣고 싶을 때 -> <ContentsPopup>안녕하세요</ContentsPopup>
 
-    const handleToggle = (event) => {
-        setAnchor(anchor ? null : event.currentTarget);
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    "& .MuiDialogContent-root": {
+        padding: theme.spacing(2),
+    },
+    "& .MuiDialogActions-root": {
+        padding: theme.spacing(1),
+    },
+}));
+
+export default function Local({ title, children }) {
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
     };
 
-    const open = Boolean(anchor);
-    const id = open ? 'simple-popup' : undefined;
+    const dialogContentProps = {
+        sx: { width: "500px", height: "500px" },
+        ...(title && { dividers: true }),
+    };
 
-    return ( 
-        <div>
-            <Button variant="outlined" onClick={handleToggle}>
+    return (
+        <React.Fragment>
+            <Button variant="outlined" backgroundColor='primary.main' onClick={handleClickOpen}>
                 지역
                 {/* 카드 만들어지면 import 하기 */}
             </Button>
-            <BasePopup id={id} open={open} anchor={anchor}>
-                <PopupBody>
+            <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+                <DialogTitle sx={{ m: 0, p: 2, fontWeight: 600 }} id="customized-dialog-title"></DialogTitle>
+                <IconButton
+                    aria-label="close"
+                    onClick={handleClose}
+                    sx={{
+                        position: "absolute",
+                        right: 8,
+                        top: 8,
+                        color: 'grey.500'
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+                <Box display={"flex"}>
                     <StyledInput type="text" className="underline-input" placeholder="예) 판교역166" />
-                    <Button type='submit'>검색</Button>
-                    <div>
-                      <h1>tip</h1>
-                      <h2>아래와 같은 조합으로 검색을 하시면 <br />
-                          더욱 정확한 결과가 검색됩니다.
-                      </h2>
-                      <h3>도로명 + 건물 번호</h3>
-                      <p>예) 판교역로 166, 제주 첨단로242</p>
-                      <h3>지역명(동/리) + 번지</h3>
-                      <p>예) 백현동 532, 제주 영평동 2181</p>
+                    <SearchIcon type='submit' 
+                        sx={{
+                            fontSize: 40,
+                            color: 'primary.main'
+                        }}>검색
+                    </SearchIcon>
+                </Box>
+                
+                <DialogContent {...dialogContentProps}>
+                  <div>
+                    <Typography variant="h3" gutterBottom>tip</Typography>
+                    <Typography variant="subtitle1" gutterBottom>
+                        아래와 같은 조합으로 검색을 하시면 <br />
+                        더욱 정확한 결과가 검색됩니다.
+                    </Typography>
+                    <Typography variant="subtitle2" gutterBottom>
+                        도로명 + 건물 번호
+                    </Typography>
+                    <Typography variant="body1" gutterBottom color='primary.main'>
+                        예) 판교역로 166, 제주 첨단로242
+                    </Typography>
+                    <Typography variant="subtitle2" gutterBottom>
+                        지역명(동/리) + 번지
+                    </Typography>
+                    <Typography variant="body1" gutterBottom color='primary.main'>
+                        예) 백현동 532, 제주 영평동 2181
+                    </Typography>
                     </div>
-                    <Button type='button'>닫기</Button>
-                </PopupBody>
-            </BasePopup>
-        </div>
+                </DialogContent>
+            </BootstrapDialog>
+        </React.Fragment>
     );
 }
-
-// const StyledDiv = styled.div`
-//   p {
-//     color: blue; 
-//   }
-// `;
 
 const StyledInput = styled('input')`
     border: none;
     border-bottom: 2px solid black;
     outline: none;
     padding: 5px 10px;
-    width: 75%
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 80%
 `;
-const grey = {
-    50: '#F3F6F9',
-    100: '#E5EAF2',
-    200: '#DAE2ED',
-    300: '#C7D0DD',
-    400: '#B0B8C4',
-    500: '#9DA8B7',
-    600: '#6B7A90',
-    700: '#434D5B',
-    800: '#303740',
-    900: '#1C2025',
-  };
-  
-  const blue = {
-    200: '#99CCFF',
-    300: '#66B2FF',
-    400: '#3399FF',
-    500: '#007FFF',
-    600: '#0072E5',
-    700: '#0066CC',
-  };
-  
-  const PopupBody = styled('div')(
-    ({ theme }) => `
-    width: max-content;
-    padding: 12px 16px;
-    margin: 8px;
-    border-radius: 8px;
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
-    background-color: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-    box-shadow: ${
-      theme.palette.mode === 'dark'
-        ? `0px 4px 8px rgb(0 0 0 / 0.7)`
-        : `0px 4px 8px rgb(0 0 0 / 0.1)`
-    };
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 500;
-    font-size: 0.875rem;
-    z-index: 1;
-  `
-); 
-  
-  
-
-export default Local;
