@@ -9,7 +9,6 @@ import Community from './pages/Community';
 import Cost from './pages/Cost';
 import Mypage from './pages/Mypage';
 
-
 function App() {
 
   const theme = createTheme({
@@ -40,6 +39,8 @@ function App() {
             <Route path="/community" element={<Community />} />
             <Route path="/mypage" element={<Mypage />} />
           </Routes>
+          <TextInput/>
+          <TextArea/>
         </Layout>
     </ThemeProvider>
     </>
