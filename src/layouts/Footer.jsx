@@ -5,7 +5,7 @@ const Footer = () => {
 
     const textStyle = {
         textAlign : 'center',
-        color: '#eee'
+        color: 'grey.300'
     }
 
     return ( 
@@ -24,6 +24,7 @@ const Footer = () => {
 
 const StyleFooter = styled.footer`
     background-color: #212121;
+    height: 120px;
 `
  
 export default Footer;
