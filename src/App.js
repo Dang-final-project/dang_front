@@ -2,9 +2,12 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./layouts/layout";
 import Home from "./pages/Home";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import { TextInput } from "./components/text_input/TextInput";
-import { TextArea } from "./components/text_input/TextArea";
-
+import Login from './pages/Login';
+import Join from './pages/Join';
+import Admin from './pages/Admin';
+import Community from './pages/Community';
+import Cost from './pages/Cost';
+import Mypage from './pages/Mypage';
 
 function App() {
 
@@ -28,7 +31,13 @@ function App() {
         <CssBaseline />
         <Layout>
           <Routes >
+            <Route path='/login' element={<Login />} />
+            <Route path="/join" element={<Join />} />
             <Route path='/' element={<Home />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/cost" element={<Cost />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/mypage" element={<Mypage />} />
           </Routes>
           <TextInput/>
           <TextArea/>
