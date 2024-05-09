@@ -3,6 +3,7 @@ import Layout from "./layouts/layout";
 import Home from "./pages/Home";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 
+
 function App() {
 
   const theme = createTheme({});
@@ -17,7 +18,7 @@ function App() {
         </Layout>
     </ThemeProvider>
     </>
-  );
+  )
 }
 
 export default App;
