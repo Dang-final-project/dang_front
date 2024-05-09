@@ -22,7 +22,7 @@ export const TextArea = () => {
         <Box
             component="form"
             sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                '& .MuiTextField-root': { m: 1, width: '100%' },
                 position: 'relative',
                 margin: '20px',
                 ...(isDesktop ? { // 데스크탑 화면일 때 추가 디자인요소

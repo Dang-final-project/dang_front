@@ -2,6 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./layouts/layout";
 import Home from "./pages/Home";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { TextInput } from "./components/text_input/TextInput";
+import { TextArea } from "./components/text_input/TextArea";
 
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
           <Routes >
             <Route path='/' element={<Home />} />
           </Routes>
+          <TextInput/>
+          <TextArea/>
         </Layout>
     </ThemeProvider>
     </>
