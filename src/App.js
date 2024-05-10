@@ -24,7 +24,9 @@ function App() {
       }
     });
 
-    // console.log(theme)
+
+    console.log(theme)
+
 
     return (
       <>
@@ -41,9 +43,11 @@ function App() {
               <Route path="/mypage" element={<Mypage />} />
             </Routes>
           </Layout>
+
           {/* <KakaoMap /> */}
       </ThemeProvider>
       
+
       </>
     )
 }
