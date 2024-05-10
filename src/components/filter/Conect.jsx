@@ -1,111 +1,144 @@
-import React from 'react';
-import { Unstable_Popup as BasePopup } from '@mui/base/Unstable_Popup';
-import { styled } from '@mui/system';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import ButtonBase from '@mui/material/ButtonBase';
+import { Grid } from "@mui/material";
 
-const Local = () => {
-    const [anchor, setAnchor] = React.useState(null);
 
-    const handleClick = (event) => {
-        setAnchor(anchor ? null : event.currentTarget);
+// 제목 넣고 싶을 때 -> <ContentsPopup title="title"></ContentsPopup>
+// 내용 넣고 싶을 때 -> <ContentsPopup>안녕하세요</ContentsPopup>
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    "& .MuiDialogContent-root": {
+        padding: theme.spacing(2),
+    },
+    "& .MuiDialogActions-root": {
+        padding: theme.spacing(1),
+    },
+}));
+
+const images = [
+  {
+    url: '/buttonImage/AC3.png',
+    width: '40%'
+  }, {
+    url: '/buttonImage/DC.png',
+    width: '40%',
+  }, {
+    url: '/buttonImage/무선.png',
+    width: '40%',
+  },{
+    url: '/buttonImage/완속.png',
+    width: '40%',
+  },{
+    url: '/buttonImage/이동형.png',
+    width: '40%',
+  },{
+    url: '/buttonImage/차데모.png',
+    width: '40%',
+  }
+];
+
+const ImageButton = styled(ButtonBase)(({ theme }) => ({
+  position: 'relative',
+  height: 200,
+  [theme.breakpoints.down('sm')]: {
+    width: '100% !important', // Overrides inline-style
+    height: 100,
+  },
+  '&:hover, &.Mui-focusVisible': {
+    zIndex: 2,
+    '& .MuiImageBackdrop-root': {
+      opacity: 0.15,
+    },
+    '& .MuiImageMarked-root': {
+      opacity: 0,
+    },
+  },
+}));
+
+const ImageSrc = styled('span')({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 20,
+  width: 150,
+  height: 150,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+});
+
+const Image = styled('span')(({ theme }) => ({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 20,
+  width: 150,
+  height: 150,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+export default function Conect({ title }) {
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
     };
 
-    const open = Boolean(anchor);
-    const id = open ? 'simple-popup' : undefined;
+    const dialogContentProps = {
+        sx: { width: "500px", height: "500px" },
+        ...(title && { dividers: true }),
+    };
 
-    return ( 
-        <div>
-            <Button aria-describedby={id} type="button" onClick={handleClick}>
-            지역
+    return (
+        <React.Fragment>
+            <Button variant="outlined" onClick={handleClickOpen}>
+                커넥트
+                {/* 카드 만들어지면 import 하기 */}
             </Button>
-            <BasePopup id={id} open={open} anchor={anchor}>
-                <PopupBody>The content of the Popup.</PopupBody>
-            </BasePopup>
-        </div>
+            <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+                <DialogTitle sx={{ m: 0, p: 2, fontWeight: 600 }} id="customized-dialog-title">
+                  커넥트 종류
+                </DialogTitle>
+                <IconButton
+                    aria-label="close"
+                    onClick={handleClose}
+                    sx={{
+                        position: "absolute",
+                        right: 8,
+                        top: 8,
+                        color: 'grey.500'
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+                <DialogContent {...dialogContentProps}>
+                <Grid container spacing={2}>
+                  {images.map((image) => (
+                    <Grid item xs={12} sm={6} md={4} key={image.title}>
+                      <ImageButton
+                        focusRipple
+                        style={{
+                          width: '150px',
+                        }}
+                      >
+                        <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+                      </ImageButton>
+                    </Grid>
+                  ))}
+                </Grid>
+                </DialogContent>
+            </BootstrapDialog>
+        </React.Fragment>
     );
 }
-
-const grey = {
-    50: '#F3F6F9',
-    100: '#E5EAF2',
-    200: '#DAE2ED',
-    300: '#C7D0DD',
-    400: '#B0B8C4',
-    500: '#9DA8B7',
-    600: '#6B7A90',
-    700: '#434D5B',
-    800: '#303740',
-    900: '#1C2025',
-  };
-  
-  const blue = {
-    200: '#99CCFF',
-    300: '#66B2FF',
-    400: '#3399FF',
-    500: '#007FFF',
-    600: '#0072E5',
-    700: '#0066CC',
-  };
-  
-  const PopupBody = styled('div')(
-    ({ theme }) => `
-    width: max-content;
-    padding: 12px 16px;
-    margin: 8px;
-    border-radius: 8px;
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
-    background-color: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-    box-shadow: ${
-      theme.palette.mode === 'dark'
-        ? `0px 4px 8px rgb(0 0 0 / 0.7)`
-        : `0px 4px 8px rgb(0 0 0 / 0.1)`
-    };
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 500;
-    font-size: 0.875rem;
-    z-index: 1;
-  `,
-  );
-  
-  const Button = styled('button')(
-    ({ theme }) => `
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 600;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    background-color: ${blue[500]};
-    padding: 8px 16px;
-    border-radius: 8px;
-    color: white;
-    transition: all 150ms ease;
-    cursor: pointer;
-    border: 1px solid ${blue[500]};
-    box-shadow: 0 2px 4px ${
-      theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 127, 255, 0.5)'
-    }, inset 0 1.5px 1px ${blue[400]}, inset 0 -2px 1px ${blue[600]};
-  
-    &:hover {
-      background-color: ${blue[600]};
-    }
-  
-    &:active {
-      background-color: ${blue[700]};
-      box-shadow: none;
-    }
-  
-    &:focus-visible {
-      box-shadow: 0 0 0 4px ${theme.palette.mode === 'dark' ? blue[300] : blue[200]};
-      outline: none;
-    }
-  
-    &.disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      box-shadow: none;
-      &:hover {
-        background-color: ${blue[500]};
-      }
-    }
-  `,
-  );
-
-export default Local;
