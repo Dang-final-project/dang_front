@@ -8,39 +8,45 @@ import Admin from "./pages/Admin";
 import Community from "./pages/Community";
 import Cost from "./pages/Cost";
 import Mypage from "./pages/Mypage";
+// import KakaoMap from "./components/map/KakaoMap";
 
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#336dff',
-      },
-      secondary:{
-        main:'#FFCF32',
-        contrastText:'#000000'
+function App() {
+
+    const theme = createTheme({
+      palette: {
+        primary: {
+          main: '#336dff',
+        },
+        secondary:{
+          main:'#FFCF32',
+          contrastText:'#000000'
+        }
       }
-    }
-  });
+    });
 
-  console.log(theme)
+    // console.log(theme)
 
-  return (
-    <>
-    <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Layout>
-          <Routes >
-            <Route path='/login' element={<Login />} />
-            <Route path="/join" element={<Join />} />
-            <Route path='/' element={<Home />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/cost" element={<Cost />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/mypage" element={<Mypage />} />
-          </Routes>
-        </Layout>
-    </ThemeProvider>
-    </>
-  )
+    return (
+      <>
+      <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Layout>
+            <Routes >
+              <Route path='/login' element={<Login />} />
+              <Route path="/join" element={<Join />} />
+              <Route path='/' element={<Home />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/cost" element={<Cost />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/mypage" element={<Mypage />} />
+            </Routes>
+          </Layout>
+          {/* <KakaoMap /> */}
+      </ThemeProvider>
+      
+      </>
+    )
 }
+
 
 export default App;
