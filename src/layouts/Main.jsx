@@ -1,6 +1,7 @@
 import { Container, Box } from "@mui/material";
 import { useLocation } from "react-router-dom";
 
+
 const Main = ({children}) => {
 
     const location = useLocation();
@@ -15,7 +16,7 @@ const Main = ({children}) => {
                     {children}
                 </Box>
                 :
-                <Container sx={{minHeight : 'calc(100vh - 120px)'}}>
+                <Container sx={{minHeight : 'calc(100vh - 120px)', marginTop: "120px"}}>
                     {children}
                 </Container>
             }
@@ -24,3 +25,4 @@ const Main = ({children}) => {
 }
  
 export default Main;
+
