@@ -16,7 +16,7 @@ const SelectPopup = ({ title, width = 500, children }) => {
             confirmButtonText: "완료",
             confirmButtonColor: theme.palette.primary.main,
             customClass: {
-                cancelButton: "swal-cancel",
+                cancelButton: "swal_cancel",
             },
         }).then((result) => {
             if (result.isConfirmed) {
