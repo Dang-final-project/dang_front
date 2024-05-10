@@ -2,14 +2,12 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./layouts/layout";
 import Home from "./pages/Home";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import Login from './pages/Login';
-import Join from './pages/Join';
-import Admin from './pages/Admin';
-import Community from './pages/Community';
-import Cost from './pages/Cost';
-import Mypage from './pages/Mypage';
-
-function App() {
+import Login from "./pages/Login";
+import Join from "./pages/Join";
+import Admin from "./pages/Admin";
+import Community from "./pages/Community";
+import Cost from "./pages/Cost";
+import Mypage from "./pages/Mypage";
 
   const theme = createTheme({
     palette: {

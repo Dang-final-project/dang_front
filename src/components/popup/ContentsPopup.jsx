@@ -19,7 +19,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-export default function ContentsPopup({ title, children }) {
+export default function ContentsPopup({ title, width = 500, height = 500, children }) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -30,7 +30,7 @@ export default function ContentsPopup({ title, children }) {
     };
 
     const dialogContentProps = {
-        sx: { width: "500px", height: "500px" },
+        sx: { width: width, height: height },
         ...(title && { dividers: true }),
     };
 
