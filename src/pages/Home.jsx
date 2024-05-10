@@ -9,6 +9,7 @@ import BottomBtns from '../components/map/BottomBtns';
 
 const Home = () => {
 
+
     //반응형분기점
     const theme = useTheme();
     const tabletWidth = useMediaQuery(theme.breakpoints.up('md'));
@@ -36,5 +37,5 @@ const Home = () => {
             </>
         );
 }
- 
+
 export default Home;
