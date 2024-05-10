@@ -1,8 +1,17 @@
 import { Chip, Grid } from "@mui/material";
+import React, { useState } from "react";
 
-const Brand = ({ brands, setSelectedBrand, selectedBrand }) => {
+const Brand = ({ brands }) => {
+    const [selectedBrands, setSelectedBrands] = useState([]);
+
     const handleBrandClick = (brand) => {
-        setSelectedBrand(brand);  
+        setSelectedBrands((prevSelectedBrands) => {
+            if (prevSelectedBrands.includes(brand)) {
+                return prevSelectedBrands.filter((selectedBrand) => selectedBrand !== brand);
+            } else {
+                return [...prevSelectedBrands, brand];
+            }
+        });
     };
 
     return (
@@ -10,7 +19,7 @@ const Brand = ({ brands, setSelectedBrand, selectedBrand }) => {
             {brands.map((brand, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
                     <Chip
-                        variant={selectedBrand === brand ? 'contained' : 'outlined'}
+                        variant={selectedBrands.includes(brand) ? 'contained' : 'outlined'}
                         color="primary"
                         label={brand}
                         onClick={() => handleBrandClick(brand)}
