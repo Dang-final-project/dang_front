@@ -16,7 +16,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../App.css";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -26,6 +26,7 @@ const Header = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [userStatus, setUserStatus] = useState("user"); // guest, user, admin
     const isMobile = useMediaQuery("(max-width: 680px)");
+    const location = useLocation();
 
     const theme = useTheme();
 
@@ -92,9 +93,10 @@ const Header = () => {
         { nav: "로그아웃", link: "/login" },
     ];
 
+    const ELEVATION = location.pathname === "/" ? 0 : 4;
     const DeskTopHeader = () => {
         return (
-            <AppBar color="secondary">
+            <AppBar color="secondary" elevation={ELEVATION}>
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Link to="/">
                         <StyledTypo variant="h6">당충전</StyledTypo>
@@ -171,7 +173,7 @@ const Header = () => {
 
     const MobileHeader = () => {
         return (
-            <AppBar color="secondary">
+            <AppBar color="secondary" elevation={ELEVATION}>
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
                     <MenuIcon
                         sx={{ fontSize: 30, backgroundColor: "#fff", borderRadius: "2px" }}
