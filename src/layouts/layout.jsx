@@ -4,6 +4,7 @@ import Footer from './Footer';
 import Main from './Main';
 
 const Layout = ({children}) => {
+
     return ( 
         <BrowserRouter>
             <Header />
@@ -13,6 +14,7 @@ const Layout = ({children}) => {
             <Footer />
         </BrowserRouter>
      );
+
 }
  
 export default Layout;
