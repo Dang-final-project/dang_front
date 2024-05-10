@@ -1,10 +1,25 @@
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 const Main = ({children}) => {
+
+    const location = useLocation();
+    const pathName = location.pathname;
+
     return ( 
-        <Container sx={{minHeight : 'calc(100vh - 120px)'}}>
-            {children}
-        </Container>
+        <>
+            {
+                //지도 페이지는 fullwidth로 보여주기
+                pathName === '/' ?
+                <Box sx={{height: '100vh'}}>
+                    {children}
+                </Box>
+                :
+                <Container sx={{minHeight : 'calc(100vh - 120px)'}}>
+                    {children}
+                </Container>
+            }
+        </>
      );
 }
  
