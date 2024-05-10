@@ -18,7 +18,7 @@ function App() {
       },
       secondary:{
         main:'#FFCF32',
-        contrastText:'#00000'
+        contrastText:'#000000'
       }
     }
   });
@@ -39,8 +39,6 @@ function App() {
             <Route path="/community" element={<Community />} />
             <Route path="/mypage" element={<Mypage />} />
           </Routes>
-          <TextInput/>
-          <TextArea/>
         </Layout>
     </ThemeProvider>
     </>
