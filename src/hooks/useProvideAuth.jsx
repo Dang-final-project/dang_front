@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from 'axios';
 import { Cookies } from "react-cookie";
+import KakaoMap from './../components/map/KakaoMap';
 
 export const useProvideAuth = () => {
     const [loginUser, setLoginUser] = useState({
@@ -56,6 +57,6 @@ export const useProvideAuth = () => {
         loginUser,
         login,
         logout,
-        kakaoLogin
+        kakaoLogin,
     }
 }

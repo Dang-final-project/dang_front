@@ -8,6 +8,7 @@ import Admin from "./pages/Admin";
 import Community from "./pages/Community";
 import Cost from "./pages/Cost";
 import Mypage from "./pages/Mypage";
+// import KakaoMap from "./components/map/KakaoMap";
 
 function App() {
 
@@ -23,7 +24,9 @@ function App() {
       }
     });
 
+
     console.log(theme)
+
 
     return (
       <>
@@ -40,7 +43,11 @@ function App() {
               <Route path="/mypage" element={<Mypage />} />
             </Routes>
           </Layout>
+
+          {/* <KakaoMap /> */}
       </ThemeProvider>
+      
+
       </>
     )
 }
