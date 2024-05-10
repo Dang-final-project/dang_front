@@ -15,7 +15,7 @@ const LocateList = () => {
     };
 
     return ( 
-        <Paper sx={{p:2, maxWidth:'460px'}}>
+        <Paper sx={{p:2, maxWidth:'460px', flexGrow:1, overflow:'hidden'}}>
             <Typography>주변 충전소 : <span>255</span>개</Typography>
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -24,11 +24,13 @@ const LocateList = () => {
                     <Tab label="MY충전소" value="2" sx={{width:'50%'}} />
                 </TabList>
                 </Box>
-                <TabPanel value="1">
+                <TabPanel value="1" sx={{height:'100%', overflow:'scroll'}}>
+                    <Station />
+                    <Station />
                     <Station />
                     <Station />
                 </TabPanel>
-                <TabPanel value="2">Item Two</TabPanel>
+                <TabPanel value="2" sx={{height:'100%', overflow:'scroll'}}>Item Two</TabPanel>
             </TabContext>
         </Paper>
      );
