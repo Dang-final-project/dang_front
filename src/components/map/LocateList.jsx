@@ -3,6 +3,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import React, { useState } from 'react';
+import Station from "./Station";
 
 
 const LocateList = () => {
@@ -23,7 +24,10 @@ const LocateList = () => {
                     <Tab label="MY충전소" value="2" sx={{width:'50%'}} />
                 </TabList>
                 </Box>
-                <TabPanel value="1">Item One</TabPanel>
+                <TabPanel value="1">
+                    <Station />
+                    <Station />
+                </TabPanel>
                 <TabPanel value="2">Item Two</TabPanel>
             </TabContext>
         </Paper>

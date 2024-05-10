@@ -12,7 +12,7 @@ const Main = ({children}) => {
             {
                 //지도 페이지는 fullwidth로 보여주기
                 pathName === '/' ?
-                <Box sx={{height: '100vh'}}>
+                <Box sx={{height: 'calc(100vh - 64px)',marginTop:'64px'}}>
                     {children}
                 </Box>
                 :

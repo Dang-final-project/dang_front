@@ -22,7 +22,7 @@ const Home = () => {
                         tabletWidth ? (
                             <Box>
                                 <FilterList />
-                                <Box sx={{width:'40%', display:'flex', flexDirection:'column', gap:'16px', p:3}}>
+                                <Box sx={{width:'46%', display:'flex', flexDirection:'column', gap:'16px', p:3}}>
                                     <SearchBox />
                                     <LocateList />
                                 </Box>
