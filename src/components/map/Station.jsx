@@ -2,7 +2,8 @@ import { Box, Stack, Chip, Typography, Button, IconButton } from "@mui/material"
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 
-const Station = () => {
+const Station = ({station}) => {
+
     return ( 
         <Box sx={{borderBottom:'1px solid #bdbdbd', py:2}}>
             <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
@@ -11,17 +12,21 @@ const Station = () => {
                     <StarBorderIcon fontSize="large"/>
                 </IconButton>
             </Box>
-            <Typography variant="h5" gutterBottom>당신 근처의 주유소</Typography>
+            <Typography variant="h5" gutterBottom>{station.chrstnNm}</Typography>
             <Stack direction="row" spacing={2}>
-                <Typography gutterBottom sx={{width:'70px'}}>충전타입</Typography>
-                <Typography gutterBottom>완속</Typography>
+                <Typography gutterBottom sx={{width:'80px'}}>충전타입</Typography>
+                <Typography gutterBottom>{station.chrstnType}</Typography>
             </Stack>
             <Stack direction="row" spacing={2}>
-                <Typography gutterBottom sx={{width:'70px'}}>가격</Typography>
-                <Typography gutterBottom>880원</Typography>
+                <Typography gutterBottom sx={{width:'80px'}}>이용시간</Typography>
+                <Typography gutterBottom>{station.useOpenTime}</Typography>
+            </Stack>
+            <Stack direction="row" spacing={2}>
+                <Typography gutterBottom sx={{width:'80px'}}>상세주소</Typography>
+                <Typography gutterBottom>{station.rdnmadr}</Typography>
             </Stack>
             <Box sx={{bgcolor:'grey.100',p:2, mt:2, display:'flex', display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                <Typography>충전원할<span>0</span>/<span>2</span></Typography>
+                <Typography>충전원할<span>0</span>/<span>{station.charger_status}</span></Typography>
                 <Button variant="contained" color="secondary">예약하기</Button>
             </Box>
         </Box>
