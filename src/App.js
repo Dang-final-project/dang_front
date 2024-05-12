@@ -44,9 +44,7 @@ function App() {
             </Routes>
           </Layout>
 
-          {/* <KakaoMap /> */}
       </ThemeProvider>
-      
 
       </>
     )

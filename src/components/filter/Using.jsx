@@ -52,13 +52,9 @@ const grey = {
     padding: 12px 16px;
     margin: 8px;
     border-radius: 8px;
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
-    background-color: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-    box-shadow: ${
-      theme.palette.mode === 'dark'
-        ? `0px 4px 8px rgb(0 0 0 / 0.7)`
-        : `0px 4px 8px rgb(0 0 0 / 0.1)`
-    };
+    border: 1px solid ${grey[200]};
+    background-color: #fff';
+    box-shadow: 0px 4px 8px rgb(0 0 0 / 0.1)
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: 500;
     font-size: 0.875rem;
@@ -79,9 +75,8 @@ const grey = {
     transition: all 150ms ease;
     cursor: pointer;
     border: 1px solid ${blue[500]};
-    box-shadow: 0 2px 4px ${
-      theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 127, 255, 0.5)'
-    }, inset 0 1.5px 1px ${blue[400]}, inset 0 -2px 1px ${blue[600]};
+    box-shadow: 0 2px 4px rgba(0, 127, 255, 0.5);
+    ßinset 0 1.5px 1px ${blue[400]}, inset 0 -2px 1px ${blue[600]};
   
     &:hover {
       background-color: ${blue[600]};
@@ -93,7 +88,7 @@ const grey = {
     }
   
     &:focus-visible {
-      box-shadow: 0 0 0 4px ${theme.palette.mode === 'dark' ? blue[300] : blue[200]};
+      box-shadow: 0 0 0 4px ${blue[200]};
       outline: none;
     }
   
