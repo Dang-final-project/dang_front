@@ -4,6 +4,8 @@ import Conect from "../filter/Conect";
 import Empty from "../filter/Empty";
 import Speed from "../filter/Speed";
 import Using from "../filter/Using";
+import Pay from './../filter/Pay';
+import Open from './../filter/Open';
 
 const FilterList = () => {
 
@@ -14,6 +16,8 @@ const FilterList = () => {
             <Conect />
             <Speed />
             <Using />
+            <Pay />
+            <Open />
         </Paper>
      );
 }
