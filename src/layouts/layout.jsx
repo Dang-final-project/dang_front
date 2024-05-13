@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-// import Header from './Header';
+import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
 
@@ -7,7 +7,7 @@ const Layout = ({children}) => {
 
     return ( 
         <BrowserRouter>
-            {/* <Header /> */}
+            <Header />
             <Main>
                 {children}
             </Main>

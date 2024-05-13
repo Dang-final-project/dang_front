@@ -4,9 +4,12 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
 const Join = () => {
+
+    const navigate = useNavigate()
 
     const {
         register,
@@ -20,7 +23,35 @@ const Join = () => {
     const password = watch("password", "");
     const passwordCheck = watch("passwordCheck", "");
 
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = async(data) => {
+        const {email, username, password} = data;
+        try{            
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/join`,{
+                email,
+                username, 
+                password
+            })
+
+            console.log(response);
+            if (response.data.code === 200) {
+                Swal.fire({
+                    title: "축하합니다!",
+                    text: response.data.message,
+                    icon: "success"
+                });
+                navigate('/');
+            } else {
+                throw new Error(response.data.message);
+            }
+        }catch(err){
+            console.log(username)
+            Swal.fire({
+                title: "에러 발생",
+                text: err.message,
+                icon: "error"
+            });
+        }
+    }
 
 
     return ( 
@@ -58,14 +89,14 @@ const Join = () => {
                 />
                 {/* nickname */}
                 <TextField
-                    error={errors.usename ? true : false}
-                    helperText={errors.usename && errors.usename.message}
+                    error={errors.username ? true : false}
+                    helperText={errors.username && errors.username.message}
                     label="이름"
                     variant="outlined"
                     fullWidth
-                    autoComplete="usename"
+                    autoComplete="username"
                     sx={{ display: 'block' }}
-                    {...register("usename", { 
+                    {...register("username", { 
                         required: "이름은 필수 입력 항목입니다."
                     })}
                 />
