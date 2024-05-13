@@ -20,12 +20,15 @@ const LocateList = () => {
     const getStations = async() => {
         try{
             const key = process.env.REACT_APP_STATION_API_KEY;
-            const pageIdx = 1;
+            const pageIdx = 0;
             const count = 10;
-            const url = `https://api.odcloud.kr/api/15067156/v1/uddi:4f293dcb-a55b-4f64-b7d1-dab5b0ba56bb?page=${pageIdx}&perPage=${count}&serviceKey=${key}`;
+            //검색기능 구현할 때 사용
+            const searchKey = null;
+            const searchValue = null;
+            const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`
             const response = await axios.get(url);
             if(response.status === 200){
-                setStations(response.data.data);
+                setStations(response.data.items)
             }
 
         }catch(err){
@@ -33,11 +36,11 @@ const LocateList = () => {
         }
     }
 
+    console.log(stations);
+
     useEffect(()=>{
         getStations();
     },[])
-
-    console.log(stations);
 
     return ( 
         <Paper sx={{p:2, maxWidth:'460px', flexGrow:1, overflow:'hidden'}}>
@@ -50,10 +53,13 @@ const LocateList = () => {
                 </TabList>
                 </Box>
                 <TabPanel value="1" sx={{height:'100%', overflow:'scroll'}}>
-                    <Station />
-                    <Station />
-                    <Station />
-                    <Station />
+                    {stations && stations.length > 0 ? (
+                        stations.map((station, idx) => (
+                            <Station key={idx} station={station}/>
+                        ))
+                    ) : (
+                        <Typography>데이터를 불러오는 중입니다...</Typography>
+                    )}
                 </TabPanel>
                 <TabPanel value="2" sx={{height:'100%', overflow:'scroll'}}>Item Two</TabPanel>
             </TabContext>
