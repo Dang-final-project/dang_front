@@ -19,7 +19,7 @@ const LocateList = () => {
 
     const getStations = async() => {
         try{
-            const key = 'KE8fpP1J%2B89PviF5ypn1iC2Pt13cnUqW7zS6rTyC01AY5TnWK7Ke2zgCzNUU8TF3zQyZiEr6YfRfclI79xarRg%3D%3D';
+            const key = process.env.REACT_APP_STATION_API_KEY;
             const pageIdx = 1;
             const count = 10;
             const url = `https://api.odcloud.kr/api/15067156/v1/uddi:4f293dcb-a55b-4f64-b7d1-dab5b0ba56bb?page=${pageIdx}&perPage=${count}&serviceKey=${key}`;
