@@ -3,9 +3,8 @@ import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
 
-const Layout = ({children}) => {
-
-    return ( 
+const Layout = ({ children }) => {
+    return (
         <BrowserRouter>
             <Header />
             <Main>
@@ -13,8 +12,7 @@ const Layout = ({children}) => {
             </Main>
             <Footer />
         </BrowserRouter>
-     );
+    );
+};
 
-}
- 
 export default Layout;
