@@ -18,9 +18,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-export default function Using({ title, width = 500, height = 100, children }) {
+export default function Pay({ title, width = 500, height = 100, children }) {
     const [open, setOpen] = React.useState(false);
-    const [selectedUsing, setSelectedUsing] = useState(''); 
+    const [selectedPay, setSelectedPay] = useState(''); 
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -34,18 +34,18 @@ export default function Using({ title, width = 500, height = 100, children }) {
         ...(title && { dividers: true }),
     };
 
-    const handleUsingClick = (speed) => {
-        setSelectedUsing(speed); 
+    const handlePayClick = (pay) => {
+        setSelectedPay(pay); 
     };
 
     return (
         <React.Fragment>
             <Button variant="outlined" onClick={handleClickOpen}>
-                사용 여부
+                결제 방법   
             </Button>
             <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle sx={{ m: 0, p: 2, fontWeight: 600 }} id="customized-dialog-title">
-                    사용 여부
+                    결제
                 </DialogTitle>
                 <IconButton
                     aria-label="close"
@@ -63,32 +63,32 @@ export default function Using({ title, width = 500, height = 100, children }) {
                     <Grid container justifyContent="center">
                         <Grid item>
                             <Button
-                                variant={selectedUsing === '사용가능' ? 'contained' : 'outlined'} 
+                                variant={selectedPay === '현금 충전' ? 'contained' : 'outlined'} 
                                 size="large"
                                 color="primary"
-                                onClick={() => handleUsingClick('사용가능')}
+                                onClick={() => handlePayClick('현금 충전')}
                             >
-                                사용 가능
+                                현금 충전
                             </Button>
                         </Grid>
                         <Grid item>
                             <Button
-                                variant={selectedUsing === '사용중' ? 'contained' : 'outlined'} 
+                                variant={selectedPay === 'QR 충전' ? 'contained' : 'outlined'} 
                                 size="large"
                                 color="primary"
-                                onClick={() => handleUsingClick('사용중')}
+                                onClick={() => handlePayClick('QR 충전')}
                             >
-                                사용 중
+                                QR 충전
                             </Button>
                         </Grid>
                         <Grid item>
                             <Button
-                                variant={selectedUsing === '사용 불가' ? 'contained' : 'outlined'} 
+                                variant={selectedPay === '모두 보기' ? 'contained' : 'outlined'} 
                                 size="large"
                                 color="primary"
-                                onClick={() => handleUsingClick('사용 불가')}
+                                onClick={() => handlePayClick('모두 보기')}
                             >
-                                사용 불가
+                                모두 보기
                             </Button>
                         </Grid>
                     </Grid>

@@ -1,12 +1,23 @@
 import { Paper, Button } from "@mui/material";
+import Local from "../filter/Local";
+import Conect from "../filter/Conect";
+import Empty from "../filter/Empty";
+import Speed from "../filter/Speed";
+import Using from "../filter/Using";
+import Pay from './../filter/Pay';
+import Open from './../filter/Open';
 
 const FilterList = () => {
 
     return ( 
         <Paper square fullwidth="true" bgcolor='pink' sx={{py:1 ,px:3 ,display:'flex', gap:'8px'}}>
-            <Button  variant="outlined">필터01</Button>
-            <Button  variant="outlined">필터01</Button>
-            <Button  variant="outlined">필터01</Button>
+            <Local />
+            <Empty />
+            <Conect />
+            <Speed />
+            <Using />
+            <Pay />
+            <Open />
         </Paper>
      );
 }

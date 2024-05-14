@@ -53,13 +53,13 @@ const LocateList = () => {
                 </TabList>
                 </Box>
                 <TabPanel value="1" sx={{height:'100%', overflow:'scroll'}}>
-                    {
-                        stations.map((station,idx) => {
-                            return (
-                                <Station key={idx} station={station}/>
-                            )
-                        })
-                    }
+                    {stations && stations.length > 0 ? (
+                        stations.map((station, idx) => (
+                            <Station key={idx} station={station}/>
+                        ))
+                    ) : (
+                        <Typography>데이터를 불러오는 중입니다...</Typography>
+                    )}
                 </TabPanel>
                 <TabPanel value="2" sx={{height:'100%', overflow:'scroll'}}>Item Two</TabPanel>
             </TabContext>

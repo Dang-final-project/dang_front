@@ -10,9 +10,6 @@ import { Box } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import Typography from '@mui/material/Typography';
 
-// 제목 넣고 싶을 때 -> <ContentsPopup title="title"></ContentsPopup>
-// 내용 넣고 싶을 때 -> <ContentsPopup>안녕하세요</ContentsPopup>
-
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
         padding: theme.spacing(2),

@@ -18,9 +18,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-export default function Using({ title, width = 500, height = 100, children }) {
+export default function Open({ title, width = 500, height = 100, children }) {
     const [open, setOpen] = React.useState(false);
-    const [selectedUsing, setSelectedUsing] = useState(''); 
+    const [selectedOpen, setSelectedOpen] = useState(''); 
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -34,18 +34,18 @@ export default function Using({ title, width = 500, height = 100, children }) {
         ...(title && { dividers: true }),
     };
 
-    const handleUsingClick = (speed) => {
-        setSelectedUsing(speed); 
+    const handleOpenClick = (open) => {
+        setSelectedOpen(open); 
     };
 
     return (
         <React.Fragment>
             <Button variant="outlined" onClick={handleClickOpen}>
-                사용 여부
+                외부인 개방
             </Button>
             <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle sx={{ m: 0, p: 2, fontWeight: 600 }} id="customized-dialog-title">
-                    사용 여부
+                    외부인 개방
                 </DialogTitle>
                 <IconButton
                     aria-label="close"
@@ -63,32 +63,12 @@ export default function Using({ title, width = 500, height = 100, children }) {
                     <Grid container justifyContent="center">
                         <Grid item>
                             <Button
-                                variant={selectedUsing === '사용가능' ? 'contained' : 'outlined'} 
+                                variant={selectedOpen === '외부인 개방' ? 'contained' : 'outlined'} 
                                 size="large"
                                 color="primary"
-                                onClick={() => handleUsingClick('사용가능')}
+                                onClick={() => handleOpenClick('외부인 개방')}
                             >
-                                사용 가능
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Button
-                                variant={selectedUsing === '사용중' ? 'contained' : 'outlined'} 
-                                size="large"
-                                color="primary"
-                                onClick={() => handleUsingClick('사용중')}
-                            >
-                                사용 중
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Button
-                                variant={selectedUsing === '사용 불가' ? 'contained' : 'outlined'} 
-                                size="large"
-                                color="primary"
-                                onClick={() => handleUsingClick('사용 불가')}
-                            >
-                                사용 불가
+                                외부인 개방
                             </Button>
                         </Grid>
                     </Grid>
