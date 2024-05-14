@@ -31,10 +31,10 @@ const Home = () => {
                                 position: "absolute",
                                 top: "130px",
                                 zIndex: 10,
-                                height:'calc(100vh - 64px - 52.5px)'
+                                height: "calc(100vh - 64px - 52.5px)",
                             }}
                         >
-                            <SearchBox />
+                            {/* <SearchBox /> */}
                             <LocateList />
                         </Box>
                     </Box>
