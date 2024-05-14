@@ -11,22 +11,19 @@ import Mypage from "./pages/Mypage";
 // import KakaoMap from "./components/map/KakaoMap";
 
 function App() {
-
     const theme = createTheme({
-      palette: {
-        primary: {
-          main: '#336dff',
+        palette: {
+            primary: {
+                main: "#336dff",
+            },
+            secondary: {
+                main: "#FFCF32",
+                contrastText: "#000000",
+            },
         },
-        secondary:{
-          main:'#FFCF32',
-          contrastText:'#000000'
-        }
-      }
     });
 
-
-    console.log(theme)
-
+    console.log(theme);
 
     return (
       <>
@@ -49,6 +46,5 @@ function App() {
       </>
     )
 }
-
 
 export default App;
