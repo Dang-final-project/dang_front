@@ -26,23 +26,25 @@ function App() {
     console.log(theme);
 
     return (
-        <>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <Layout>
-                    <Routes>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/join" element={<Join />} />
-                        <Route path="/" element={<Home />} />
-                        <Route path="/admin" element={<Admin />} />
-                        <Route path="/cost" element={<Cost />} />
-                        <Route path="/community" element={<Community />} />
-                        <Route path="/mypage" element={<Mypage />} />
-                    </Routes>
-                </Layout>
-            </ThemeProvider>
-        </>
-    );
+      <>
+      <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Layout>
+            <Routes >
+              <Route path='/login' element={<Login />} />
+              <Route path="/join" element={<Join />} />
+              <Route path='/' element={<Home />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/cost" element={<Cost />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/mypage" element={<Mypage />} />
+            </Routes>
+          </Layout>
+
+      </ThemeProvider>
+
+      </>
+    )
 }
 
 export default App;
