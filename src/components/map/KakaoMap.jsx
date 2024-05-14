@@ -1,16 +1,7 @@
 import React, { useState } from "react";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 
-function createData(name, value) {
-    return { name, value };
-}
-
-const rows = [
-    createData('도로명 주소', '강원특별자치도 춘천시 춘천로'),
-    createData('운영기관', '환경부'),
-];
-
-const KakaoMap = ({ width, height, title, children }) => {
+const KakaoMap = () => {
     const [loading, error] = useKakaoLoader({
         appkey: process.env.REACT_APP_KAKAO_MAP_API_KEY,
     });
