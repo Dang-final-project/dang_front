@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -20,7 +20,7 @@ import SpeedIcon from '@mui/icons-material/Speed';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import PaymentIcon from '@mui/icons-material/Payment';
 import Person2Icon from '@mui/icons-material/Person2';
-import { Typography } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
@@ -33,6 +33,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export default function Mobile({ title, width = 500, height = 500, children }) {
     const [open, setOpen] = React.useState(false);
+    const [selected, setSelected] = React.useState(''); 
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -41,6 +42,11 @@ export default function Mobile({ title, width = 500, height = 500, children }) {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleClick = (filter) => {
+        setSelected(filter); 
+    };
+
 
     const dialogContentProps = {
         sx: { width: width, height: height },
@@ -120,48 +126,113 @@ export default function Mobile({ title, width = 500, height = 500, children }) {
                     <label>
                         <SpeedIcon />충전 속도
                     </label>
-                    <div>
-                        <FormControl sx={{ m: 1, minWidth: 120 }}>
-                          <Select defaultValue="" id="grouped-select" label="Grouping">
-                            <MenuItem value={1}>급속</MenuItem>
-                            <MenuItem value={2}>완속</MenuItem>
-                          </Select>
-                        </FormControl>
-                    </div>
+                    <Grid container>
+                          <Grid item>
+                            <Button
+                                variant={selected === '급속' ? 'contained' : 'outlined'} 
+                                size="large"
+                                color="primary"
+                                onClick={() => handleClick('급속')}
+                            >
+                                급속
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant={selected === '완속' ? 'contained' : 'outlined'} 
+                                size="large"
+                                color="primary"
+                                onClick={() => handleClick('완속')}
+                            >
+                                완속
+                            </Button>
+                        </Grid>
+                    </Grid>
                     <label>
                         <ToggleOnIcon />사용 여부
                     </label>
-                    <div>
-                        <FormControl sx={{ m: 1, minWidth: 120 }}>
-                          <Select defaultValue="" id="grouped-select" label="Grouping">
-                            <MenuItem value={1}>사용 가능</MenuItem>
-                            <MenuItem value={2}>사용 중</MenuItem>
-                            <MenuItem value={3}>사용 불가</MenuItem>
-                          </Select>
-                        </FormControl>
-                    </div>
+                    <Grid container>
+                          <Grid item>
+                            <Button
+                                variant={selected === '사용 가능' ? 'contained' : 'outlined'} 
+                                size="large"
+                                color="primary"
+                                onClick={() => handleClick('사용 가능')}
+                            >
+                                사용 가능
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant={selected === '사용 중' ? 'contained' : 'outlined'} 
+                                size="large"
+                                color="primary"
+                                onClick={() => handleClick('사용 중')}
+                            >
+                                사용 중
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant={selected === '사용 불가' ? 'contained' : 'outlined'} 
+                                size="large"
+                                color="primary"
+                                onClick={() => handleClick('사용 불가')}
+                            >
+                                사용 불가
+                            </Button>
+                        </Grid>
+                    </Grid>
                     <label>
                         <PaymentIcon /> 결제 방법
                     </label>
-                    <div>
-                        <FormControl sx={{ m: 1, minWidth: 120 }}>
-                          <Select defaultValue="" id="grouped-select" label="Grouping">
-                            <MenuItem value={1}>현금 충전</MenuItem>
-                            <MenuItem value={2}>QR 충전</MenuItem>
-                            <MenuItem value={3}>모두 보기</MenuItem>
-                          </Select>
-                        </FormControl>
-                    </div>
+                    <Grid container>
+                    <Grid item>
+                            <Button
+                                variant={selected === '현금 충전' ? 'contained' : 'outlined'} 
+                                size="large"
+                                color="primary"
+                                onClick={() => handleClick('현금 충전')}
+                            >
+                                현금 충전
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant={selected === 'QR 충전' ? 'contained' : 'outlined'} 
+                                size="large"
+                                color="primary"
+                                onClick={() => handleClick('QR 충전')}
+                            >
+                                QR 충전
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant={selected === '모두 보기' ? 'contained' : 'outlined'} 
+                                size="large"
+                                color="primary"
+                                onClick={() => handleClick('모두 보기')}
+                            >
+                                모두 보기
+                            </Button>
+                        </Grid>
+
+                    </Grid>
+                    
                     <label>
                         <Person2Icon />외부인 개방
                     </label>
-                    <div>
-                        <FormControl sx={{ m: 1, minWidth: 120 }}>
-                          <Select defaultValue="" id="grouped-select" label="Grouping">
-                            <MenuItem value={1}>외부인 개방</MenuItem>
-                          </Select>
-                        </FormControl>
-                    </div>
+                    <Grid item>
+                            <Button
+                                variant={selected === '외부인 개방' ? 'contained' : 'outlined'} 
+                                size="large"
+                                color="primary"
+                                onClick={() => handleClick('외부인 개방')}
+                            >
+                                외부인 개방
+                            </Button>
+                        </Grid>
                 </DialogContent>
             </BootstrapDialog>
         </React.Fragment>
