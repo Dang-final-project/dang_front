@@ -41,6 +41,9 @@ const images = [
   },{
     url: '/buttonImage/차데모.png',
     width: '40%',
+  }, {
+    url: '/buttonImage/테슬라.png',
+    width: '40%',
   }
 ];
 
