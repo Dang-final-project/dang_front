@@ -27,7 +27,7 @@ function BatteryLevel() {
         <div style={{display: 'inline-block', width: '450px', backgroundColor: 'lightgrey'}}>
         <div style={{width: `${batteryLevel}%`, height: '20vh',backgroundColor: barColor}}></div>
         </div>
-        <div style = {{display: 'inline-block', fontSize: '18px', marginLeft: '20px', color: textColor}}>현재 배터리는 {batteryLevel}% 입니다
+        <div style = {{display: 'inline-block', fontSize: '18px', marginLeft: '20px', color: textColor}}> 배터리 잔량이 {batteryLevel}% 남았습니다
         <p style={{ color: 'red' }}>{message}</p>
         </div>
         </div>
