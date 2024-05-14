@@ -13,10 +13,12 @@ const KakaoMap = () => {
 
     const onClusterclick = (_target, cluster) => {
         const map = mapRef.current;
-        const level = map.getLevel() - 1;
-        map.setLevel(level, { anchor: cluster.getCenter() });
+        if (map) {
+            const level = map.getLevel() - 1;
+            map.setLevel(level, { anchor: cluster.getCenter() });
+        }
     };
-
+    
     useEffect(() => {
         // 마커 클러스터링에 사용할 위치 데이터 설정
         const clusterPositionsData = {
@@ -29,8 +31,23 @@ const KakaoMap = () => {
             ]
         };
         setPositions(clusterPositionsData.positions);
+        navigator.geolocation.getCurrentPosition(pos => {
+            setCenter({lat:pos.coords.latitude, lng:pos.coords.longitude});
+        })
+        navigator.geolocation.watchPosition(pos => {
+            setPosition({lat:pos.coords.latitude, lng:pos.coords.longitude});
+        });
     }, []);
 
+    const onCenterChanged = (map) => {
+        setCenter({
+            lat: map.getCenter().getLat(), lng: map.getCenter().getLng()
+        })
+    }
+
+    const comeBackHome = () => {
+        setCenter(position);
+    }
     return (
         <Map
             position="absolute"

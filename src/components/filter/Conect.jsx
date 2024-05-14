@@ -126,19 +126,19 @@ export default function Conect({ title }) {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent {...dialogContentProps}>
-                <Grid container spacing={2}>
-                  {images.map((image) => (
-                    <Grid item xs={12} sm={6} md={4} key={image.title}>
+                <Grid container spacing={3}>
+                {images.map((image, index) => (
+                  <Grid item xs={12} sm={6} md={4} key={index}>
                       <ImageButton
-                        focusRipple
-                        style={{
-                          width: '150px',
-                        }}
+                          focusRipple
+                          style={{
+                              width: '150px',
+                          }}
                       >
-                        <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+                          <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
                       </ImageButton>
-                    </Grid>
-                  ))}
+                  </Grid>
+                ))}
                 </Grid>
                 </DialogContent>
             </BootstrapDialog>
