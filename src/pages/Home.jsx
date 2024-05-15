@@ -34,7 +34,6 @@ const Home = () => {
                                 height: "calc(100vh - 64px - 52.5px)",
                             }}
                         >
-                            {/* <SearchBox /> */}
                             <LocateList />
                         </Box>
                     </Box>

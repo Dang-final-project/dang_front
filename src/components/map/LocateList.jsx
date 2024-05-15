@@ -80,12 +80,12 @@ const LocateList = () => {
     };
 
     // 로그인 구현되면 api호출방식 get으로 변경해야함
-    const getFav = async () => {
-        const urll = `http://localhost:8000/v1/stations/list`;
-        const fav = await axios.post(urll, { id: 2 });
-        console.log(fav.data.payload);
-        setFavList(fav.data.payload);
-    };
+    // const getFav = async () => {
+    //     const urll = `http://localhost:8000/v1/stations/list`;
+    //     const fav = await axios.post(urll, { id: 2 });
+    //     console.log(fav.data.payload);
+    //     setFavList(fav.data.payload);
+    // };
 
     const getFavStations = async() => {
         const key = process.env.REACT_APP_STATION_API_KEY;
@@ -129,12 +129,12 @@ const LocateList = () => {
 
     useEffect(() => {
         getStations();
-        getFav();
+        // getFav();
     }, []);
 
     useEffect(() => {
         getFavStations();
-    }, [favList]);
+    }, []); // favList
 
     return (
         <>
@@ -158,7 +158,7 @@ const LocateList = () => {
                                         key={idx}
                                         station={station}
                                         favList={favList}
-                                        getFav={getFav}
+                                        // getFav={getFav}
                                         avail_memo={false}
                                     />
                                 );
@@ -175,7 +175,7 @@ const LocateList = () => {
                                         key={idx}
                                         station={fav}
                                         favList={favList}
-                                        getFav={getFav}
+                                        // getFav={getFav}
                                         avail_memo={true}
                                     />
                                 );
