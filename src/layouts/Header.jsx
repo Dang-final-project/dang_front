@@ -37,9 +37,9 @@ const Header = () => {
     const StyledTypo = styled(Typography)({
         cursor: "pointer",
         margin: "10px",
-        color: theme.palette.primary.main,
+        color: '#4b4037',
         "&:hover": {
-            color: "#001067",
+            color: theme.palette.primary.main,
         },
     });
 
@@ -99,14 +99,14 @@ const Header = () => {
             <AppBar color="secondary" elevation={ELEVATION}>
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Link to="/">
-                        <StyledTypo variant="h6">당충전</StyledTypo>
+                        <StyledTypo>당충전</StyledTypo>
                     </Link>
 
                     {userStatus && userStatus === "guest" && (
                         <Grid sx={{ display: "flex" }}>
                             {guest.map((text, index) => (
                                 <Link to={text.link}>
-                                    <StyledTypo variant="h6">{text.nav}</StyledTypo>
+                                    <StyledTypo>{text.nav}</StyledTypo>
                                 </Link>
                             ))}
                         </Grid>
@@ -115,7 +115,6 @@ const Header = () => {
                         <Grid sx={{ display: "flex" }}>
                             <Grid>
                                 <StyledTypo
-                                    variant="h6"
                                     onClick={() => setDropdownOpen(!dropdownOpen)}
                                     sx={{ position: "relative" }}
                                 >
@@ -130,7 +129,7 @@ const Header = () => {
                             </Grid>
                             {user.map((text, index) => (
                                 <Link to={text.link}>
-                                    <StyledTypo variant="h6">{text.nav}</StyledTypo>
+                                    <StyledTypo>{text.nav}</StyledTypo>
                                 </Link>
                             ))}
                         </Grid>
@@ -139,7 +138,7 @@ const Header = () => {
                         <Grid sx={{ display: "flex" }}>
                             {admin.map((text, index) => (
                                 <Link to={text.link} key={text.nav}>
-                                    <StyledTypo variant="h6">{text.nav}</StyledTypo>
+                                    <StyledTypo >{text.nav}</StyledTypo>
                                 </Link>
                             ))}
                         </Grid>
