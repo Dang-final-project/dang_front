@@ -1,3 +1,4 @@
+import { Box, Grid, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 
 // 1. 배터 잔여량 가라 보여주는 랜덤 구현!!
@@ -22,19 +23,22 @@ function BatteryLevel() {
 
   return (
     <>
-    <h2>배터리 잔량</h2>
-    <div style={{display: 'flex'}}>
-      <div style={{ display: 'flex', alignItems:'center', marginTop:'20px'}}>
-        <div style={{display: 'inline-block', width: '450px', backgroundColor: 'lightgrey'}}>
-        <div style={{width: `${batteryLevel}%`, height: '20vh',backgroundColor: barColor}}></div>
-        </div>
-        <div style = {{display: 'inline-block', fontSize: '18px', marginLeft: '20px', color: textColor}}> 배터리 잔량이 {batteryLevel}% 남았습니다
-        <p style={{ color: 'red' }}>{message}</p>
-        </div>
-        </div>
-      </div>
+    
+    <Grid sx={{display: "flex", flexDirection: "column", alignItems:'center', justifyContent: "center" }}>
+    <Typography variant="h5" >배터리잔량</Typography>
+    <Box sx={{display: 'flex'}}>
+      <Box sx={{ display: 'flex', alignItems:'center', marginTop:'20px'}}>
+        <Box sx={{display: 'inline-block', width: '450px', backgroundColor: 'lightgrey'}}>
+        <Box sx={{width: `${batteryLevel}%`, height: '20vh',backgroundColor: barColor}}></Box>
+        </Box>
+        <Box sx = {{display: 'inline-block', fontSize: '18px', marginLeft: '20px', color: textColor}}> 
+        <Typography>배터리 잔량이 {batteryLevel}% 남았습니다.</Typography>
+        <Typography sx={{ color: 'red' }}>{message}</Typography>
+        </Box>
+        </Box>
+      </Box>
+    </Grid>
     </>
-
   );
 }
 
