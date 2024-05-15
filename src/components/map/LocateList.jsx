@@ -71,18 +71,16 @@ const LocateList = () => {
     }
 
     const getFavStations = async() => {
-        try{
-            if(favList){
-                const key = process.env.REACT_APP_STATION_API_KEY;
-                const pageIdx = 0;
-                const count = 10;
-                const searchKey = 'chrstn_id';
-                const searchValue = favList.map(obj => obj.chrstn_id).join(';');
+        const key = process.env.REACT_APP_STATION_API_KEY;
+        const pageIdx = 0;
+        const count = 10;
+        const searchKey = 'chrstn_id';
+        const searchValue = favList.map(obj => obj.chrstn_id).join(';');
+       if(searchValue !== ''){
+            try{
                 const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&sortKey=chrstnType&filterKey=${searchKey}&filterValues=${searchValue}&numOfRows=${count}&pageNo=${pageIdx}`
                 const response = await axios.get(url);
-                console.log(url)
                 if(response.status === 200){
-                    //setFavStation(response.data.items);
                     const results= [];
                     response.data.items.forEach(item => {
                         const cur_lat = item.latitude;
@@ -108,9 +106,9 @@ const LocateList = () => {
                     //console.log(results)
                     setFavStation(results);
                 }
+            }catch(err){
+                console.error(err);
             }
-        }catch(err){
-            console.error(err);
         }
     }
 
