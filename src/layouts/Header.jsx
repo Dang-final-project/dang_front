@@ -24,7 +24,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 const Header = () => {
     const [open, setOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [userStatus, setUserStatus] = useState("user"); // guest, user, admin
+    const [userStatus, setUserStatus] = useState("guest"); // guest, user, admin
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.up("md"));
     const location = useLocation();
@@ -36,7 +36,7 @@ const Header = () => {
     const StyledTypo = styled(Typography)({
         cursor: "pointer",
         margin: "10px",
-        color: '#4b4037',
+        color: "#4b4037",
         "&:hover": {
             color: theme.palette.primary.main,
         },
@@ -137,7 +137,7 @@ const Header = () => {
                         <Grid sx={{ display: "flex" }}>
                             {admin.map((text, index) => (
                                 <Link to={text.link} key={text.nav}>
-                                    <StyledTypo >{text.nav}</StyledTypo>
+                                    <StyledTypo>{text.nav}</StyledTypo>
                                 </Link>
                             ))}
                         </Grid>
