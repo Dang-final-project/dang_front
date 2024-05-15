@@ -79,13 +79,13 @@ const LocateList = () => {
         }
     };
 
-    //로그인 구현되면 api호출방식 get으로 변경해야함
-    // const getFav = async () => {
-    //     const urll = `http://localhost:8000/v1/stations/list`;
-    //     const fav = await axios.post(urll, { id: 2 });
-    //     console.log(fav.data.payload);
-    //     setFavList(fav.data.payload);
-    // };
+    // 로그인 구현되면 api호출방식 get으로 변경해야함
+    const getFav = async () => {
+        const urll = `http://localhost:8000/v1/stations/list`;
+        const fav = await axios.post(urll, { id: 2 });
+        console.log(fav.data.payload);
+        setFavList(fav.data.payload);
+    };
 
     const getFavStations = async () => {
         try {
@@ -99,7 +99,7 @@ const LocateList = () => {
                 const response = await axios.get(url);
                 // console.log(url)
                 if (response.status === 200) {
-                    //setFavStation(response.data.items);
+                    setFavStation(response.data.items);
                     const results = [];
                     response.data.items.forEach((item) => {
                         const cur_lat = item.latitude;
@@ -131,7 +131,7 @@ const LocateList = () => {
 
     useEffect(() => {
         getStations();
-        // getFav();
+        getFav();
     }, []);
 
     useEffect(() => {
@@ -160,7 +160,7 @@ const LocateList = () => {
                                         key={idx}
                                         station={station}
                                         favList={favList}
-                                        // getFav={getFav}
+                                        getFav={getFav}
                                         avail_memo={false}
                                     />
                                 );
@@ -177,7 +177,7 @@ const LocateList = () => {
                                         key={idx}
                                         station={fav}
                                         favList={favList}
-                                        // getFav={getFav}
+                                        getFav={getFav}
                                         avail_memo={true}
                                     />
                                 );
