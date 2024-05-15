@@ -1,25 +1,25 @@
-import { Box, Stack, Chip, Typography, Button, IconButton } from "@mui/material";
+import { Box, Stack, Chip, Typography, Button, IconButton, TextField } from "@mui/material";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
-import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import { useParams } from 'react-router-dom';
 
 const Station = ({station, favList, getFav, avail_memo}) => {
 
     const [clicked, setClicked] = useState(false);
-
-    const { postId } = useParams();
-
-    console.log(postId);
+    const [write, setWrite] = useState(false);
+    const [words, setWords] = useState('');
+    const [memo, setMemo] = useState('');
     
     useEffect(() => {
         favList.forEach(f => {
             station.chrstn_id === f.chrstn_id && setClicked(true);
         })
     }, []);
+
+    useEffect(()=>{getMeMmo()},[favList])
     
     const addStation = async()=>{
         if(clicked === false) {
@@ -61,19 +61,39 @@ const Station = ({station, favList, getFav, avail_memo}) => {
             }
         }
     }
+    
+    const postMemo = async()=>{
+        try{
+            await axios.put(`${process.env.REACT_APP_SERVER_URL}/stations/memo`,{
+                //유저아이디 등록
+                id : 2,
+                chrstn_id : station.chrstn_id,
+                memo:words
+            })
+            .then(() => {
+                console.log('작성완료');
+                setWrite(false);
+                getFav();
+            });
+
+        }catch(err){
+            console.error(err);
+        }
+    }
+
+   const getMeMmo = () => {
+        favList.forEach(f => {
+            if(f.chrstn_id === station.chrstn_id){
+                setMemo(f.memo)
+            }
+        })
+   }
+
 
     return ( 
         <Box sx={{borderBottom:'1px solid #bdbdbd', py:2}}>
             <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                <Box>
-                    <Chip label="브랜드명" color="primary" variant="outlined" />
-                    {
-                        avail_memo &&
-                        <IconButton aria-label="memo">
-                            <ModeEditOutlineIcon fontSize="large" />
-                        </IconButton>
-                    }
-                </Box>
+                <Chip label="브랜드명" color="primary" variant="outlined" />
                 {clicked ?
                     <IconButton aria-label="like" onClick={deleteStation}>
                         <StarIcon color="secondary" fontSize="large"/>
@@ -84,6 +104,35 @@ const Station = ({station, favList, getFav, avail_memo}) => {
                     </IconButton>
                 }
             </Box>
+            {
+                write ?
+                <Box mb={1}>
+                    <TextField 
+                        size="small"
+                        onChange={(e) => { setWords(e.target.value); }} 
+                        value={words} 
+                    />
+                    <Button onClick={postMemo}>완료</Button>
+                </Box>
+                :
+                memo === '' ?
+                <Button 
+                    aria-label="memo" 
+                    size="small" 
+                    sx={{color:'primary.main',bgcolor:'#E9EFFF',my:1}}
+                    onClick={() => setWrite(true)}
+                >
+                    <Typography sx={{fontSize:"14px",marginRight:"2px"}}>메모추가</Typography>
+                    <RateReviewIcon fontSize="small"/>
+                </Button>
+                :
+                <Box sx={{display:'flex',gap:'4px',alignItems:"center"}}>
+                    <Typography color="primary" sx={{fontWeight:'bold'}}>{memo}</Typography>
+                    <IconButton color="primary" onClick={() => setWrite(true)}>
+                        <RateReviewIcon color="primary" fontSize="small"/>
+                    </IconButton>
+                </Box>
+            }
             <Typography variant="h5" gutterBottom>{station.chrstnNm}</Typography>
             <Stack direction="row" spacing={2}>
                 <Typography gutterBottom sx={{width:'80px'}}>충전타입</Typography>
@@ -104,5 +153,6 @@ const Station = ({station, favList, getFav, avail_memo}) => {
         </Box>
      );
 }
+
  
 export default Station;
