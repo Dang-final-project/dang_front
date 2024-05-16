@@ -8,8 +8,7 @@ import axios from "axios";
 import SearchBox from "./SearchBox";
 
 const LocateList = () => {
-
-    const [value, setValue] = React.useState('1');
+    const [value, setValue] = React.useState("1");
     const [favList, setFavList] = useState([]);
 
     const handleChange = (event, newValue) => {
@@ -49,7 +48,7 @@ const LocateList = () => {
             const count = 10;
             const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
             const response = await axios.get(url);
-            if(response.status === 200){
+            if (response.status === 200) {
                 const results = [];
                 response.data.items.forEach((item) => {
                     const cur_lat = item.latitude;
@@ -188,45 +187,5 @@ const LocateList = () => {
             </Paper>
         </>
     );
-
-
-    return ( 
-        <Paper sx={{p:2, maxWidth:'460px', flexGrow:1, overflow:'hidden'}}>
-            <Typography>주변 충전소 : <span>{stations.length}</span>개</Typography>
-            <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <TabList onChange={handleChange} aria-label="충전소리스트">
-                    <Tab label="충전소 리스트" value="1" sx={{width:'50%'}} />
-                    <Tab label="MY충전소" value="2" sx={{width:'50%'}} />
-                </TabList>
-                </Box>
-                <TabPanel value="1" sx={{height:'100%', overflow:'scroll'}}>
-                    {
-                        stations ?
-                        stations.map((station,idx) => {
-                            return (
-                                <Station key={idx} station={station} favList={favList} getFav={getFav} avail_memo={false}/>
-                            )
-                        })
-                        :
-                        <Typography>데이터 로딩중</Typography>
-                    }
-                </TabPanel>
-                <TabPanel value="2" sx={{height:'100%', overflow:'scroll'}}>
-                    {
-                        favStation && favList.length !== 0?
-                        favStation.map((fav,idx) => {
-                            return (
-                                <Station key={idx} station={fav} favList={favList} getFav={getFav} avail_memo={true}/>
-                            )
-                        })
-                        :
-                        <Typography>즐겨찾기가 존재하지 않습니다.</Typography>
-                    }
-                </TabPanel>
-            </TabContext>
-        </Paper>
-     );
-}
- 
+};
 export default LocateList;

@@ -1,106 +1,99 @@
-import React from 'react';
-import { Unstable_Popup as BasePopup } from '@mui/base/Unstable_Popup';
-import { styled } from '@mui/system';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import { Grid } from "@mui/material";
+import { useState } from "react"; 
 
-const Local = () => {
-    const [anchor, setAnchor] = React.useState(null);
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    "& .MuiDialogContent-root": {
+        padding: theme.spacing(2),
+    },
+    "& .MuiDialogActions-root": {
+        padding: theme.spacing(1),
+    },
+}));
 
-    const handleClick = (event) => {
-        setAnchor(anchor ? null : event.currentTarget);
+export default function Using({ title, width = 500, height = 100, children }) {
+    const [open, setOpen] = React.useState(false);
+    const [selectedUsing, setSelectedUsing] = useState(''); 
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
     };
 
-    const open = Boolean(anchor);
-    const id = open ? 'simple-popup' : undefined;
+    const dialogContentProps = {
+        sx: { width: width, height: height },
+        ...(title && { dividers: true }),
+    };
 
-    return ( 
-        <div>
-            <Button aria-describedby={id} type="button" onClick={handleClick}>
-            지역
+    const handleUsingClick = (speed) => {
+        setSelectedUsing(speed); 
+    };
+
+    return (
+        <React.Fragment>
+            <Button variant="outlined" onClick={handleClickOpen}>
+                사용 여부
             </Button>
-            <BasePopup id={id} open={open} anchor={anchor}>
-                <PopupBody>The content of the Popup.</PopupBody>
-            </BasePopup>
-        </div>
+            <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+                <DialogTitle sx={{ m: 0, p: 2, fontWeight: 600 }} id="customized-dialog-title">
+                    사용 여부
+                </DialogTitle>
+                <IconButton
+                    aria-label="close"
+                    onClick={handleClose}
+                    sx={{
+                        position: "absolute",
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+                <DialogContent {...dialogContentProps}>
+                    <Grid container justifyContent="center">
+                        <Grid item>
+                            <Button
+                                variant={selectedUsing === '사용가능' ? 'contained' : 'outlined'} 
+                                size="large"
+                                color="primary"
+                                onClick={() => handleUsingClick('사용가능')}
+                            >
+                                사용 가능
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant={selectedUsing === '사용중' ? 'contained' : 'outlined'} 
+                                size="large"
+                                color="primary"
+                                onClick={() => handleUsingClick('사용중')}
+                            >
+                                사용 중
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant={selectedUsing === '사용 불가' ? 'contained' : 'outlined'} 
+                                size="large"
+                                color="primary"
+                                onClick={() => handleUsingClick('사용 불가')}
+                            >
+                                사용 불가
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </DialogContent>
+            </BootstrapDialog>
+        </React.Fragment>
     );
 }
-
-const grey = {
-    50: '#F3F6F9',
-    100: '#E5EAF2',
-    200: '#DAE2ED',
-    300: '#C7D0DD',
-    400: '#B0B8C4',
-    500: '#9DA8B7',
-    600: '#6B7A90',
-    700: '#434D5B',
-    800: '#303740',
-    900: '#1C2025',
-  };
-  
-  const blue = {
-    200: '#99CCFF',
-    300: '#66B2FF',
-    400: '#3399FF',
-    500: '#007FFF',
-    600: '#0072E5',
-    700: '#0066CC',
-  };
-  
-  const PopupBody = styled('div')(
-    ({ theme }) => `
-    width: max-content;
-    padding: 12px 16px;
-    margin: 8px;
-    border-radius: 8px;
-    border: 1px solid ${grey[200]};
-    background-color: #fff';
-    box-shadow: 0px 4px 8px rgb(0 0 0 / 0.1)
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 500;
-    font-size: 0.875rem;
-    z-index: 1;
-  `,
-  );
-  
-  const Button = styled('button')(
-    ({ theme }) => `
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 600;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    background-color: ${blue[500]};
-    padding: 8px 16px;
-    border-radius: 8px;
-    color: white;
-    transition: all 150ms ease;
-    cursor: pointer;
-    border: 1px solid ${blue[500]};
-    box-shadow: 0 2px 4px rgba(0, 127, 255, 0.5);
-    ßinset 0 1.5px 1px ${blue[400]}, inset 0 -2px 1px ${blue[600]};
-  
-    &:hover {
-      background-color: ${blue[600]};
-    }
-  
-    &:active {
-      background-color: ${blue[700]};
-      box-shadow: none;
-    }
-  
-    &:focus-visible {
-      box-shadow: 0 0 0 4px ${blue[200]};
-      outline: none;
-    }
-  
-    &.disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      box-shadow: none;
-      &:hover {
-        background-color: ${blue[500]};
-      }
-    }
-  `,
-  );
-
-export default Local;

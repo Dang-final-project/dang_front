@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
+import React, { useEffect, useState, useRef } from "react";
+import { Map, MapMarker, useKakaoLoader, ZoomControl, MarkerClusterer } from "react-kakao-maps-sdk";
+import GpsFixedIcon from '@mui/icons-material/GpsFixed';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import Detail from "../popup/Detail";
 
 const KakaoMap = () => {
     const [loading, error] = useKakaoLoader({
@@ -7,9 +11,22 @@ const KakaoMap = () => {
         libraries: ["clusterer"]
     });
 
-    const center = { lat: 33.5563, lng: 126.79581 };
-
+    const [open, setOpen] = useState(false);
+    const mapRef = useRef();
+    const [positions, setPositions] = useState([]);
+    const [center, setCenter] = useState({
+        lat: 33.450701,
+        lng: 126.570667,
+    });
     const [position, setPosition] = useState(center);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const onClusterclick = (_target, cluster) => {
         const map = mapRef.current;
@@ -49,16 +66,45 @@ const KakaoMap = () => {
         setCenter(position);
     }
     return (
-        <Map
-            position="absolute"
-            center={{ lat: 33.5563, lng: 126.79581 }} // 지도의 중심 좌표
-            style={{ width: "100%", height: "calc(100vh - 64px - 52.5px)" }} // 지도 크기
-            level={3} // 지도 확대 레벨
-        >
-            <MapMarker position={position}>
-                <div style={{ color: "#000" }}>Hello World!</div>
-            </MapMarker>
-        </Map>
+        <>
+            <Map
+                id="map"
+                position="absolute"
+                center={center}
+                style={{ width: "100%", height: "calc(100vh - 64px - 52.5px)" }}
+                level={3}
+                ref={mapRef}
+                onCenterChanged={onCenterChanged}
+            >
+                {/* 접속 위치 마커 */}
+                <MapMarker position={position} onClick={handleClickOpen} />
+                <div display="flex">
+                    <ZoomControl  />
+                    <IconButton color="primary" onClick={comeBackHome} 
+                        sx={{position: "absolute", right: 0, bottom: 350, zIndex: 5 }} 
+                    >
+                        <GpsFixedIcon />
+                    </IconButton>
+                </div>
+                
+                <MarkerClusterer
+                    averageCenter={true}
+                    minLevel={6}
+                    disableClickZoom={true}
+                    onClusterclick={onClusterclick}
+                >
+                    {/* 다중 마커 */}
+                    {positions.map((position, index) => (
+                        <MapMarker
+                            key={`${position.title}-${index}`}
+                            position={position.latlng}
+                            onClick={handleClickOpen}
+                        />
+                    ))}
+                </MarkerClusterer>
+            </Map>
+            <Detail open={open} handleClose={handleClose} />
+        </>
     );
 };
 
