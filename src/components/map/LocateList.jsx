@@ -188,7 +188,7 @@ const LocateList = () => {
             </Paper>
         </>
     );
-};
+
 
     return ( 
         <Paper sx={{p:2, maxWidth:'460px', flexGrow:1, overflow:'hidden'}}>
