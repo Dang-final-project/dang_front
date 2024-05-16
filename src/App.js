@@ -8,6 +8,7 @@ import Admin from "./pages/Admin";
 import Community from "./pages/Community";
 import Cost from "./pages/Cost";
 import Mypage from "./pages/Mypage";
+import { MapProvider } from "./contexts/MapContext";
 // import KakaoMap from "./components/map/KakaoMap";
 
 function App() {
@@ -29,21 +30,21 @@ function App() {
         <>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <Layout>
-                    <Routes>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/join" element={<Join />} />
-                        <Route path="/" element={<Home />} />
-                        <Route path="/admin" element={<Admin />} />
-                        <Route path="/cost" element={<Cost />} />
-                        <Route path="/community" element={<Community />} />
-                        <Route path="/mypage" element={<Mypage />} />
-                    </Routes>
-                </Layout>
-
-      </ThemeProvider>
-
-      </>
+                <MapProvider>
+                    <Layout>
+                        <Routes>
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/join" element={<Join />} />
+                            <Route path="/" element={<Home />} />
+                            <Route path="/admin" element={<Admin />} />
+                            <Route path="/cost" element={<Cost />} />
+                            <Route path="/community" element={<Community />} />
+                            <Route path="/mypage" element={<Mypage />} />
+                        </Routes>
+                    </Layout>
+                </MapProvider>
+            </ThemeProvider>
+        </>
     )
 }
 

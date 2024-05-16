@@ -6,7 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 
-const Station = ({station, favList, getFav, avail_memo}) => {
+const Station = ({station, favList, getFav}) => {
 
     const [clicked, setClicked] = useState(false);
     const [write, setWrite] = useState(false);
