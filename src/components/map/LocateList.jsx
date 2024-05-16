@@ -48,7 +48,6 @@ const LocateList = () => {
             const count = 10;
             const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
             const response = await axios.get(url);
-
             if (response.status === 200) {
                 const results = [];
                 response.data.items.forEach((item) => {
@@ -189,5 +188,4 @@ const LocateList = () => {
         </>
     );
 };
-
 export default LocateList;
