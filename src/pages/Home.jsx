@@ -22,12 +22,12 @@ const Home = () => {
                         <FilterList sx={{ position: "relative" }} />
 
                         {/* <SearchBox /> */}
-                        <LocateList />
+                        {/* <LocateList /> */}
                     </Box>
                 </>
             ) : (
                 <Box sx={{ position: "relative", marginTop: "64px" }}>
-                    <KakaoMap sx={{ position: "absolute", top: 0 }} />
+                    {/* <KakaoMap sx={{ position: "absolute", top: 0 }} /> */}
                     <Box sx={{ zIndex: "10", position: "absolute", bottom: 10 }}>
                         <BottomBtns />
                     </Box>

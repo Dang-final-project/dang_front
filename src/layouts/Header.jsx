@@ -74,6 +74,7 @@ const Header = () => {
     const guest = [
         { nav: "홈", link: "/" },
         { nav: "요금현황", link: "/cost" },
+        { nav: "커뮤니티", link: "/community" },
         { nav: "회원가입", link: "/join" },
         { nav: "로그인", link: "/login" },
     ];
@@ -81,6 +82,7 @@ const Header = () => {
     const user = [
         { nav: "홈", link: "/" },
         { nav: "요금현황", link: "/cost" },
+        { nav: "커뮤니티", link: "/community" },
         { nav: "마이페이지", link: "/mypage" },
         { nav: "로그아웃", link: "/login" },
     ];
@@ -88,6 +90,7 @@ const Header = () => {
     const admin = [
         { nav: "홈", link: "/" },
         { nav: "요금현황", link: "/cost" },
+        { nav: "커뮤니티", link: "/community" },
         { nav: "회원관리", link: "/admin" },
         { nav: "로그아웃", link: "/login" },
     ];
