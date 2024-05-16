@@ -13,7 +13,6 @@ import axios from "axios";
 
 const Home = () => {
 
-
     const {
         stations, 
         setStations, 
@@ -143,22 +142,29 @@ const Home = () => {
 
     return (
         <>
-            {tabletWidth ? (
+            {
+                positionArr ?
                 <>
-                    <Box sx={{ marginTop: "64px" }}>
-                        <FilterList sx={{ position: "relative" }} />
-                        {/* <SearchBox /> */}
-                        <LocateList />
-                    </Box>
+                    <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap>
+                    {tabletWidth ? (
+                        <>
+                            <Box sx={{ marginTop: "64px" }}>
+                                <FilterList sx={{ position: "relative" }} />
+                                {/* <SearchBox /> */}
+                                <LocateList />
+                            </Box>
+                        </>
+                    ) : (
+                        <Box sx={{ position: "relative", marginTop: "64px" }}>
+                            <Box sx={{ zIndex: "10", position: "absolute", bottom: 10 }}>
+                                <BottomBtns />
+                            </Box>
+                        </Box>
+                    )}
                 </>
-            ) : (
-                <Box sx={{ position: "relative", marginTop: "64px" }}>
-                    <KakaoMap sx={{ position: "absolute", top: 0 }} />
-                    <Box sx={{ zIndex: "10", position: "absolute", bottom: 10 }}>
-                        <BottomBtns />
-                    </Box>
-                </Box>
-            )}
+                :
+                <p>지도 로딩중...</p>
+            }
         </>
     );
 };
