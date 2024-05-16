@@ -8,6 +8,8 @@ import Admin from "./pages/Admin";
 import Community from "./pages/Community";
 import Cost from "./pages/Cost";
 import Mypage from "./pages/Mypage";
+import { LoginContext } from "./contexts/LoginContext";
+import { useProvideAuth } from "./hooks/useProvideAuth";
 // import KakaoMap from "./components/map/KakaoMap";
 
 function App() {
@@ -24,10 +26,11 @@ function App() {
     });
 
     console.log(theme);
-
+    const auth = useProvideAuth();
     return (
         <>
             <ThemeProvider theme={theme}>
+                <LoginContext.Provider value={auth}>
                 <CssBaseline />
                 <Layout>
                     <Routes>
@@ -40,10 +43,9 @@ function App() {
                         <Route path="/mypage" element={<Mypage />} />
                     </Routes>
                 </Layout>
-
-      </ThemeProvider>
-
-      </>
+                </LoginContext.Provider>
+            </ThemeProvider>
+        </>
     )
 }
 
