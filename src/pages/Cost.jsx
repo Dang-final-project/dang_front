@@ -1,3 +1,4 @@
+import CarType from './../components/CarType';
 import {
     Box,
     Button,
@@ -172,7 +173,7 @@ const Cost = () => {
                 </Button>
             </Box>
             {activeButton === "electricCar" ? (
-                "전기차"
+                <CarType />
             ) : (
                 <>
                     <LineChart />

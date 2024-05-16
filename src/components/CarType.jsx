@@ -1,14 +1,15 @@
 import { Grid, Box, Button, Typography } from '@mui/material';
 import SearchInput from './input/SearchInput';
 
+
 const CarType = () => {
 
     return ( 
-        <Grid sx={{display: "flex", flexDirection: "column", alignItems: "center",  }}>
+        <Grid sx={{display: "flex", flexDirection: "column", alignItems: "center", width: '70%', marginTop:'1vh'}}>
         <Box 
             sx={{ 
                 backgroundColor: '#f1f1f1', 
-                width: '60%', 
+                width: '100%', 
                 border: '1px solid black',
                 boxShadow: '0px 5px 5px rgba(58, 56, 56, 0.5)',
                 padding: '2vh'
@@ -23,16 +24,22 @@ const CarType = () => {
             <Button variant="outlined" sx={{marginRight: '1vh'}}>DC차데모<br/>(급속)</Button>
             <Button variant="outlined">B타입5핀<br/>(완속)</Button>
             <Typography sx={{marginTop: '1vh'}}>차량검색</Typography>
-            <SearchInput />
+            <SearchInput/>
         </Box>
         <Box
             sx={{
-                marginTop: '6vh',
-                width: '50%',
-                height: '20vh',
-                border: '1px solid black'
+                display:'flex',
+                marginTop: '4vh',
+                width: '75%',
+                height: '21vh',
+                border: '1px solid black',
+                padding: '2vh'
             }}>
-        차정보
+                <Box sx={{ width: '35%'
+                }}>사진</Box>
+                <Box sx={{
+                    width: '75%'
+                }}>설명</Box>
         </Box>
         </Grid>
     );
