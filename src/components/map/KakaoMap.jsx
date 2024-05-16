@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from "react";
 import { Map, MapMarker, useKakaoLoader, ZoomControl, MarkerClusterer } from "react-kakao-maps-sdk";
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
@@ -6,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Detail from "../popup/Detail";
 
-const KakaoMap = () => {
+const KakaoMap = ({positionArr}) => {
     const [loading, error] = useKakaoLoader({
         appkey: process.env.REACT_APP_KAKAO_MAP_API_KEY,
         libraries: ["clusterer"]
@@ -37,18 +36,10 @@ const KakaoMap = () => {
         }
     };
     
+    // 마커 클러스터링에 사용할 위치 데이터 설정
+    console.log(positionArr);
+
     useEffect(() => {
-        // 마커 클러스터링에 사용할 위치 데이터 설정
-        const clusterPositionsData = {
-            positions: [
-                { title: "카카오", latlng: { lat: 33.450705, lng: 126.570677 } },
-                { title: "생태연못", latlng: { lat: 33.450936, lng: 126.569477 } },
-                { title: "텃밭", latlng: { lat: 33.450879, lng: 126.56994 } },
-                { title: "근린공원", latlng: { lat: 33.451393, lng: 126.570738 } },
-                // 추가적인 위치 데이터도 필요하다면 이곳에 추가
-            ]
-        };
-        setPositions(clusterPositionsData.positions);
         navigator.geolocation.getCurrentPosition(pos => {
             setCenter({lat:pos.coords.latitude, lng:pos.coords.longitude});
         })
@@ -95,7 +86,7 @@ const KakaoMap = () => {
                     onClusterclick={onClusterclick}
                 >
                     {/* 다중 마커 */}
-                    {positions.map((position, index) => (
+                    {positionArr.map((position, index) => (
                         <MapMarker
                             key={`${position.title}-${index}`}
                             position={position.latlng}

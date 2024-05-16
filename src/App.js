@@ -40,9 +40,11 @@ function App() {
                         <Route path="/mypage" element={<Mypage />} />
                     </Routes>
                 </Layout>
-            </ThemeProvider>
-        </>
-    );
+
+      </ThemeProvider>
+
+      </>
+    )
 }
 
 export default App;
