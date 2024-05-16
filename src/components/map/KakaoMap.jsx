@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import { Map, MapMarker, useKakaoLoader, ZoomControl, MarkerClusterer } from "react-kakao-maps-sdk";
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
 import Detail from "../popup/Detail";
 import { MapContext } from "../../contexts/MapContext";
 
@@ -20,7 +19,6 @@ const KakaoMap = () => {
 
     const [open, setOpen] = useState(false);
     const mapRef = useRef();
-    const [positions, setPositions] = useState([]);
     const [center, setCenter] = useState({
         lat: 33.450701,
         lng: 126.570667,
