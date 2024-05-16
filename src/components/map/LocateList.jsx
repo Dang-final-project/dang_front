@@ -52,19 +52,50 @@ const LocateList = () => {
         }
     };
 
-    // const handleFilter = (obj) => {
-    //     return Object.entries(obj)
-    //     .map(([key, value]) => `${key}=${value}`)
-    //     .join('&');
-    // }
+    const getStations = async () => {
+        try {
+            const key = process.env.REACT_APP_STATION_API_KEY;
+            const pageIdx = 0;
+            const count = 10;
+            const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
+            const response = await axios.get(url);
+            if (response.status === 200) {
+                const results = [];
+                response.data.items.forEach((item) => {
+                    const cur_lat = item.latitude;
+                    const cur_lng = item.longtitude;
+                    const ex_item = results.find((r) => r.latitude === cur_lat && r.longtitude === cur_lng);
+                    if (!ex_item) {
+                        //충전소 상태 체크(2는 사용중)
+                        if (item.charger_status === "2") {
+                            item.avail_count = 1;
+                        } else {
+                            item.avail_count = 0;
+                        }
+                        item.tot_count = 1;
+                        results.push(item);
+                    } else {
+                        if (item.charger_status === "2") {
+                            ex_item.avail_count += 1;
+                        }
+                        ex_item.tot_count += 1;
+                    }
+                });
+                console.log(results)
+                setStations(results);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     // 로그인 구현되면 api호출방식 get으로 변경해야함
-    // const getFav = async () => {
-    //     const urll = `http://localhost:8000/v1/stations/list`;
-    //     const fav = await axios.post(urll, { id: 2 });
-    //     console.log(fav.data.payload);
-    //     setFavList(fav.data.payload);
-    // };
+    const getFav = async () => {
+        const urll = `${process.env.REACT_APP_SERVER_URL}/stations/list`;
+        const fav = await axios.post(urll, { id: 2 });
+        //console.log(fav.data.payload);
+        setFavList(fav.data.payload);
+    };
 
     // const getFavStations = async() => {
     //     const key = process.env.REACT_APP_STATION_API_KEY;
