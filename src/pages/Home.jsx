@@ -13,7 +13,6 @@ import axios from "axios";
 
 const Home = () => {
 
-
     const {
         stations, 
         setStations, 
