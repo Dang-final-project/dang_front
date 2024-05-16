@@ -48,7 +48,6 @@ const LocateList = () => {
             const count = 10;
             const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
             const response = await axios.get(url);
-
             if (response.status === 200) {
                 const results = [];
                 response.data.items.forEach((item) => {
@@ -71,7 +70,7 @@ const LocateList = () => {
                         ex_item.tot_count += 1;
                     }
                 });
-                //console.log(results)
+                console.log(results)
                 setStations(results);
             }
         } catch (err) {
@@ -81,9 +80,9 @@ const LocateList = () => {
 
     // 로그인 구현되면 api호출방식 get으로 변경해야함
     const getFav = async () => {
-        const urll = `http://localhost:8000/v1/stations/list`;
+        const urll = `${process.env.REACT_APP_SERVER_URL}/stations/list`;
         const fav = await axios.post(urll, { id: 2 });
-        console.log(fav.data.payload);
+        //console.log(fav.data.payload);
         setFavList(fav.data.payload);
     };
 
