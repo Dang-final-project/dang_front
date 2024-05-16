@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import Station from "./Station";
 import axios from "axios";
 import SearchBox from "./SearchBox";
+import KakaoMap from "./KakaoMap";
 
 const LocateList = () => {
     const [value, setValue] = React.useState("1");
@@ -17,7 +18,7 @@ const LocateList = () => {
 
     const [stations, setStations] = useState([]);
     const [favStation, setFavStation] = useState([]);
-
+    const [positionArr, setPositionArr] = useState();
     const [searchWord, setSearchWord] = useState("");
 
     const handleSearchChange = (event) => {
@@ -70,7 +71,14 @@ const LocateList = () => {
                         ex_item.tot_count += 1;
                     }
                 });
-                //console.log(results)
+                //console.log(results);
+                const arr = []
+                results.forEach(r => {
+                    console.log(r)
+                    const p = {title: r.chrstnNm, latlng: {lat: r.latitude, lng: r.longitude}}
+                    arr.push(p)
+                });
+                setPositionArr(arr);
                 setStations(results);
             }
         } catch (err) {
@@ -79,12 +87,12 @@ const LocateList = () => {
     };
 
     // 로그인 구현되면 api호출방식 get으로 변경해야함
-    const getFav = async () => {
-        const urll = `http://localhost:8000/v1/stations/list`;
-        const fav = await axios.post(urll, { id: 2 });
-        console.log(fav.data.payload);
-        setFavList(fav.data.payload);
-    };
+    // const getFav = async () => {
+    //     const urll = `http://localhost:8000/v1/stations/list`;
+    //     const fav = await axios.post(urll, { id: 2 });
+    //     console.log(fav.data.payload);
+    //     setFavList(fav.data.payload);
+    // };
 
     const getFavStations = async() => {
         const key = process.env.REACT_APP_STATION_API_KEY;
@@ -126,17 +134,38 @@ const LocateList = () => {
         }
     };
 
+    const searchFilter = async() => {
+        const key = process.env.REACT_APP_STATION_API_KEY;
+    }
+
     useEffect(() => {
         getStations();
-        getFav();
+        // getFav();
     }, []);
 
     useEffect(() => {
         getFavStations();
-    }, [favList]);
+    }, []); // favList
 
     return (
         <>
+        {
+            positionArr &&
+            <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap>
+        }
+        <Box
+            sx={{
+                width: "40%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "16px",
+                p: 3,
+                position: "absolute",
+                top: "130px",
+                zIndex: 10,
+                height: "calc(100vh - 64px - 52.5px)",
+            }}
+        >
             <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
             <Paper sx={{ p: 2, maxWidth: "460px", flexGrow: 1, overflow: "hidden" }}>
                 <Typography>
@@ -157,7 +186,7 @@ const LocateList = () => {
                                         key={idx}
                                         station={station}
                                         favList={favList}
-                                        getFav={getFav}
+                                        // getFav={getFav}
                                         avail_memo={false}
                                     />
                                 );
@@ -174,7 +203,7 @@ const LocateList = () => {
                                         key={idx}
                                         station={fav}
                                         favList={favList}
-                                        getFav={getFav}
+                                        // getFav={getFav}
                                         avail_memo={true}
                                     />
                                 );
@@ -185,6 +214,7 @@ const LocateList = () => {
                     </TabPanel>
                 </TabContext>
             </Paper>
+        </Box>
         </>
     );
 };
