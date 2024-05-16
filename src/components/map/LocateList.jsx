@@ -188,5 +188,4 @@ const LocateList = () => {
         </>
     );
 };
-
 export default LocateList;
