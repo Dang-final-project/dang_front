@@ -27,7 +27,8 @@ const Station = ({station, favList, getFav, avail_memo}) => {
                 const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/stations/add`,{
                     chrstn_id : station.chrstn_id,
                     //유저아이디 등록
-                    id : 2
+                    // id : localStorage.getItem("userId")
+                    id:1
                 })
                 if (res.data.code === 200){
                     setClicked(true);

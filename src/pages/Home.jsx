@@ -20,23 +20,8 @@ const Home = () => {
                 <>
                     <Box sx={{ marginTop: "64px" }}>
                         <FilterList sx={{ position: "relative" }} />
-                        <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }}></KakaoMap>
-                        <Box
-                            sx={{
-                                width: "40%",
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "16px",
-                                p: 3,
-                                position: "absolute",
-                                top: "130px",
-                                zIndex: 10,
-                                height: "calc(100vh - 64px - 52.5px)",
-                            }}
-                        >
-                            {/* <SearchBox /> */}
-                            <LocateList />
-                        </Box>
+                        {/* <SearchBox /> */}
+                        <LocateList />
                     </Box>
                 </>
             ) : (
