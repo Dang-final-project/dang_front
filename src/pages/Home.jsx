@@ -20,6 +20,7 @@ const Home = () => {
                 <>
                     <Box sx={{ marginTop: "64px" }}>
                         <FilterList sx={{ position: "relative" }} />
+
                         {/* <SearchBox /> */}
                         <LocateList />
                     </Box>
