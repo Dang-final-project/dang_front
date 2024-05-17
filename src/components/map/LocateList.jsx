@@ -23,7 +23,7 @@ const LocateList = () => {
 
     const token = localStorage.getItem('token');
 
-    const [value, setValue] = React.useState("1");
+    const [value, setValue] = useState("1");
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
