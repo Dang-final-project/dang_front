@@ -22,7 +22,6 @@ const LocateList = () => {
         filterList
     } = useContext(MapContext)
 
-    console.log(filterList);
 
     const [value, setValue] = React.useState("1");
 
