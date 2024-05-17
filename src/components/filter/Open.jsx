@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Grid } from "@mui/material";
 import { useState } from "react"; 
+import { MapContext } from "../../contexts/MapContext";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
@@ -19,33 +20,41 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 export default function Open({ title, width = 500, height = 100, children }) {
-    const [open, setOpen] = React.useState(false);
-    const [selectedOpen, setSelectedOpen] = useState(''); 
 
+    //팝업 기능
+    const [open, setOpen] = React.useState(false);
+    const { filterList, setFilterList} = React.useContext(MapContext);
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
     };
-
     const dialogContentProps = {
         sx: { width: width, height: height },
         ...(title && { dividers: true }),
     };
 
-    const handleOpenClick = (open) => {
-        setSelectedOpen(open); 
-    };
+    //필터 데이터 전송
+    const [btnClicked, setBtnClicked] = useState(false);
+    const getFilterVal = () => {
+        setBtnClicked((btnClicked)=>!btnClicked);
+        if(btnClicked){
+            setFilterList({...filterList,user_restrict : 'O'});
+        }else{
+            setFilterList({...filterList,user_restrict : ''});
+        }
+    }
+
 
     return (
         <React.Fragment>
             <Button variant="outlined" onClick={handleClickOpen}>
-                외부인 개방
+                외부인개방
             </Button>
             <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle sx={{ m: 0, p: 2, fontWeight: 600 }} id="customized-dialog-title">
-                    외부인 개방
+                    외부인개방
                 </DialogTitle>
                 <IconButton
                     aria-label="close"
@@ -63,12 +72,12 @@ export default function Open({ title, width = 500, height = 100, children }) {
                     <Grid container justifyContent="center">
                         <Grid item>
                             <Button
-                                variant={selectedOpen === '외부인 개방' ? 'contained' : 'outlined'} 
+                                variant={btnClicked ? 'outlined' : 'contained'}
                                 size="large"
                                 color="primary"
-                                onClick={() => handleOpenClick('외부인 개방')}
+                                onClick={getFilterVal}
                             >
-                                외부인 개방
+                                외부인개방
                             </Button>
                         </Grid>
                     </Grid>

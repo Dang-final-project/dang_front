@@ -1,14 +1,21 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { Map, MapMarker, useKakaoLoader, ZoomControl, MarkerClusterer } from "react-kakao-maps-sdk";
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import IconButton from '@mui/material/IconButton';
 import Detail from "../popup/Detail";
+import { MapContext } from "../../contexts/MapContext";
 
-const KakaoMap = ({positionArr}) => {
+const KakaoMap = () => {
+
+    //충전소 정보 가져오기
+    const {positionArr, stations} = useContext(MapContext);
+    console.log(stations);
+    
     const [loading, error] = useKakaoLoader({
         appkey: process.env.REACT_APP_KAKAO_MAP_API_KEY,
         libraries: ["clusterer"]
     });
+
 
     const [open, setOpen] = useState(false);
     const mapRef = useRef();
@@ -35,7 +42,7 @@ const KakaoMap = ({positionArr}) => {
     };
     
     // 마커 클러스터링에 사용할 위치 데이터 설정
-    console.log(positionArr);
+    //console.log(positionArr);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(pos => {
