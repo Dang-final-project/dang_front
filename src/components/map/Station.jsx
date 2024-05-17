@@ -2,12 +2,13 @@ import { Box, Stack, Chip, Typography, Button, IconButton, TextField } from "@mu
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import RateReviewIcon from '@mui/icons-material/RateReview';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { MapContext } from "../../contexts/MapContext";
 
 const Station = ({station, favList, getFav}) => {
-
+    const { mapPos, setMapPos } = useContext(MapContext);
     const token = localStorage.getItem('token');
 
     const [clicked, setClicked] = useState(false);
@@ -104,9 +105,11 @@ const Station = ({station, favList, getFav}) => {
         }
    }
 
-
+   const changeStationLocation = () => {
+    setMapPos({lat: station.latitude, lng: station.longitude})
+   }
     return ( 
-        <Box sx={{borderBottom:'1px solid #bdbdbd', py:2}}>
+        <Box sx={{borderBottom:'1px solid #bdbdbd', py:2}} onClick={changeStationLocation}>
             <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                 <Chip label={station.manage_entrps_nm} color="primary" variant="outlined" />
                 {clicked ?
