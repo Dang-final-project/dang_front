@@ -6,7 +6,6 @@ import React, { useContext, useEffect, useState } from "react";
 import Station from "./Station";
 import axios from "axios";
 import SearchBox from "./SearchBox";
-import KakaoMap from "./KakaoMap";
 import { MapContext } from "../../contexts/MapContext";
 
 const LocateList = () => {
@@ -62,6 +61,7 @@ const LocateList = () => {
             }
          });
         //console.log(fav.data.payload);
+
         setFavList(fav.data.payload);
     };
 

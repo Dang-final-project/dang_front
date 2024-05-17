@@ -10,6 +10,7 @@ import KakaoMap from "../components/map/KakaoMap";
 import { Map } from "react-kakao-maps-sdk";
 import { MapContext } from "../contexts/MapContext";
 import axios from "axios";
+import Loading from './Loading';
 
 const Home = () => {
 
@@ -166,7 +167,7 @@ const Home = () => {
                     <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap>
                 </>
                 :
-                <p>지도 로딩중...</p>
+                <Loading />
             }
         </>
     );
