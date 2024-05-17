@@ -10,6 +10,20 @@ import KakaoMap from "./KakaoMap";
 import { MapContext } from "../../contexts/MapContext";
 
 const LocateList = () => {
+
+    const {
+        stations, 
+        setStations, 
+        favStation, 
+        setFavStation, 
+        favList,
+        setFavList,
+        setPositionArr,
+        filterList
+    } = useContext(MapContext)
+
+    console.log(filterList);
+
     const [value, setValue] = React.useState("1");
 
     const handleChange = (event, newValue) => {
