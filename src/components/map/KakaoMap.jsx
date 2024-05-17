@@ -2,14 +2,12 @@ import React, { useEffect, useState, useRef, useContext, useCallback } from "rea
 import { Map, MapMarker, useKakaoLoader, ZoomControl, MarkerClusterer } from "react-kakao-maps-sdk";
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
 import Detail from "../popup/Detail";
 import { MapContext } from "../../contexts/MapContext";
 
 const KakaoMap = () => {
-
     //충전소 정보 가져오기
-    const {positionArr, stations} = useContext(MapContext);
+    const {positionArr, stations, mapPos, setMapPos} = useContext(MapContext);
     console.log(stations);
     
     const [loading, error] = useKakaoLoader({
@@ -17,6 +15,9 @@ const KakaoMap = () => {
         libraries: ["clusterer"]
     });
 
+    useEffect(()=>{
+        setCenter(mapPos);
+    }, [mapPos]);
 
     const [open, setOpen] = useState(false);
     const [detailIndex, setDetailIndex] = useState();
