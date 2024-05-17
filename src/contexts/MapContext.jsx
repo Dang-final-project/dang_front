@@ -17,7 +17,7 @@ export const MapProvider = ({ children }) => {
         setMapPos({lat:37.261911, lng:127.030736});
       })
     }, []);
-
+    
   return (
     <MapContext.Provider 
         value={{ 
