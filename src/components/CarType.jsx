@@ -1,7 +1,11 @@
-import { Grid, Box, Button, Typography } from '@mui/material';
+import * as React from 'react';
+import { Grid, Box, Button, Typography} from '@mui/material';
 import SearchInput from './input/SearchInput';
+import CarAPI from './CarAPI';
 
 
+// 박스 누르면 팝업창 뜨는거
+// 팝업창 위에 자세한 정보 나오게
 const CarType = () => {
 
     return ( 
@@ -39,9 +43,12 @@ const CarType = () => {
                 }}>사진</Box>
                 <Box sx={{
                     width: '75%'
-                }}>설명</Box>
+                }}>설명
+                <button>자세히보기</button>
+                </Box>
         </Box>
-        </Grid>
+        <CarAPI />
+    </Grid>
     );
 }
 
