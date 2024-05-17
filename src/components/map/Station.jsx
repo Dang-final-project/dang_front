@@ -8,6 +8,8 @@ import { useEffect } from "react";
 
 const Station = ({station, favList, getFav}) => {
 
+    const token = localStorage.getItem('token');
+
     const [clicked, setClicked] = useState(false);
     const [write, setWrite] = useState(false);
     const [words, setWords] = useState('');
@@ -21,56 +23,64 @@ const Station = ({station, favList, getFav}) => {
 
     useEffect(()=>{getMeMmo()},[favList])
     
-    const addStation = async()=>{
-        if(clicked === false) {
-            try{
-                const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/stations/add`,{
-                    chrstn_id : station.chrstn_id,
-                    //유저아이디 등록
-                    // id : localStorage.getItem("userId")
-                    id:1
-                })
-                if (res.data.code === 200){
+    const addStation = async () => {
+        if (clicked === false) {
+            try {
+                const res = await axios.post(
+                    `${process.env.REACT_APP_SERVER_URL}/stations/add`,
+                    { chrstn_id: station.chrstn_id },
+                    {
+                        headers: {
+                            'Authorization': `${token}`
+                        }
+                    }
+                );
+    
+                if (res.data.code === 200) {
                     setClicked(true);
                     getFav();
                 }
-            }catch(err){
+            } catch (err) {
                 console.error(err);
             }
         }
-    }
+    };
 
-    const deleteStation = async()=>{
-        if(clicked === true){
-            try{
-                const res = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/stations/remove`,{
-                    data:{
-                        chrstn_id : station.chrstn_id,
-                        //유저아이디 등록
-                        id : 2
+    const deleteStation = async () => {
+        if (clicked === true) {
+            try {
+                const res = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/stations/remove`, {
+                    data: { chrstn_id: station.chrstn_id },
+                    headers: {
+                        'Authorization': `${token}`
                     }
-                })
-                if (res.data.code === 200){
+                });
+    
+                if (res.data.code === 200) {
                     console.log(res);
-                    setClicked(false)
+                    setClicked(false);
                     getFav();
-
                 }
-
-            }catch(err){
+    
+            } catch (err) {
                 console.error(err);
             }
         }
-    }
+    };
     
     const postMemo = async()=>{
         try{
-            await axios.put(`${process.env.REACT_APP_SERVER_URL}/stations/memo`,{
-                //유저아이디 등록
-                id : 2,
-                chrstn_id : station.chrstn_id,
-                memo:words
-            })
+            await axios.put(`${process.env.REACT_APP_SERVER_URL}/stations/memo`,
+                {
+                    chrstn_id : station.chrstn_id,
+                    memo:words
+                },
+                {
+                    headers: {
+                        'Authorization': `${token}`
+                    }
+                }
+            )
             .then(() => {
                 console.log('작성완료');
                 setWrite(false);

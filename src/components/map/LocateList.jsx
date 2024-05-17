@@ -22,6 +22,7 @@ const LocateList = () => {
         filterList
     } = useContext(MapContext)
 
+    const token = localStorage.getItem('token');
 
     const [value, setValue] = React.useState("1");
 
@@ -52,42 +53,6 @@ const LocateList = () => {
         }
     };
 
-    const getStations = async () => {
-        try {
-            const key = process.env.REACT_APP_STATION_API_KEY;
-            const pageIdx = 0;
-            const count = 10;
-            const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
-            const response = await axios.get(url);
-            if (response.status === 200) {
-                const results = [];
-                response.data.items.forEach((item) => {
-                    const cur_lat = item.latitude;
-                    const cur_lng = item.longtitude;
-                    const ex_item = results.find((r) => r.latitude === cur_lat && r.longtitude === cur_lng);
-                    if (!ex_item) {
-                        //충전소 상태 체크(2는 사용중)
-                        if (item.charger_status === "2") {
-                            item.avail_count = 1;
-                        } else {
-                            item.avail_count = 0;
-                        }
-                        item.tot_count = 1;
-                        results.push(item);
-                    } else {
-                        if (item.charger_status === "2") {
-                            ex_item.avail_count += 1;
-                        }
-                        ex_item.tot_count += 1;
-                    }
-                });
-                console.log(results)
-                setStations(results);
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    };
     // const handleFilter = (obj) => {
     //     return Object.entries(obj)
     //     .map(([key, value]) => `${key}=${value}`)
@@ -149,62 +114,14 @@ const LocateList = () => {
     //     }
     // };
 
-    // const getStations = async () => {
-    //     try {
-    //         const key = process.env.REACT_APP_STATION_API_KEY;
-    //         if (!key) {
-    //             throw new Error("API key 없음");
-    //         }
-    //         const pageIdx = 0;
-    //         const count = 10;
-    //         let url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
-    //         //필터검색
-    //         if(filterQuery !== '') {
-    //             url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&sortKey=chrstnType&${filterQuery}&numOfRows=${count}&pageNo=${pageIdx}`;
-    //             console.log(url);
-    //         }
-    //         const response = await axios.get(url);
-    //         if (response.status === 200) {
-    //             const results = [];
-    //             response.data.items.forEach((item) => {
-    //                 const cur_lat = item.latitude;
-    //                 const cur_lng = item.longtitude;
-    //                 const ex_item = results.find((r) => r.latitude === cur_lat && r.longtitude === cur_lng);
-    //                 if (!ex_item) {
-    //                     //충전소 상태 체크(2는 사용중)
-    //                     if (item.charger_status === "2") {
-    //                         item.avail_count = 1;
-    //                     } else {
-    //                         item.avail_count = 0;
-    //                     }
-    //                     item.tot_count = 1;
-    //                     results.push(item);
-    //                 } else {
-    //                     if (item.charger_status === "2") {
-    //                         ex_item.avail_count += 1;
-    //                     }
-    //                     ex_item.tot_count += 1;
-    //                 }
-    //             });
-    //             //console.log(results);
-    //             const arr = []
-    //             results.forEach(r => {
-    //                 console.log(r)
-    //                 const p = {title: r.chrstnNm, latlng: {lat: r.latitude, lng: r.longitude}}
-    //                 arr.push(p)
-    //             });
-    //             setPositionArr(arr);
-    //             setStations(results);
-    //         }
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // };
-
     // // 로그인 구현되면 api호출방식 get으로 변경해야함
     const getFav = async () => {
         const urll = `${process.env.REACT_APP_SERVER_URL}/stations/list`;
-        const fav = await axios.post(urll, { id: 2 });
+        const fav = await axios.get(urll, { 
+            headers : {
+                'authorization' : `${token}`
+            }
+         });
         //console.log(fav.data.payload);
         setFavList(fav.data.payload);
     };
@@ -254,21 +171,19 @@ const LocateList = () => {
     //     getFav();
     // }, []);
 
-    useEffect(() => {
-        getStations();
-        // getFav();
-    }, []);
+    // useEffect(() => {
+    //     getFavStations();
+    // }, [favList]);
 
-    useEffect(() => {
-        getFavStations();
-    }, []); // favList
+    // console.log(stations);
+
+    useEffect(()=>{
+        getFav();
+    },[])
+
 
     return (
         <>
-        {/* {
-            positionArr &&
-            <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap>
-        } */}
         <Box
             sx={{
                 width: "40%",
@@ -302,8 +217,7 @@ const LocateList = () => {
                                         key={idx}
                                         station={station}
                                         favList={favList}
-                                        // getFav={getFav}
-                                        avail_memo={false}
+                                        getFav={getFav}
                                     />
                                 );
                             })
@@ -319,8 +233,7 @@ const LocateList = () => {
                                         key={idx}
                                         station={fav}
                                         favList={favList}
-                                        // getFav={getFav}
-                                        avail_memo={true}
+                                        getFav={getFav}
                                     />
                                 );
                             })
