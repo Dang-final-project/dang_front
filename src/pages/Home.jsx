@@ -36,7 +36,7 @@ const Home = () => {
 
     let filterQuery = handleFilter(filterList);
 
-    console.log(filterQuery);
+    console.log(filterList);
 
     const getStations = async () => {
         try {
@@ -45,7 +45,7 @@ const Home = () => {
                 throw new Error("API key 없음");
             }
             const pageIdx = 0;
-            const count = 10;
+            const count = 30;
             let url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
             //필터검색
             if(filterQuery !== '') {
@@ -91,41 +91,43 @@ const Home = () => {
     };
 
     const getFavStations = async() => {
-        const key = process.env.REACT_APP_STATION_API_KEY;
-        const pageIdx = 0;
-        const count = 10;
-        const searchKey = 'chrstn_id';
-        const searchValue = favList.map(obj => obj.chrstn_id).join(';');
-       if(searchValue !== ''){
-            try{
-                const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&sortKey=chrstnType&filterKey=${searchKey}&filterValues=${searchValue}&numOfRows=${count}&pageNo=${pageIdx}`
-                const response = await axios.get(url);
-                if(response.status === 200){
-                    const results= [];
-                    response.data.items.forEach(item => {
-                        const cur_lat = item.latitude;
-                        const cur_lng = item.longtitude;
-                        const ex_item = results.find((r) => r.latitude === cur_lat && r.longtitude === cur_lng);
-                        if (!ex_item) {
-                            if (item.charger_status === "2") {
-                                item.avail_count = 1;
+        if(favList){
+            const key = process.env.REACT_APP_STATION_API_KEY;
+            const pageIdx = 0;
+            const count = 10;
+            const searchKey = 'chrstn_id';
+            const searchValue = favList.map(obj => obj.chrstn_id).join(';');
+           if(searchValue !== ''){
+                try{
+                    const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&sortKey=chrstnType&filterKey=${searchKey}&filterValues=${searchValue}&numOfRows=${count}&pageNo=${pageIdx}`
+                    const response = await axios.get(url);
+                    if(response.status === 200){
+                        const results= [];
+                        response.data.items.forEach(item => {
+                            const cur_lat = item.latitude;
+                            const cur_lng = item.longtitude;
+                            const ex_item = results.find((r) => r.latitude === cur_lat && r.longtitude === cur_lng);
+                            if (!ex_item) {
+                                if (item.charger_status === "2") {
+                                    item.avail_count = 1;
+                                } else {
+                                    item.avail_count = 0;
+                                }
+                                item.tot_count = 1;
+                                results.push(item);
                             } else {
-                                item.avail_count = 0;
+                                if (item.charger_status === "2") {
+                                    ex_item.avail_count += 1;
+                                }
+                                ex_item.tot_count += 1;
                             }
-                            item.tot_count = 1;
-                            results.push(item);
-                        } else {
-                            if (item.charger_status === "2") {
-                                ex_item.avail_count += 1;
-                            }
-                            ex_item.tot_count += 1;
-                        }
-                    });
-                    //console.log(results)
-                    setFavStation(results);
+                        });
+                        //console.log(results)
+                        setFavStation(results);
+                    }
+                }catch(err){
+                    console.error(err);
                 }
-            }catch(err){
-                console.error(err);
             }
         }
     };
