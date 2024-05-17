@@ -24,6 +24,7 @@
     "react-kakao-maps-sdk": "^1.1.26",
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
     "styled-components": "^6.1.10",
     "sweetalert2": "^11.10.8",
     "web-vitals": "^2.1.0"

@@ -1,28 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { Typography } from '@mui/material';
+import { MapContext } from "../../contexts/MapContext";
 
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import '@fontsource/roboto/300.css';
 
+const Detail = ({ open, handleClose, detailIndex }) => {
+    const { stations } = useContext(MapContext);
+    console.log(stations, detailIndex);
+    // 첫 번째 충전소 정보를 사용합
+    const stationInfo = stations.length > 0 ? stations[detailIndex] : null;
 
-function createData(name, value) {
-    return { name, value };
-}
-
-const rows = [
-    createData('도로명 주소', '강원특별자치도 춘천시 춘천로'),
-    createData('운영기관', '환경부'),
-];
-
-const Detail = ({ open, handleClose }) => {
     const dialogContentProps = {
         sx: { width: "500px", height: "500px" },
     };
@@ -45,27 +39,21 @@ const Detail = ({ open, handleClose }) => {
                 </IconButton>
             </DialogTitle>
             <DialogContent {...dialogContentProps}>
-                <List
-                    sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-                    component="nav"
-                    aria-labelledby="nested-list-subheader"
-                    subheader={
-                      <ListSubheader component="div" id="nested-list-subheader">OO 주차장</ListSubheader>
-                    }
-                >
-                    <ListItemButton>
-                        <ListItemText>
-                        <Typography variant="subtitle1" gutterBottom>운영시간</Typography>
-                        </ListItemText>
-                        <ListItemText primary="9:00 ~ 18: 00" />
-                    </ListItemButton>
-                    <ListItemButton>
-                    <ListItemText>
-                        <Typography variant="subtitle1" gutterBottom>도로명 주소</Typography>
-                        </ListItemText>
-                        <ListItemText primary="제주도 카카오 본사" />
-                    </ListItemButton>
-                </List>
+                {stationInfo && (
+                    <List
+                        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+                        component="nav"
+                        aria-labelledby="nested-list-subheader"
+                        subheader={
+                            <ListSubheader component="h5">{stationInfo.chrstnNm}</ListSubheader>
+                        }
+                    >
+                        <ListItemText primary="운영시간" secondary={stationInfo.useOpenTime} />
+                        <ListItemText primary="도로명 주소" secondary={stationInfo.rdnmadr} />
+                        <ListItemText primary="운영기관" secondary={stationInfo.manage_entrps_nm} />
+                        <ListItemText primary="충전기 타입" secondary={stationInfo.chrstnType} />
+                    </List>
+                )}
             </DialogContent>
         </Dialog>
     );

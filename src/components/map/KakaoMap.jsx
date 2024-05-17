@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useRef, useContext, useCallback } from "react";
 import { Map, MapMarker, useKakaoLoader, ZoomControl, MarkerClusterer } from "react-kakao-maps-sdk";
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
 import Detail from "../popup/Detail";
 import { MapContext } from "../../contexts/MapContext";
 
@@ -18,14 +19,17 @@ const KakaoMap = () => {
 
 
     const [open, setOpen] = useState(false);
+    const [detailIndex, setDetailIndex] = useState();
     const mapRef = useRef();
+    //const [positions, setPositions] = useState([]);
     const [center, setCenter] = useState({
         lat: 33.450701,
         lng: 126.570667,
     });
     const [position, setPosition] = useState(center);
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (index) => {
+        setDetailIndex(index);
         setOpen(true);
     };
 
@@ -95,12 +99,12 @@ const KakaoMap = () => {
                         <MapMarker
                             key={`${position.title}-${index}`}
                             position={position.latlng}
-                            onClick={handleClickOpen}
+                            onClick={()=> handleClickOpen(index)}
                         />
                     ))}
                 </MarkerClusterer>
             </Map>
-            <Detail open={open} handleClose={handleClose} />
+            <Detail open={open} handleClose={handleClose} detailIndex={detailIndex} />
         </>
     );
 };
