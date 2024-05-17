@@ -16,9 +16,11 @@ const Station = ({station, favList, getFav}) => {
     const [memo, setMemo] = useState('');
     
     useEffect(() => {
-        favList.forEach(f => {
-            station.chrstn_id === f.chrstn_id && setClicked(true);
-        })
+        if(favList){
+            favList.forEach(f => {
+                station.chrstn_id === f.chrstn_id && setClicked(true);
+            })
+        }
     }, []);
 
     useEffect(()=>{getMeMmo()},[favList])
@@ -93,11 +95,13 @@ const Station = ({station, favList, getFav}) => {
     }
 
    const getMeMmo = () => {
-        favList.forEach(f => {
-            if(f.chrstn_id === station.chrstn_id){
-                setMemo(f.memo)
-            }
-        })
+        if(favList){
+            favList.forEach(f => {
+                if(f.chrstn_id === station.chrstn_id){
+                    setMemo(f.memo)
+                }
+            })
+        }
    }
 
 
