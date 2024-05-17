@@ -181,7 +181,6 @@ const LocateList = () => {
         getFav();
     },[])
 
-
     return (
         <>
         <Box
