@@ -6,7 +6,6 @@ import React, { useContext, useEffect, useState } from "react";
 import Station from "./Station";
 import axios from "axios";
 import SearchBox from "./SearchBox";
-import KakaoMap from "./KakaoMap";
 import { MapContext } from "../../contexts/MapContext";
 
 const LocateList = () => {
@@ -53,67 +52,6 @@ const LocateList = () => {
         }
     };
 
-    // const handleFilter = (obj) => {
-    //     return Object.entries(obj)
-    //     .map(([key, value]) => `${key}=${value}`)
-    //     .join('&');
-    // }
-
-    // const filterQuery = handleFilter(filterList);
-    // console.log(filterQuery);
-
-    // const getStations = async () => {
-    //     try {
-    //         const key = process.env.REACT_APP_STATION_API_KEY;
-    //         if (!key) {
-    //             throw new Error("API key 없음");
-    //         }
-    //         const pageIdx = 0;
-    //         const count = 10;
-    //         let url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
-    //         //필터검색
-    //         if(filterQuery !== '') {
-    //             url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&sortKey=chrstnType&${filterQuery}&numOfRows=${count}&pageNo=${pageIdx}`;
-    //             console.log(url);
-    //         }
-    //         const response = await axios.get(url);
-    //         if (response.status === 200) {
-    //             const results = [];
-    //             response.data.items.forEach((item) => {
-    //                 const cur_lat = item.latitude;
-    //                 const cur_lng = item.longtitude;
-    //                 const ex_item = results.find((r) => r.latitude === cur_lat && r.longtitude === cur_lng);
-    //                 if (!ex_item) {
-    //                     //충전소 상태 체크(2는 사용중)
-    //                     if (item.charger_status === "2") {
-    //                         item.avail_count = 1;
-    //                     } else {
-    //                         item.avail_count = 0;
-    //                     }
-    //                     item.tot_count = 1;
-    //                     results.push(item);
-    //                 } else {
-    //                     if (item.charger_status === "2") {
-    //                         ex_item.avail_count += 1;
-    //                     }
-    //                     ex_item.tot_count += 1;
-    //                 }
-    //             });
-    //             //console.log(results);
-    //             const arr = []
-    //             results.forEach(r => {
-    //                 console.log(r)
-    //                 const p = {title: r.chrstnNm, latlng: {lat: r.latitude, lng: r.longitude}}
-    //                 arr.push(p)
-    //             });
-    //             setPositionArr(arr);
-    //             setStations(results);
-    //         }
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // };
-
     // // 로그인 구현되면 api호출방식 get으로 변경해야함
     const getFav = async () => {
         const urll = `${process.env.REACT_APP_SERVER_URL}/stations/list`;
@@ -125,57 +63,6 @@ const LocateList = () => {
         //console.log(fav.data.payload);
         setFavList(fav.data.payload);
     };
-
-    // const getFavStations = async() => {
-    //     const key = process.env.REACT_APP_STATION_API_KEY;
-    //     const pageIdx = 0;
-    //     const count = 10;
-    //     const searchKey = 'chrstn_id';
-    //     const searchValue = favList.map(obj => obj.chrstn_id).join(';');
-    //    if(searchValue !== ''){
-    //         try{
-    //             const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&sortKey=chrstnType&filterKey=${searchKey}&filterValues=${searchValue}&numOfRows=${count}&pageNo=${pageIdx}`
-    //             const response = await axios.get(url);
-    //             if(response.status === 200){
-    //                 const results= [];
-    //                 response.data.items.forEach(item => {
-    //                     const cur_lat = item.latitude;
-    //                     const cur_lng = item.longtitude;
-    //                     const ex_item = results.find((r) => r.latitude === cur_lat && r.longtitude === cur_lng);
-    //                     if (!ex_item) {
-    //                         if (item.charger_status === "2") {
-    //                             item.avail_count = 1;
-    //                         } else {
-    //                             item.avail_count = 0;
-    //                         }
-    //                         item.tot_count = 1;
-    //                         results.push(item);
-    //                     } else {
-    //                         if (item.charger_status === "2") {
-    //                             ex_item.avail_count += 1;
-    //                         }
-    //                         ex_item.tot_count += 1;
-    //                     }
-    //                 });
-    //                 //console.log(results)
-    //                 setFavStation(results);
-    //             }
-    //         }catch(err){
-    //             console.error(err);
-    //         }
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     getStations();
-    //     getFav();
-    // }, []);
-
-    // useEffect(() => {
-    //     getFavStations();
-    // }, [favList]);
-
-    // console.log(stations);
 
     useEffect(()=>{
         getFav();
@@ -215,8 +102,8 @@ const LocateList = () => {
                                     <Station
                                         key={idx}
                                         station={station}
-                                        favList={favList}
-                                        getFav={getFav}
+                                        favList={favList} //즐겨찾기
+                                        getFav={getFav} 
                                     />
                                 );
                             })

@@ -10,6 +10,7 @@ import KakaoMap from "../components/map/KakaoMap";
 import { Map } from "react-kakao-maps-sdk";
 import { MapContext } from "../contexts/MapContext";
 import axios from "axios";
+import Loading from './Loading';
 
 const Home = () => {
 
@@ -167,7 +168,7 @@ const Home = () => {
 
                 </>
                 :
-                <p>지도 로딩중...</p>
+                <Loading />
             }
         </>
     );
