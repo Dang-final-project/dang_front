@@ -13,8 +13,9 @@ import {
     Paper,
     Stack,
     Pagination,
+    useMediaQuery,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -49,6 +50,8 @@ const costData = [212.9, 240, 270, 248.3, 266.4, 204.5, 278.2, 270, 178.9, 245.5
 
 export const LineChart = () => {
     const theme = useTheme();
+    const chartWidth = useMediaQuery(theme.breakpoints.up("md"));
+
     const data = {
         labels: brandData,
         datasets: [
@@ -72,7 +75,7 @@ export const LineChart = () => {
     };
 
     return (
-        <Box sx={{ width: "600px", height: "100%" }}>
+        <Box sx={{ width: chartWidth ? "600px" : "400px", height: chartWidth ? "300px" : "100%" }}>
             <Bar data={data} options={options} sx={{ width: "100%" }} />
         </Box>
     );
@@ -94,10 +97,11 @@ const rows = [
 
 export const BasicTable = () => {
     const [page, setPage] = useState(1);
+    const theme = useTheme();
+    const tableWidth = useMediaQuery(theme.breakpoints.up("md"));
     const rowsPerPage = 5;
 
     const handleChangePage = (event, newPage) => {
-        console.log("Changing to page:", newPage);
         setPage(newPage);
     };
 
@@ -106,7 +110,7 @@ export const BasicTable = () => {
     return (
         <Grid sx={{ marginBottom: "100px", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <TableContainer component={Paper} sx={{ marginBottom: "20px" }}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table sx={{ minWidth: tableWidth ? "650px" : "400px" }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>기관명</TableCell>

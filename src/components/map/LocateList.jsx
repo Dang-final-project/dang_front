@@ -2,21 +2,32 @@ import { Box, Paper, Tab, Typography } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Station from "./Station";
 import axios from "axios";
 import SearchBox from "./SearchBox";
+import KakaoMap from "./KakaoMap";
+import { MapContext } from "../../contexts/MapContext";
 
 const LocateList = () => {
+
+    const {
+        stations, 
+        setStations, 
+        favStation, 
+        setFavStation, 
+        favList,
+        setFavList,
+        setPositionArr,
+        filterList
+    } = useContext(MapContext)
+
+
     const [value, setValue] = React.useState("1");
-    const [favList, setFavList] = useState([]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
-    const [stations, setStations] = useState([]);
-    const [favStation, setFavStation] = useState([]);
 
     const [searchWord, setSearchWord] = useState("");
 
@@ -41,102 +52,150 @@ const LocateList = () => {
         }
     };
 
-    const getStations = async () => {
-        try {
-            const key = process.env.REACT_APP_STATION_API_KEY;
-            const pageIdx = 0;
-            const count = 10;
-            const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
-            const response = await axios.get(url);
-            if (response.status === 200) {
-                const results = [];
-                response.data.items.forEach((item) => {
-                    const cur_lat = item.latitude;
-                    const cur_lng = item.longtitude;
-                    const ex_item = results.find((r) => r.latitude === cur_lat && r.longtitude === cur_lng);
-                    if (!ex_item) {
-                        //충전소 상태 체크(2는 사용중)
-                        if (item.charger_status === "2") {
-                            item.avail_count = 1;
-                        } else {
-                            item.avail_count = 0;
-                        }
-                        item.tot_count = 1;
-                        results.push(item);
-                    } else {
-                        if (item.charger_status === "2") {
-                            ex_item.avail_count += 1;
-                        }
-                        ex_item.tot_count += 1;
-                    }
-                });
-                //console.log(results)
-                setStations(results);
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    };
+    // const handleFilter = (obj) => {
+    //     return Object.entries(obj)
+    //     .map(([key, value]) => `${key}=${value}`)
+    //     .join('&');
+    // }
 
-    // 로그인 구현되면 api호출방식 get으로 변경해야함
+    // const filterQuery = handleFilter(filterList);
+    // console.log(filterQuery);
+
+    // const getStations = async () => {
+    //     try {
+    //         const key = process.env.REACT_APP_STATION_API_KEY;
+    //         if (!key) {
+    //             throw new Error("API key 없음");
+    //         }
+    //         const pageIdx = 0;
+    //         const count = 10;
+    //         let url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
+    //         //필터검색
+    //         if(filterQuery !== '') {
+    //             url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&sortKey=chrstnType&${filterQuery}&numOfRows=${count}&pageNo=${pageIdx}`;
+    //             console.log(url);
+    //         }
+    //         const response = await axios.get(url);
+    //         if (response.status === 200) {
+    //             const results = [];
+    //             response.data.items.forEach((item) => {
+    //                 const cur_lat = item.latitude;
+    //                 const cur_lng = item.longtitude;
+    //                 const ex_item = results.find((r) => r.latitude === cur_lat && r.longtitude === cur_lng);
+    //                 if (!ex_item) {
+    //                     //충전소 상태 체크(2는 사용중)
+    //                     if (item.charger_status === "2") {
+    //                         item.avail_count = 1;
+    //                     } else {
+    //                         item.avail_count = 0;
+    //                     }
+    //                     item.tot_count = 1;
+    //                     results.push(item);
+    //                 } else {
+    //                     if (item.charger_status === "2") {
+    //                         ex_item.avail_count += 1;
+    //                     }
+    //                     ex_item.tot_count += 1;
+    //                 }
+    //             });
+    //             //console.log(results);
+    //             const arr = []
+    //             results.forEach(r => {
+    //                 console.log(r)
+    //                 const p = {title: r.chrstnNm, latlng: {lat: r.latitude, lng: r.longitude}}
+    //                 arr.push(p)
+    //             });
+    //             setPositionArr(arr);
+    //             setStations(results);
+    //         }
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // };
+
+    // // 로그인 구현되면 api호출방식 get으로 변경해야함
     const getFav = async () => {
-        const urll = `http://localhost:8000/v1/stations/list`;
+        const urll = `${process.env.REACT_APP_SERVER_URL}/stations/list`;
         const fav = await axios.post(urll, { id: 2 });
-        console.log(fav.data.payload);
+        //console.log(fav.data.payload);
         setFavList(fav.data.payload);
     };
 
-    const getFavStations = async() => {
-        const key = process.env.REACT_APP_STATION_API_KEY;
-        const pageIdx = 0;
-        const count = 10;
-        const searchKey = 'chrstn_id';
-        const searchValue = favList.map(obj => obj.chrstn_id).join(';');
-       if(searchValue !== ''){
-            try{
-                const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&sortKey=chrstnType&filterKey=${searchKey}&filterValues=${searchValue}&numOfRows=${count}&pageNo=${pageIdx}`
-                const response = await axios.get(url);
-                if(response.status === 200){
-                    const results= [];
-                    response.data.items.forEach(item => {
-                        const cur_lat = item.latitude;
-                        const cur_lng = item.longtitude;
-                        const ex_item = results.find((r) => r.latitude === cur_lat && r.longtitude === cur_lng);
-                        if (!ex_item) {
-                            if (item.charger_status === "2") {
-                                item.avail_count = 1;
-                            } else {
-                                item.avail_count = 0;
-                            }
-                            item.tot_count = 1;
-                            results.push(item);
-                        } else {
-                            if (item.charger_status === "2") {
-                                ex_item.avail_count += 1;
-                            }
-                            ex_item.tot_count += 1;
-                        }
-                    });
-                    //console.log(results)
-                    setFavStation(results);
-                }
-            }catch(err){
-                console.error(err);
-            }
-        }
-    };
+    // const getFavStations = async() => {
+    //     const key = process.env.REACT_APP_STATION_API_KEY;
+    //     const pageIdx = 0;
+    //     const count = 10;
+    //     const searchKey = 'chrstn_id';
+    //     const searchValue = favList.map(obj => obj.chrstn_id).join(';');
+    //    if(searchValue !== ''){
+    //         try{
+    //             const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&sortKey=chrstnType&filterKey=${searchKey}&filterValues=${searchValue}&numOfRows=${count}&pageNo=${pageIdx}`
+    //             const response = await axios.get(url);
+    //             if(response.status === 200){
+    //                 const results= [];
+    //                 response.data.items.forEach(item => {
+    //                     const cur_lat = item.latitude;
+    //                     const cur_lng = item.longtitude;
+    //                     const ex_item = results.find((r) => r.latitude === cur_lat && r.longtitude === cur_lng);
+    //                     if (!ex_item) {
+    //                         if (item.charger_status === "2") {
+    //                             item.avail_count = 1;
+    //                         } else {
+    //                             item.avail_count = 0;
+    //                         }
+    //                         item.tot_count = 1;
+    //                         results.push(item);
+    //                     } else {
+    //                         if (item.charger_status === "2") {
+    //                             ex_item.avail_count += 1;
+    //                         }
+    //                         ex_item.tot_count += 1;
+    //                     }
+    //                 });
+    //                 //console.log(results)
+    //                 setFavStation(results);
+    //             }
+    //         }catch(err){
+    //             console.error(err);
+    //         }
+    //     }
+    // };
 
-    useEffect(() => {
-        getStations();
+    // useEffect(() => {
+    //     getStations();
+    //     getFav();
+    // }, []);
+
+    // useEffect(() => {
+    //     getFavStations();
+    // }, [favList]);
+
+    // console.log(stations);
+
+    useEffect(()=>{
         getFav();
-    }, []);
+    },[])
 
-    useEffect(() => {
-        getFavStations();
-    }, [favList]);
 
     return (
         <>
+        {/* {
+            positionArr &&
+            <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap>
+        } */}
+        <Box
+            sx={{
+                width: "40%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "16px",
+                p: 3,
+                position: "absolute",
+                top: "130px",
+                zIndex: 10,
+                height: "calc(100vh - 64px - 52.5px)",
+            }}
+        >
             <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
             <Paper sx={{ p: 2, maxWidth: "460px", flexGrow: 1, overflow: "hidden" }}>
                 <Typography>
@@ -158,7 +217,6 @@ const LocateList = () => {
                                         station={station}
                                         favList={favList}
                                         getFav={getFav}
-                                        avail_memo={false}
                                     />
                                 );
                             })
@@ -175,7 +233,6 @@ const LocateList = () => {
                                         station={fav}
                                         favList={favList}
                                         getFav={getFav}
-                                        avail_memo={true}
                                     />
                                 );
                             })
@@ -185,6 +242,7 @@ const LocateList = () => {
                     </TabPanel>
                 </TabContext>
             </Paper>
+        </Box>
         </>
     );
 };

@@ -24,11 +24,10 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 const Header = () => {
     const [open, setOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [userStatus, setUserStatus] = useState("user"); // guest, user, admin
-    const isMobile = useMediaQuery("(max-width: 680px)");
-    const location = useLocation();
-
+    const [userStatus, setUserStatus] = useState("guest"); // guest, user, admin
     const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.up("md"));
+    const location = useLocation();
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
@@ -37,7 +36,7 @@ const Header = () => {
     const StyledTypo = styled(Typography)({
         cursor: "pointer",
         margin: "10px",
-        color: '#4b4037',
+        color: "#4b4037",
         "&:hover": {
             color: theme.palette.primary.main,
         },
@@ -75,6 +74,7 @@ const Header = () => {
     const guest = [
         { nav: "홈", link: "/" },
         { nav: "요금현황", link: "/cost" },
+        { nav: "커뮤니티", link: "/community" },
         { nav: "회원가입", link: "/join" },
         { nav: "로그인", link: "/login" },
     ];
@@ -82,6 +82,7 @@ const Header = () => {
     const user = [
         { nav: "홈", link: "/" },
         { nav: "요금현황", link: "/cost" },
+        { nav: "커뮤니티", link: "/community" },
         { nav: "마이페이지", link: "/mypage" },
         { nav: "로그아웃", link: "/login" },
     ];
@@ -89,6 +90,7 @@ const Header = () => {
     const admin = [
         { nav: "홈", link: "/" },
         { nav: "요금현황", link: "/cost" },
+        { nav: "커뮤니티", link: "/community" },
         { nav: "회원관리", link: "/admin" },
         { nav: "로그아웃", link: "/login" },
     ];
@@ -138,7 +140,7 @@ const Header = () => {
                         <Grid sx={{ display: "flex" }}>
                             {admin.map((text, index) => (
                                 <Link to={text.link} key={text.nav}>
-                                    <StyledTypo >{text.nav}</StyledTypo>
+                                    <StyledTypo>{text.nav}</StyledTypo>
                                 </Link>
                             ))}
                         </Grid>
@@ -172,10 +174,10 @@ const Header = () => {
 
     const MobileHeader = () => {
         return (
-            <AppBar color="secondary" elevation={ELEVATION}>
+            <AppBar color="secondary" elevation={ELEVATION} sx={{ minHeight: "64px" }}>
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
                     <MenuIcon
-                        sx={{ fontSize: 30, backgroundColor: "#fff", borderRadius: "2px" }}
+                        sx={{ fontSize: "30px", backgroundColor: "#fff", borderRadius: "2px" }}
                         onClick={toggleDrawer(true)}
                     />
                     <Drawer open={open} onClose={toggleDrawer(false)}>
@@ -199,7 +201,7 @@ const Header = () => {
         );
     };
 
-    return isMobile ? <MobileHeader /> : <DeskTopHeader />;
+    return isMobile ? <DeskTopHeader /> : <MobileHeader />;
 };
 
 export default Header;

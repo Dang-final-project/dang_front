@@ -6,7 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 
-const Station = ({station, favList, getFav, avail_memo}) => {
+const Station = ({station, favList, getFav}) => {
 
     const [clicked, setClicked] = useState(false);
     const [write, setWrite] = useState(false);
@@ -27,7 +27,8 @@ const Station = ({station, favList, getFav, avail_memo}) => {
                 const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/stations/add`,{
                     chrstn_id : station.chrstn_id,
                     //유저아이디 등록
-                    id : 2
+                    // id : localStorage.getItem("userId")
+                    id:1
                 })
                 if (res.data.code === 200){
                     setClicked(true);
@@ -105,33 +106,35 @@ const Station = ({station, favList, getFav, avail_memo}) => {
                 }
             </Box>
             {
-                write ?
-                <Box mb={1}>
-                    <TextField 
-                        size="small"
-                        onChange={(e) => { setWords(e.target.value); }} 
-                        value={words} 
-                    />
-                    <Button onClick={postMemo}>완료</Button>
-                </Box>
-                :
-                memo === '' ?
-                <Button 
-                    aria-label="memo" 
-                    size="small" 
-                    sx={{color:'primary.main',bgcolor:'#E9EFFF',my:1}}
-                    onClick={() => setWrite(true)}
-                >
-                    <Typography sx={{fontSize:"14px",marginRight:"2px"}}>메모추가</Typography>
-                    <RateReviewIcon fontSize="small"/>
-                </Button>
-                :
-                <Box sx={{display:'flex',gap:'4px',alignItems:"center"}}>
-                    <Typography color="primary" sx={{fontWeight:'bold'}}>{memo}</Typography>
-                    <IconButton color="primary" onClick={() => setWrite(true)}>
-                        <RateReviewIcon color="primary" fontSize="small"/>
-                    </IconButton>
-                </Box>
+                clicked && (
+                    write ?
+                    <Box mb={1}>
+                        <TextField 
+                            size="small"
+                            onChange={(e) => { setWords(e.target.value); }} 
+                            value={words} 
+                        />
+                        <Button onClick={postMemo}>완료</Button>
+                    </Box>
+                    :
+                    memo === '' || memo === null?
+                    <Button 
+                        aria-label="memo" 
+                        size="small" 
+                        sx={{color:'primary.main',bgcolor:'#E9EFFF',my:1}}
+                        onClick={() => setWrite(true)}
+                    >
+                        <Typography sx={{fontSize:"14px",marginRight:"2px"}}>메모추가</Typography>
+                        <RateReviewIcon fontSize="small"/>
+                    </Button>
+                    :
+                    <Box sx={{display:'flex',gap:'4px',alignItems:"center"}}>
+                        <Typography color="primary" sx={{fontWeight:'bold'}}>{memo}</Typography>
+                        <IconButton color="primary" onClick={() => setWrite(true)}>
+                            <RateReviewIcon color="primary" fontSize="small"/>
+                        </IconButton>
+                    </Box>
+                )
             }
             <Typography variant="h5" gutterBottom>{station.chrstnNm}</Typography>
             <Stack direction="row" spacing={2}>
