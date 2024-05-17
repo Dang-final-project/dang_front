@@ -40,9 +40,9 @@ export default function Open({ title, width = 500, height = 100, children }) {
     const getFilterVal = () => {
         setBtnClicked((btnClicked)=>!btnClicked);
         if(btnClicked){
-            setFilterList({...filterList,privateCarPark : 'O'});
+            setFilterList({...filterList,user_restrict : 'O'});
         }else{
-            setFilterList({...filterList,privateCarPark : ''});
+            setFilterList({...filterList,user_restrict : ''});
         }
     }
 

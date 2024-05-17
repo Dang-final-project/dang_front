@@ -44,7 +44,7 @@ const KakaoMap = () => {
     };
     
     // 마커 클러스터링에 사용할 위치 데이터 설정
-    console.log(positionArr);
+    //console.log(positionArr);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(pos => {
