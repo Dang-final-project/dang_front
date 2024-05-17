@@ -3,16 +3,16 @@ import SearchBox from "../components/map/SearchBox";
 import LocateList from "../components/map/LocateList";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Box, Paper, ButtonGroup, Button } from "@mui/material";
 import BottomBtns from "../components/map/BottomBtns";
 import KakaoMap from "../components/map/KakaoMap";
 import { Map } from "react-kakao-maps-sdk";
-import { useContext } from "react";
 import { MapContext } from "../contexts/MapContext";
 import axios from "axios";
 
 const Home = () => {
+
 
     const {
         stations, 
@@ -28,11 +28,13 @@ const Home = () => {
 
     const handleFilter = (obj) => {
         return Object.entries(obj)
-        .map(([key, value]) => `${key}=${value}`)
-        .join('&');
-    }
+          .filter(([key, value]) => value !== undefined && value !== null && value !== '')
+          .map(([key, value]) => `filterKey=${key}&filterValues=${value}`)
+          .join('&');
+      };
 
-    const filterQuery = handleFilter(filterList);
+    let filterQuery = handleFilter(filterList);
+
     console.log(filterQuery);
 
     const getStations = async () => {
@@ -75,7 +77,7 @@ const Home = () => {
                 //console.log(results);
                 const arr = []
                 results.forEach(r => {
-                    console.log(r)
+                    //console.log(r)
                     const p = {title: r.chrstnNm, latlng: {lat: r.latitude, lng: r.longitude}}
                     arr.push(p)
                 });
@@ -129,7 +131,7 @@ const Home = () => {
 
     useEffect(() => {
         getStations();
-    }, []);
+    }, [filterList]);
 
     useEffect(() => {
         getFavStations();
@@ -144,7 +146,6 @@ const Home = () => {
             {
                 positionArr ?
                 <>
-                    <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap>
                     {tabletWidth ? (
                         <>
                             <Box sx={{ marginTop: "64px" }}>
@@ -160,6 +161,8 @@ const Home = () => {
                             </Box>
                         </Box>
                     )}
+                    <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap>
+
                 </>
                 :
                 <p>지도 로딩중...</p>

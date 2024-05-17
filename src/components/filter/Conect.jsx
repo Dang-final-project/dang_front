@@ -128,7 +128,7 @@ export default function Conect({ title }) {
     
       const updateConnectList = (list) => {
         // 세미콜론으로 구분된 문자열로 업데이트
-        setConnectList(list.join(';'));
+        setConnectList(list.join('+'));
       };
 
       //최종데이터 전송
@@ -184,6 +184,18 @@ export default function Conect({ title }) {
                       variant={activeButtons.includes("AC3상") ? "contained" : "outlined"}
                     >
                       AC3상
+                  </Button>
+                  <Button
+                      onClick={() => handleButtonClick("DC차데모")}
+                      variant={activeButtons.includes("DC차데모") ? "contained" : "outlined"}
+                    >
+                      DC차데모
+                  </Button>
+                    <Button
+                      onClick={() => handleButtonClick("AC완속")}
+                      variant={activeButtons.includes("AC완속") ? "contained" : "outlined"}
+                    >
+                      AC완속
                   </Button>
                   <Button variant="contained" onClick={getFilterVal}>적용</Button>
                 </Grid>
