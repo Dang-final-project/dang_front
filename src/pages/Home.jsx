@@ -13,6 +13,7 @@ import axios from "axios";
 
 const Home = () => {
 
+
     const {
         stations, 
         setStations, 
@@ -145,7 +146,6 @@ const Home = () => {
             {
                 positionArr ?
                 <>
-                    <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap>
                     {tabletWidth ? (
                         <>
                             <Box sx={{ marginTop: "64px" }}>
@@ -161,6 +161,8 @@ const Home = () => {
                             </Box>
                         </Box>
                     )}
+                    <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap>
+
                 </>
                 :
                 <p>지도 로딩중...</p>
