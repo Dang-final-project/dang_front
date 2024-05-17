@@ -52,7 +52,6 @@ const LocateList = () => {
         }
     };
 
-    // // 로그인 구현되면 api호출방식 get으로 변경해야함
     const getFav = async () => {
         const urll = `${process.env.REACT_APP_SERVER_URL}/stations/list`;
         const fav = await axios.get(urll, { 
