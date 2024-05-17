@@ -13,6 +13,8 @@ export const MapProvider = ({ children }) => {
     useEffect(() => {
       navigator.geolocation.getCurrentPosition(pos => {
         setMapPos({lat:pos.coords.latitude, lng:pos.coords.longitude});
+      }, err => {
+        setMapPos({lat:37.261911, lng:127.030736});
       })
     }, []);
 
