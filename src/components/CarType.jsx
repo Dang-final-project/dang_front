@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Grid, Box, Button, Typography} from '@mui/material';
 import SearchInput from './input/SearchInput';
 import CarAPI from './CarAPI';
+import CarPhotoAPI from './CarPhotoAPI';
 
 
 // 박스 누르면 팝업창 뜨는거
@@ -16,7 +17,9 @@ const CarType = () => {
                 width: '100%', 
                 border: '1px solid black',
                 boxShadow: '0px 5px 5px rgba(58, 56, 56, 0.5)',
-                padding: '2vh'
+                padding: '2vh',
+                marginBottom: '2vh',
+                borderRadius: '8px'
                 }}>
             <Typography>제조사별</Typography>
             <Button variant="outlined" sx={{marginRight: '1vh'}}>현대</Button>
@@ -32,22 +35,27 @@ const CarType = () => {
         </Box>
         <Box
             sx={{
-                display:'flex',
-                marginTop: '4vh',
-                width: '75%',
-                height: '21vh',
-                border: '1px solid black',
-                padding: '2vh'
+                display: 'flex',
+                border: '1px solid #ccc',
+                padding: '2vh',
+                margin: '2vh',
+                width: '80%',
+                borderRadius: '8px',
+                boxShadow: '0 0 10px rgba(0,0,0,0.1)'
             }}>
-                <Box sx={{ width: '35%'
-                }}>사진</Box>
+                <Box sx ={{
+                    width: '40%',
+                    height: '5vh',
+                    marginRight: '2vh'
+                }}>
+                    <CarPhotoAPI />
+                </Box>
                 <Box sx={{
-                    width: '75%'
-                }}>설명
-                <button>자세히보기</button>
+                    width: '60%'
+                }}><CarAPI />
                 </Box>
         </Box>
-        <CarAPI />
+        
     </Grid>
     );
 }
