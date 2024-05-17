@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 
-export const TextInput = ({ label, defaultValue, size }) => {
+export const TextInput = ({ label, children }) => {
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 680);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export const TextInput = ({ label, defaultValue, size }) => {
 
     return ( 
         <Box
-            component="form"
+            component="div"
             sx={{
                 '& .MuiTextField-root': { m: 1, width: '80%' },
                 position: 'relative',
@@ -37,13 +37,13 @@ export const TextInput = ({ label, defaultValue, size }) => {
             {isDesktop ? ( // 데스크탑 화면일 때
                 <>
                     <InputLabel htmlFor="outlined-size-small" sx={{ mr: '20px' }}>{label}</InputLabel>
-                    <TextField id="outlined-size-small" defaultValue={defaultValue} size={size}/>
+                    {children}
                 </>
             ) : ( // 모바일 화면일 때
                 <>
                     <InputLabel sx={{ position: 'absolute', top: '-20px', left: '20px' }}>{label}</InputLabel>
                     <div>
-                        <TextField id="outlined-size-small" defaultValue={defaultValue} size={size}/>
+                        {children}
                     </div>
                 </>
             )}

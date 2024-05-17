@@ -6,27 +6,34 @@ import Button from '@mui/material/Button';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import FormControl from '@mui/material/FormControl';
 import kakaoLoginImg from '../assets/kakao_login_large_wide.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TextInput } from '../components/text_input/TextInput';
+import { InputLabel, TextField } from '@mui/material';
 
 const Login = () => {
     const authData = useAuth();
-    const { loginUser, login } = authData ? authData : { loginUser: {}, login: () => {} };
-
+    const navigate = useNavigate();
+    const { login } = authData;
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors },
+        
     } = useForm();
 
-    const onSubmit = async (data) => { // async 키워드 추가
+    const onSubmit = (data) => {
         try {
-            const response = await login(data); // await 키워드 추가
-            const token = response.data.accessToken; // 토큰은 응답의 accessToken에서 가져옴
-            localStorage.setItem('token', token); // 토큰을 로컬 스토리지에 저장
-            console.log(token);
+            login((response)=>{
+                console.log(response.data.code)
+                if (response.data.code === 200) {
+                    navigate("/");
+                } else {
+                    throw new Error('error message');
+                }
+            }, data);
         } catch (error) {
+            console.error(error);
             Swal.fire({
                 icon: 'error',
                 title: '로그인 실패',
@@ -35,27 +42,42 @@ const Login = () => {
         }
         reset();
     };
-
+    console.log(errors)
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <form onSubmit={handleSubmit(onSubmit)} style={{ width: '60%', maxWidth: '600px' }}>
-                <TextInput 
-                    label='아이디'
-                    defaultValue='아이디를 입력하세요'
-                    size='medium'
+                <FormControl sx={{ width: '80%', display: 'block', mb: 2 }}>
+                    <InputLabel htmlFor="email">아이디</InputLabel>
+                    <OutlinedInput
+                        id="email"
+                        placeholder="아이디를 입력하세요"
+                        type="text"
+                        variant="outlined"
+                        {...register("email", { required: true })}
+                        label="아이디"
+                        sx={{ width: '100%' }} // 이 줄을 추가하여 입력 필드의 너비를 100%로 설정
+                    />
+                    {errors.email && <span style={{ color: 'red' }}>이메일은 필수값입니다.</span>}
+                </FormControl>
+                <FormControl sx={{ width: '80%', display: 'block', mb: 2 }}>
+                    <InputLabel htmlFor="password">비밀번호</InputLabel>
+                    <OutlinedInput
+                        id="password"
+                        placeholder="비밀번호를 입력하세요"
+                        type="password"
+                        variant="outlined"
+                        {...register("password", { required: true })}
+                        label="비밀번호"
+                        sx={{ width: '100%' }} // 이 줄을 추가하여 입력 필드의 너비를 100%로 설정
+                    />
+                    {errors.password && <span style={{ color: 'red' }}>비밀번호는 필수값입니다.</span>}
+                </FormControl>
+                {errors.loginFail && <span style={{ display: 'block', color: 'red', fontSize: '0.8rem' }}>{errors.loginFail.message}</span>}
+                <Button
+                    variant="contained"
+                    type="submit"
+                    sx={{ display: 'block', width: '80%', mt: 2 }}
                 >
-                    <OutlinedInput sx={{ width: '100%' }} type='text' variant="outlined" {...register("id", { required: true })}/> 
-                    {errors.id && <span style={{ display: 'block' }}>아이디는 필수값입니다</span>}
-                </TextInput>
-                <TextInput 
-                    label='비밀번호'
-                    defaultValue=''
-                    size='medium'
-                >
-                    <OutlinedInput sx={{ width: '100%' }} type='password' variant="outlined" {...register("password", { required: true })}/>
-                    {errors.password && <span style={{ display: 'block' }}>비밀번호는 필수값입니다</span>}
-                </TextInput>
-                <Button variant="contained" type="submit" sx={{ display: 'block', width: '80%', mt: 2 }}>
                     로그인
                 </Button>
                 <Link to={`${process.env.REACT_APP_API_URL}/auth/kakao`}>
