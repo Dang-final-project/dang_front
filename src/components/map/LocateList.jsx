@@ -61,13 +61,16 @@ const LocateList = () => {
             }
          });
         //console.log(fav.data.payload);
-
-        setFavList(fav.data.payload);
+        if(fav.data.payload) {
+            setFavList(fav.data.payload);
+        }
     };
 
     useEffect(()=>{
         getFav();
     },[])
+
+    console.log(favList);
 
     return (
         <>
@@ -116,7 +119,7 @@ const LocateList = () => {
                                 )}
                             </TabPanel>
                             <TabPanel value="2" sx={{ height: "100%", overflow: "scroll" }}>
-                                {favStation && favList ? (
+                                {favStation && favList && favList.length > 0 ? (
                                     favStation.map((fav, idx) => {
                                         return (
                                             <Station

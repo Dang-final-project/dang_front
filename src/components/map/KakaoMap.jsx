@@ -7,8 +7,10 @@ import { MapContext } from "../../contexts/MapContext";
 
 const KakaoMap = () => {
     //충전소 정보 가져오기
+
     const {positionArr, stations, mapPos, setMapPos} = useContext(MapContext);
-    console.log(stations);
+    // console.log(stations);
+
     
     const [loading, error] = useKakaoLoader({
         appkey: process.env.REACT_APP_KAKAO_MAP_API_KEY,
