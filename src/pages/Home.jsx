@@ -13,8 +13,6 @@ import axios from "axios";
 import Loading from './Loading';
 
 const Home = () => {
-
-
     const {
         stations, 
         setStations, 
