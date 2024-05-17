@@ -176,6 +176,7 @@ const LocateList = () => {
         getFav();
     },[])
 
+
     return (
         <>
         {/* {

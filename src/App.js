@@ -9,7 +9,9 @@ import Community from "./pages/Community";
 import Cost from "./pages/Cost";
 import Mypage from "./pages/Mypage";
 import { MapProvider } from "./contexts/MapContext";
-// import KakaoMap from "./components/map/KakaoMap";
+import { LoginContext } from "./contexts/LoginContext";
+import { useProvideAuth } from "./hooks/useProvideAuth";
+import KakaoMap from "../components/map/KakaoMap";
 
 function App() {
     const theme = createTheme({
@@ -25,10 +27,11 @@ function App() {
     });
 
     console.log(theme);
-
+    const auth = useProvideAuth();
     return (
         <>
             <ThemeProvider theme={theme}>
+                <LoginContext.Provider value={auth}>
                 <CssBaseline />
                 <MapProvider>
                     <Layout>
@@ -43,6 +46,7 @@ function App() {
                         </Routes>
                     </Layout>
                 </MapProvider>
+                </LoginContext.Provider>
             </ThemeProvider>
         </>
     )
