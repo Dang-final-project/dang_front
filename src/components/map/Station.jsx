@@ -108,7 +108,7 @@ const Station = ({station, favList, getFav}) => {
     return ( 
         <Box sx={{borderBottom:'1px solid #bdbdbd', py:2}}>
             <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                <Chip label="브랜드명" color="primary" variant="outlined" />
+                <Chip label={station.manage_entrps_nm} color="primary" variant="outlined" />
                 {clicked ?
                     <IconButton aria-label="like" onClick={deleteStation}>
                         <StarIcon color="secondary" fontSize="large"/>
@@ -151,16 +151,28 @@ const Station = ({station, favList, getFav}) => {
                 )
             }
             <Typography variant="h5" gutterBottom>{station.chrstnNm}</Typography>
-            <Stack direction="row" spacing={2}>
-                <Typography gutterBottom sx={{width:'80px'}}>충전타입</Typography>
-                <Typography gutterBottom>{station.chrstnType}</Typography>
+            <Stack direction="row" >
+                <Typography gutterBottom sx={{width:'100px'}}>충전타입</Typography>
+                <Typography gutterBottom >{station.chrstnType}</Typography>
             </Stack>
-            <Stack direction="row" spacing={2}>
-                <Typography gutterBottom sx={{width:'80px'}}>이용시간</Typography>
+            <Stack direction="row" >
+                <Typography gutterBottom sx={{width:'100px'}}>용량</Typography>
+                <Typography gutterBottom>{station.charger_capacity}</Typography>
+            </Stack>
+            <Stack direction="row" >
+                <Typography gutterBottom sx={{width:'100px'}}>이용시간</Typography>
                 <Typography gutterBottom>{station.useOpenTime}</Typography>
             </Stack>
-            <Stack direction="row" spacing={2}>
-                <Typography gutterBottom sx={{width:'80px'}}>상세주소</Typography>
+            <Stack direction="row" >
+                <Typography gutterBottom sx={{width:'100px'}}>전용주차장</Typography>
+                <Typography gutterBottom>{station.privateCarPark}</Typography>
+            </Stack>
+            <Stack direction="row" >
+                <Typography gutterBottom sx={{width:'100px'}}>이용자제한</Typography>
+                <Typography gutterBottom>{station.user_restrict}</Typography>
+            </Stack>
+            <Stack direction="row" >
+                <Typography gutterBottom sx={{width:'100px'}}>상세주소</Typography>
                 <Typography gutterBottom>{station.rdnmadr}</Typography>
             </Stack>
             <Box sx={{bgcolor:'grey.100',p:2, mt:2, display:'flex', display:'flex',justifyContent:'space-between',alignItems:'center'}}>

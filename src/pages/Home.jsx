@@ -35,7 +35,7 @@ const Home = () => {
 
     let filterQuery = handleFilter(filterList);
 
-    console.log(filterQuery);
+    console.log(filterList);
 
     const getStations = async () => {
         try {
@@ -44,7 +44,7 @@ const Home = () => {
                 throw new Error("API key 없음");
             }
             const pageIdx = 0;
-            const count = 10;
+            const count = 30;
             let url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
             //필터검색
             if(filterQuery !== '') {

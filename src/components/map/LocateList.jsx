@@ -69,10 +69,6 @@ const LocateList = () => {
         getFav();
     },[])
 
-    console.log(stations);
-    console.log(favList);
-    console.log(favStation);
-
     return (
         <>
         <Box
