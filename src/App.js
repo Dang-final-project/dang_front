@@ -11,7 +11,6 @@ import Mypage from "./pages/Mypage";
 import { MapProvider } from "./contexts/MapContext";
 import { LoginContext } from "./contexts/LoginContext";
 import { useProvideAuth } from "./hooks/useProvideAuth";
-import KakaoMap from "../components/map/KakaoMap";
 
 function App() {
     const theme = createTheme({
