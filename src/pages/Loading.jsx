@@ -22,7 +22,7 @@ const Loading = () => {
                 />
             </div>
             <h2 style = {{textAlign : 'center', marginTop : '-30vh'}}>로딩중입니다</h2>
-            <p style = {{ textAlign : 'center', marginTop : '-10px'}}>잠시만 기다려주세요</p>
+            <p style = {{ textAlign : 'center'}}>잠시만 기다려주세요</p>
             
         </>
     );

@@ -3,6 +3,9 @@ import { Grid, Box, Button, Typography} from '@mui/material';
 import SearchInput from './input/SearchInput';
 import CarAPI from './CarAPI';
 import CarPhotoAPI from './CarPhotoAPI';
+import Loading from './../pages/Loading';
+
+
 
 
 // 박스 누르면 팝업창 뜨는거
@@ -55,7 +58,6 @@ const CarType = () => {
                 }}><CarAPI />
                 </Box>
         </Box>
-        
     </Grid>
     );
 }
