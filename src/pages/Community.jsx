@@ -17,7 +17,7 @@ const Report = () => {
         const UserId = loginUser?.id;
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:8000/v1/community/report", {
+            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/community/report`, {
                 carNum,
                 station,
                 content,
