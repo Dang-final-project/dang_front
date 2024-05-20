@@ -108,19 +108,27 @@ const Station = ({station, favList, getFav}) => {
    const changeStationLocation = () => {
     setMapPos({lat: station.latitude, lng: station.longitude})
    }
+   
+   
     return ( 
         <Box sx={{borderBottom:'1px solid #bdbdbd', py:2}} onClick={changeStationLocation}>
             <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                 <Chip label={station.manage_entrps_nm} color="primary" variant="outlined" />
-                {clicked ?
-                    <IconButton aria-label="like" onClick={deleteStation}>
-                        <StarIcon color="secondary" fontSize="large"/>
-                    </IconButton>
-                    :
-                    <IconButton aria-label="unlike" onClick={addStation}>
-                        <StarBorderIcon fontSize="large"/>
-                    </IconButton>
+                {
+                    token && 
+                    <>{
+                        clicked ?
+                        <IconButton aria-label="like" onClick={deleteStation}>
+                            <StarIcon color="secondary" fontSize="large"/>
+                        </IconButton>
+                        :
+                        <IconButton aria-label="unlike" onClick={addStation}>
+                            <StarBorderIcon fontSize="large"/>
+                        </IconButton>
+                    }
+                    </>
                 }
+                
             </Box>
             {
                 clicked && (

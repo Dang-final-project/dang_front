@@ -7,13 +7,12 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import FormControl from '@mui/material/FormControl';
 import kakaoLoginImg from '../assets/kakao_login_large_wide.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { TextInput } from '../components/text_input/TextInput';
 import { InputLabel, TextField } from '@mui/material';
 
 const Login = () => {
     const authData = useAuth();
     const navigate = useNavigate();
-    const { login } = authData;
+    const { login, logout } = authData;
     const {
         register,
         handleSubmit,
