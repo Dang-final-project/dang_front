@@ -17,22 +17,32 @@ const Report = () => {
         const UserId = loginUser?.id;
         e.preventDefault();
         try {
-            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/community/report`, {
-                carNum,
-                station,
-                content,
-                UserId,
-            });
-            if (res.data.code === 200) {
-                Swal.fire({
-                    title: `신고 되었습니다`,
-                    icon: "success",
-                    confirmButtonText: "확인",
-                    confirmButtonColor: theme.palette.primary.main,
+            if (carNum && station && content) {
+                const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/community/report`, {
+                    carNum,
+                    station,
+                    content,
+                    UserId,
                 });
-                setCarNum("");
-                setStation("");
-                setContent("");
+
+                if (res.data.code === 200) {
+                    Swal.fire({
+                        title: `신고 되었습니다`,
+                        icon: "success",
+                        confirmButtonText: "확인",
+                        confirmButtonColor: theme.palette.primary.main,
+                    });
+                    setCarNum("");
+                    setStation("");
+                    setContent("");
+                }
+            } else {
+                Swal.fire({
+                    title: `내용을 입력해주세요`,
+                    icon: "warning",
+                    confirmButtonText: "확인",
+                    confirmButtonColor: theme.palette.error.main,
+                });
             }
         } catch (err) {
             console.error(err);

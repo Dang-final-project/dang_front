@@ -29,14 +29,14 @@ function App() {
     console.log(theme);
     const auth = useProvideAuth();
 
-    const isLoggedIn = false;
+    const isLoggedIn = true;
+    console.log(isLoggedIn);
 
     return (
         <>
             <ThemeProvider theme={theme}>
                 <LoginContext.Provider value={auth}>
                     <CssBaseline />
-
                     <Layout>
                         <Routes>
                             {isLoggedIn ? (
