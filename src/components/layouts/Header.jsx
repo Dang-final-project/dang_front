@@ -17,10 +17,10 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useLocation } from "react-router-dom";
-import "../App.css";
+import "../../App.css";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = () => {
     const theme = useTheme();
