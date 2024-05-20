@@ -1,4 +1,4 @@
-import CarType from './../components/CarType';
+import CarType from './CarType';
 import {
     Box,
     Button,

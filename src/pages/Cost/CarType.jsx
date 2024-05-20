@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Grid, Box, Button, Typography} from '@mui/material';
-import SearchInput from './input/SearchInput';
 import CarAPI from './CarAPI';
 import CarPhotoAPI from './CarPhotoAPI';
-import Loading from './../pages/Loading';
+import SearchInput from './../../components/input/SearchInput';
+
 
 
 
