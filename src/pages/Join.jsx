@@ -39,7 +39,7 @@ const Join = () => {
                     text: response.data.message,
                     icon: "success"
                 });
-                navigate('/');
+                navigate('/login');
             } else {
                 throw new Error(response.data.message);
             }
