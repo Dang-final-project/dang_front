@@ -1,4 +1,4 @@
-import { Box, Paper, Tab, Typography } from "@mui/material";
+import { Box, Paper, Tab, Typography, useTheme } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
@@ -7,6 +7,7 @@ import Station from "./Station";
 import axios from "axios";
 import SearchBox from "./SearchBox";
 import { MapContext } from "../../contexts/MapContext";
+import Swal from "sweetalert2";
 
 const LocateList = () => {
     const {
@@ -28,6 +29,8 @@ const LocateList = () => {
         setValue(newValue);
     };
 
+    const theme = useTheme();
+
     const [searchWord, setSearchWord] = useState("");
 
     const handleSearchChange = (event) => {
@@ -47,7 +50,14 @@ const LocateList = () => {
                 const filteredStations = datas.filter((station) =>
                     station.chrstnNm.includes(searchWord.toUpperCase().replace(/\s+/g, ""))
                 );
-                searchWord ? setStations(filteredStations) : alert("검색어를 입력하세요!");
+                searchWord
+                    ? setStations(filteredStations)
+                    : Swal.fire({
+                          title: `검색어를 입력해주세요`,
+                          icon: "warning",
+                          confirmButtonText: "확인",
+                          confirmButtonColor: theme.palette.error.main,
+                      });
             }
         } catch (err) {
             console.error(err);

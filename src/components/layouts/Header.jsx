@@ -112,7 +112,7 @@ const Header = () => {
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
                     <StyledTypo
                         onClick={() => {
-                            window.location.reload();
+                            window.location.href = "/";
                         }}
                     >
                         당충전
