@@ -1,4 +1,4 @@
-import { Box, Paper, Tab, Typography } from "@mui/material";
+import { Box, Paper, Tab, Typography, useTheme } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
@@ -7,27 +7,30 @@ import Station from "./Station";
 import axios from "axios";
 import SearchBox from "./SearchBox";
 import { MapContext } from "../../contexts/MapContext";
+import Swal from "sweetalert2";
 
 const LocateList = () => {
-
     const {
-        stations, 
-        setStations, 
-        favStation, 
-        setFavStation, 
+        stations,
+        setStations,
+        favStation,
+        setFavStation,
         favList,
         setFavList,
         setPositionArr,
-        filterList
-    } = useContext(MapContext)
+        filterList,
+    } = useContext(MapContext);
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
+
 
     const [value, setValue] = useState("1");
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const theme = useTheme();
 
     const [searchWord, setSearchWord] = useState("");
 
@@ -38,14 +41,25 @@ const LocateList = () => {
     const handleSearch = async () => {
         const key = process.env.REACT_APP_STATION_API_KEY;
         const pageIdx = 0;
-        const count = 10;
+        const count = 1580;
         const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
         try {
             const response = await axios.get(url);
             const datas = response.data.items;
+
+
             if (response.status === 200) {
-                const filteredStations = datas.filter((station) => station.chrstnNm.includes(searchWord.toUpperCase()));
-                setStations(filteredStations);
+                const filteredStations = datas.filter((station) =>
+                    station.chrstnNm.includes(searchWord.toUpperCase().replace(/\s+/g, ""))
+                );
+                searchWord
+                    ? setStations(filteredStations)
+                    : Swal.fire({
+                          title: `검색어를 입력해주세요`,
+                          icon: "warning",
+                          confirmButtonText: "확인",
+                          confirmButtonColor: theme.palette.error.main,
+                      });
             }
         } catch (err) {
             console.error(err);
@@ -64,6 +78,7 @@ const LocateList = () => {
 
         setFavList(fav.data.payload);
     };
+
 
     useEffect(()=>{
         getFav();
