@@ -2,11 +2,14 @@ import { Box, Stack, Chip, Typography, Button, IconButton, TextField } from "@mu
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import RateReviewIcon from '@mui/icons-material/RateReview';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { MapContext } from "../../contexts/MapContext";
 
 const Station = ({station, favList, getFav}) => {
+    const { mapPos, setMapPos } = useContext(MapContext);
+    const token = localStorage.getItem('token');
 
     const [clicked, setClicked] = useState(false);
     const [write, setWrite] = useState(false);
@@ -14,63 +17,73 @@ const Station = ({station, favList, getFav}) => {
     const [memo, setMemo] = useState('');
     
     useEffect(() => {
-        favList.forEach(f => {
-            station.chrstn_id === f.chrstn_id && setClicked(true);
-        })
+        if(favList){
+            favList.forEach(f => {
+                station.chrstn_id === f.chrstn_id && setClicked(true);
+            })
+        }
     }, []);
 
     useEffect(()=>{getMeMmo()},[favList])
     
-    const addStation = async()=>{
-        if(clicked === false) {
-            try{
-                const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/stations/add`,{
-                    chrstn_id : station.chrstn_id,
-                    //유저아이디 등록
-                    // id : localStorage.getItem("userId")
-                    id:1
-                })
-                if (res.data.code === 200){
+    const addStation = async () => {
+        if (clicked === false) {
+            try {
+                const res = await axios.post(
+                    `${process.env.REACT_APP_SERVER_URL}/stations/add`,
+                    { chrstn_id: station.chrstn_id },
+                    {
+                        headers: {
+                            'Authorization': `${token}`
+                        }
+                    }
+                );
+    
+                if (res.data.code === 200) {
                     setClicked(true);
                     getFav();
                 }
-            }catch(err){
+            } catch (err) {
                 console.error(err);
             }
         }
-    }
+    };
 
-    const deleteStation = async()=>{
-        if(clicked === true){
-            try{
-                const res = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/stations/remove`,{
-                    data:{
-                        chrstn_id : station.chrstn_id,
-                        //유저아이디 등록
-                        id : 2
+    const deleteStation = async () => {
+        if (clicked === true) {
+            try {
+                const res = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/stations/remove`, {
+                    data: { chrstn_id: station.chrstn_id },
+                    headers: {
+                        'Authorization': `${token}`
                     }
-                })
-                if (res.data.code === 200){
+                });
+    
+                if (res.data.code === 200) {
                     console.log(res);
-                    setClicked(false)
+                    setClicked(false);
                     getFav();
-
                 }
-
-            }catch(err){
+    
+            } catch (err) {
                 console.error(err);
             }
         }
-    }
+    };
     
     const postMemo = async()=>{
         try{
-            await axios.put(`${process.env.REACT_APP_SERVER_URL}/stations/memo`,{
-                //유저아이디 등록
-                id : 2,
-                chrstn_id : station.chrstn_id,
-                memo:words
-            })
+            await axios.put(`${process.env.REACT_APP_SERVER_URL}/stations/memo`,
+                {
+                    chrstn_id : station.chrstn_id,
+                    memo:words
+                },
+                {
+                    headers: {
+                        'Authorization': `${token}`
+                    }
+                }
+            )
             .then(() => {
                 console.log('작성완료');
                 setWrite(false);
@@ -83,18 +96,22 @@ const Station = ({station, favList, getFav}) => {
     }
 
    const getMeMmo = () => {
-        favList.forEach(f => {
-            if(f.chrstn_id === station.chrstn_id){
-                setMemo(f.memo)
-            }
-        })
+        if(favList){
+            favList.forEach(f => {
+                if(f.chrstn_id === station.chrstn_id){
+                    setMemo(f.memo)
+                }
+            })
+        }
    }
 
-
+   const changeStationLocation = () => {
+    setMapPos({lat: station.latitude, lng: station.longitude})
+   }
     return ( 
-        <Box sx={{borderBottom:'1px solid #bdbdbd', py:2}}>
+        <Box sx={{borderBottom:'1px solid #bdbdbd', py:2}} onClick={changeStationLocation}>
             <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                <Chip label="브랜드명" color="primary" variant="outlined" />
+                <Chip label={station.manage_entrps_nm} color="primary" variant="outlined" />
                 {clicked ?
                     <IconButton aria-label="like" onClick={deleteStation}>
                         <StarIcon color="secondary" fontSize="large"/>
@@ -137,16 +154,28 @@ const Station = ({station, favList, getFav}) => {
                 )
             }
             <Typography variant="h5" gutterBottom>{station.chrstnNm}</Typography>
-            <Stack direction="row" spacing={2}>
-                <Typography gutterBottom sx={{width:'80px'}}>충전타입</Typography>
-                <Typography gutterBottom>{station.chrstnType}</Typography>
+            <Stack direction="row" >
+                <Typography gutterBottom sx={{width:'100px'}}>충전타입</Typography>
+                <Typography gutterBottom >{station.chrstnType}</Typography>
             </Stack>
-            <Stack direction="row" spacing={2}>
-                <Typography gutterBottom sx={{width:'80px'}}>이용시간</Typography>
+            <Stack direction="row" >
+                <Typography gutterBottom sx={{width:'100px'}}>용량</Typography>
+                <Typography gutterBottom>{station.charger_capacity}</Typography>
+            </Stack>
+            <Stack direction="row" >
+                <Typography gutterBottom sx={{width:'100px'}}>이용시간</Typography>
                 <Typography gutterBottom>{station.useOpenTime}</Typography>
             </Stack>
-            <Stack direction="row" spacing={2}>
-                <Typography gutterBottom sx={{width:'80px'}}>상세주소</Typography>
+            <Stack direction="row" >
+                <Typography gutterBottom sx={{width:'100px'}}>전용주차장</Typography>
+                <Typography gutterBottom>{station.privateCarPark}</Typography>
+            </Stack>
+            <Stack direction="row" >
+                <Typography gutterBottom sx={{width:'100px'}}>이용자제한</Typography>
+                <Typography gutterBottom>{station.user_restrict}</Typography>
+            </Stack>
+            <Stack direction="row" >
+                <Typography gutterBottom sx={{width:'100px'}}>상세주소</Typography>
                 <Typography gutterBottom>{station.rdnmadr}</Typography>
             </Stack>
             <Box sx={{bgcolor:'grey.100',p:2, mt:2, display:'flex', display:'flex',justifyContent:'space-between',alignItems:'center'}}>

@@ -14,20 +14,30 @@ import {
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useLocation } from "react-router-dom";
-import "../App.css";
+import "../../App.css";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = () => {
-    const [open, setOpen] = useState(false);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [userStatus, setUserStatus] = useState("guest"); // guest, user, admin
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.up("md"));
     const location = useLocation();
+    const { loginUser, logout } = useAuth();
+    const [open, setOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [userStatus, setUserStatus] = useState("guest"); // guest, user, admin
+
+    useEffect(() => {
+        if (loginUser?.id) {
+            setUserStatus("user");
+        } else {
+            setUserStatus("guest");
+        }
+    }, [loginUser]);
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
@@ -120,7 +130,7 @@ const Header = () => {
                                     onClick={() => setDropdownOpen(!dropdownOpen)}
                                     sx={{ position: "relative" }}
                                 >
-                                    님
+                                    {/* 나중에 정보 받아와서 바꾸기 */}님
                                     {dropdownOpen ? (
                                         <ArrowDropUpIcon sx={{ fontSize: "22px" }} />
                                     ) : (
@@ -131,7 +141,16 @@ const Header = () => {
                             </Grid>
                             {user.map((text, index) => (
                                 <Link to={text.link}>
-                                    <StyledTypo>{text.nav}</StyledTypo>
+                                    <StyledTypo
+                                        onClick={() => {
+                                            text.nav === "로그아웃" &&
+                                                logout(() => {
+                                                    setUserStatus("guest");
+                                                });
+                                        }}
+                                    >
+                                        {text.nav}
+                                    </StyledTypo>
                                 </Link>
                             ))}
                         </Grid>
@@ -155,7 +174,15 @@ const Header = () => {
             <ListItem key={text.nav} disablePadding>
                 <Link to={text.link}>
                     <ListItemButton>
-                        <ListItemText primary={text.nav} />
+                        <ListItemText
+                            onClick={() => {
+                                text.nav === "로그아웃" &&
+                                    logout(() => {
+                                        setUserStatus("guest");
+                                    });
+                            }}
+                            primary={text.nav}
+                        />
                     </ListItemButton>
                 </Link>
             </ListItem>
@@ -188,7 +215,7 @@ const Header = () => {
                         onClick={() => setDropdownOpen(!dropdownOpen)}
                         sx={{ position: "relative" }}
                     >
-                        님
+                        {/* 나중에 정보 받아와서 바꾸기 */}님
                         {dropdownOpen ? (
                             <ArrowDropUpIcon sx={{ fontSize: "22px" }} />
                         ) : (

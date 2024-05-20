@@ -7,21 +7,26 @@ export const MapProvider = ({ children }) => {
     const [favStation, setFavStation] = useState([]);
     const [favList, setFavList] = useState([]);
     const [positionArr, setPositionArr] = useState();
-    const [filterList, setFilterList] = useState({})
+    const [filterList, setFilterList] = useState({});
+    const [mapPos, setMapPos] = useState();
 
+    useEffect(() => {
+      navigator.geolocation.getCurrentPosition(pos => {
+        setMapPos({lat:pos.coords.latitude, lng:pos.coords.longitude});
+      }, err => {
+        setMapPos({lat:37.261911, lng:127.030736});
+      })
+    }, []);
+    
   return (
     <MapContext.Provider 
         value={{ 
-            stations, 
-            setStations, 
-            favStation, 
-            setFavStation,
-            favList,
-            setFavList,
-            positionArr,
-            setPositionArr,
-            filterList,
-            setFilterList
+            stations, setStations, 
+            favStation, setFavStation,
+            favList, setFavList,
+            positionArr, setPositionArr,
+            filterList, setFilterList,
+            mapPos, setMapPos,
         }}
     >
       {children}
