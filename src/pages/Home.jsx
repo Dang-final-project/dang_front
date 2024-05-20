@@ -121,6 +121,7 @@ const Home = () => {
                             }
                         });
                         //console.log(results)
+                        console.log('즐겨찾기 리스트 생성')
                         setFavStation(results);
                     }
                 }catch(err){
@@ -129,6 +130,8 @@ const Home = () => {
             }
         }
     };
+
+    console.log(favStation);
 
     useEffect(() => {
         getStations();

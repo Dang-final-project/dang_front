@@ -12,7 +12,7 @@ export default function Open() {
     const [btnClicked, setBtnClicked] = useState(false);
     const getFilterVal = () => {
         if(btnClicked){
-            setFilterList({...filterList,user_restrict : '이용자 제한 없음'});
+            setFilterList({...filterList,user_restrict : ''});
             setBtnClicked(false);
         }else{
             setFilterList({...filterList,user_restrict : '이용자 제한 없음'});

@@ -59,8 +59,7 @@ const LocateList = () => {
                 'authorization' : `${token}`
             }
          });
-        //console.log(fav.data.payload);
-
+        // console.log(fav.data.payload);
         setFavList(fav.data.payload);
     };
 
@@ -115,7 +114,7 @@ const LocateList = () => {
                                 )}
                             </TabPanel>
                             <TabPanel value="2" sx={{ height: "100%", overflow: "scroll" }}>
-                                {favStation && favList ? (
+                                {favStation.length !== 0 && favList.length !== 0  ? (
                                     favStation.map((fav, idx) => {
                                         return (
                                             <Station

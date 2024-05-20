@@ -1,4 +1,4 @@
-import { Chip, Grid } from "@mui/material";
+import { Chip, Grid, Button } from "@mui/material";
 import React, { useState } from "react";
 
 const Brand = ({ brands }) => {
@@ -24,8 +24,10 @@ const Brand = ({ brands }) => {
                         label={brand}
                         onClick={() => handleBrandClick(brand)}
                     />
+                     <Button>환경부</Button>
                 </Grid>
             ))}
+            <Button>환경부</Button>
         </Grid>
     );
 }

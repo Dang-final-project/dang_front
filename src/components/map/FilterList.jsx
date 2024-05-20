@@ -6,17 +6,19 @@ import Speed from "../filter/Speed";
 import Using from "../filter/Using";
 import Pay from './../filter/Pay';
 import Open from './../filter/Open';
+import Manage from "../filter/Manage";
 
 const FilterList = () => {
 
     return ( 
         <Paper square fullwidth="true" bgcolor='pink' sx={{py:1 ,px:3 ,display:'flex', gap:'8px'}}>
-            <Local />
-            <Empty />
+            {/* <Local /> */}
+            {/* <Empty /> */}
             <Conect />
-            <Speed />
-            <Using />
-            <Pay />
+            {/* <Speed /> */}
+            {/* <Using /> */}
+            {/* <Pay /> */}
+            <Manage />
             <Open />
         </Paper>
      );
