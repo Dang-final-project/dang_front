@@ -167,7 +167,7 @@ const Home = () => {
                             </Box>
                         </Box>
                     )}
-                    {/* <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap> */}
+                    <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap>
                 </>
             ) : (
                 <Loading />
