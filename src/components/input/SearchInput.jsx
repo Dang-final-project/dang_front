@@ -1,4 +1,4 @@
-import { Box, Button, InputBase, Paper, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 
 const SearchInput = ({ width, onClick, handleSearchChange }) => {
     return (
