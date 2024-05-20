@@ -94,7 +94,7 @@ const Header = () => {
         { nav: "요금현황", link: "/cost" },
         { nav: "커뮤니티", link: "/community" },
         { nav: "마이페이지", link: "/mypage" },
-        { nav: "로그아웃", link: "/login" },
+        { nav: "로그아웃", link: "/" },
     ];
 
     const admin = [
@@ -102,7 +102,8 @@ const Header = () => {
         { nav: "요금현황", link: "/cost" },
         { nav: "커뮤니티", link: "/community" },
         { nav: "회원관리", link: "/admin" },
-        { nav: "로그아웃", link: "/login" },
+        { nav: "로그아웃", link: "/" },
+
     ];
 
     const ELEVATION = location.pathname === "/" ? 0 : 4;
@@ -110,9 +111,15 @@ const Header = () => {
         return (
             <AppBar color="secondary" elevation={ELEVATION}>
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Link to="/">
-                        <StyledTypo>당충전</StyledTypo>
-                    </Link>
+
+                    <StyledTypo
+                        onClick={() => {
+                            window.location.href = "/";
+                        }}
+                    >
+                        당충전
+                    </StyledTypo>
+
 
                     {userStatus && userStatus === "guest" && (
                         <Grid sx={{ display: "flex" }}>

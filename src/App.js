@@ -29,6 +29,7 @@ function App() {
     console.log(theme);
     const auth = useProvideAuth();
 
+
     const isLoggedIn = false;
 
     return (
@@ -36,7 +37,6 @@ function App() {
             <ThemeProvider theme={theme}>
                 <LoginContext.Provider value={auth}>
                     <CssBaseline />
-
                     <Layout>
                         <Routes>
                             {isLoggedIn ? (
