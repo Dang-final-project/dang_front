@@ -1,5 +1,5 @@
 import { Paper } from "@mui/material";
-import SearchInput from "../input/SearchInput";
+import SearchInput from "../../components/input/SearchInput";
 
 const SearchBox = ({ onClick, handleSearchChange }) => {
     return (
