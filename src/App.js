@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import Layout from "./layouts/layout";
+
+// import Layout from "./layouts/layout";
 import Home from "./pages/Home";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import Login from "./pages/Login";
@@ -8,9 +9,9 @@ import Admin from "./pages/Admin";
 import Community from "./pages/Community";
 import Cost from "./pages/Cost";
 import Mypage from "./pages/Mypage";
-import { MapProvider } from "./contexts/MapContext";
 import { LoginContext } from "./contexts/LoginContext";
 import { useProvideAuth } from "./hooks/useProvideAuth";
+import Layout from "./components/layouts/layout";
 
 function App() {
     const theme = createTheme({
@@ -27,28 +28,37 @@ function App() {
 
     console.log(theme);
     const auth = useProvideAuth();
+
+    const isLoggedIn = false;
+
     return (
         <>
             <ThemeProvider theme={theme}>
                 <LoginContext.Provider value={auth}>
-                <CssBaseline />
-                <MapProvider>
+                    <CssBaseline />
+
                     <Layout>
                         <Routes>
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/join" element={<Join />} />
+                            {isLoggedIn ? (
+                                <>
+                                    <Route path="/admin" element={<Admin />} />
+                                    <Route path="/community" element={<Community />} />
+                                    <Route path="/mypage" element={<Mypage />} />
+                                </>
+                            ) : (
+                                <>
+                                    <Route path="/login" element={<Login />} />
+                                    <Route path="/join" element={<Join />} />
+                                </>
+                            )}
                             <Route path="/" element={<Home />} />
-                            <Route path="/admin" element={<Admin />} />
                             <Route path="/cost" element={<Cost />} />
-                            <Route path="/community" element={<Community />} />
-                            <Route path="/mypage" element={<Mypage />} />
                         </Routes>
                     </Layout>
-                </MapProvider>
                 </LoginContext.Provider>
             </ThemeProvider>
         </>
-    )
+    );
 }
 
 export default App;
