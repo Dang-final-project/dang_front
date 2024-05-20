@@ -103,6 +103,7 @@ const Header = () => {
         { nav: "커뮤니티", link: "/community" },
         { nav: "회원관리", link: "/admin" },
         { nav: "로그아웃", link: "/" },
+
     ];
 
     const ELEVATION = location.pathname === "/" ? 0 : 4;
@@ -110,6 +111,7 @@ const Header = () => {
         return (
             <AppBar color="secondary" elevation={ELEVATION}>
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+
                     <StyledTypo
                         onClick={() => {
                             window.location.href = "/";
@@ -117,6 +119,7 @@ const Header = () => {
                     >
                         당충전
                     </StyledTypo>
+
 
                     {userStatus && userStatus === "guest" && (
                         <Grid sx={{ display: "flex" }}>

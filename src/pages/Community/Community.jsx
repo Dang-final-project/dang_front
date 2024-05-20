@@ -43,6 +43,7 @@ const Report = () => {
                     confirmButtonText: "확인",
                     confirmButtonColor: theme.palette.error.main,
                 });
+
             }
         } catch (err) {
             console.error(err);

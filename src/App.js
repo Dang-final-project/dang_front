@@ -29,8 +29,8 @@ function App() {
     console.log(theme);
     const auth = useProvideAuth();
 
-    const isLoggedIn = true;
-    console.log(isLoggedIn);
+
+    const isLoggedIn = false;
 
     return (
         <>
