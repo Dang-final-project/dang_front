@@ -17,6 +17,8 @@ import FilterList from "../Map/FilterList";
 import LocateList from "../Map/LocateList";
 import BottomBtns from "../Map/BottomBtns";
 import KakaoMap from "../Map/KakaoMap";
+import { FilterGroup } from "./components/FilterGroup" 
+import BottomBtnGroup from "./components/BottomBtnGroup";
 
 const Home = () => {
     const {
@@ -79,7 +81,7 @@ const Home = () => {
                         ex_item.tot_count += 1;
                     }
                 });
-                //console.log(results);
+                console.log(results);
                 const arr = [];
                 results.forEach((r) => {
                     //console.log(r)
@@ -137,7 +139,6 @@ const Home = () => {
         }
     };
 
-    console.log(favStation);
 
     useEffect(() => {
         getStations();
@@ -156,17 +157,14 @@ const Home = () => {
             {positionArr ? (
                 <>
                     {tabletWidth ? (
-                        <>
-                            <Box sx={{ marginTop: "64px" }}>
-                                <FilterList sx={{ position: "relative" }} />
-                                {/* <SearchBox /> */}
-                                <LocateList />
-                            </Box>
-                        </>
+                        <Box component="section" sx={{ marginTop: "64px" }}>
+                            <FilterGroup />
+                            <LocateList />
+                        </Box>
                     ) : (
-                        <Box sx={{ position: "relative", marginTop: "64px" }}>
-                            <Box sx={{ zIndex: "10", position: "absolute", bottom: 10 }}>
-                                <BottomBtns />
+                        <Box component="section" sx={{ position: "relative", marginTop: "64px" }}>
+                            <Box component="article" sx={{ zIndex: "10", position: "absolute", bottom: 10 }}>
+                                {/* <BottomBtnGroup /> */}
                             </Box>
                         </Box>
                     )}
