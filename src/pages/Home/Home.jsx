@@ -1,24 +1,14 @@
-// import FilterList from "../../components/map/FilterList";
-
-// import SearchBox from "../../components/map/SearchBox";
-// import LocateList from "../../components/map/LocateList";
-
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useEffect, useState, useContext } from "react";
 import { Box, Paper, ButtonGroup, Button } from "@mui/material";
-// import BottomBtns from "../../components/map/BottomBtns";
-// import KakaoMap from "../../components/map/KakaoMap";
 import { Map } from "react-kakao-maps-sdk";
 import { MapContext } from "../../contexts/MapContext";
 import axios from "axios";
 import Loading from "../Loading";
-import FilterList from "../Map/FilterList";
 import LocateList from "../Map/LocateList";
-import BottomBtns from "../Map/BottomBtns";
-import KakaoMap from "../Map/KakaoMap";
 import { FilterGroup } from "./components/FilterGroup" 
-import BottomBtnGroup from "./components/BottomBtnGroup";
+import { BottomBtnGroup } from "./components/BottomBtnGroup";
 
 const Home = () => {
     const {
@@ -164,7 +154,7 @@ const Home = () => {
                     ) : (
                         <Box component="section" sx={{ position: "relative", marginTop: "64px" }}>
                             <Box component="article" sx={{ zIndex: "10", position: "absolute", bottom: 10 }}>
-                                {/* <BottomBtnGroup /> */}
+                                <BottomBtnGroup />
                             </Box>
                         </Box>
                     )}

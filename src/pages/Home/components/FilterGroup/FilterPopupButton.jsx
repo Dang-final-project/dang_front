@@ -10,7 +10,7 @@ export function FilterPopupButton({label, filterKey, filterValue, Separator}) {
     const { filterList, setFilterList} = React.useContext(MapContext);
     // //필터 데이터 전송
     const [activeButtons, setActiveButtons] = React.useState([]);
-    const [connectList, setConnectList] = React.useState("");
+    const [currentFilter, setCurrentFilter] = React.useState("");
     
     // 중복 선택 가능 버튼
     const handleMultipleSelete = (type) => {
@@ -18,7 +18,7 @@ export function FilterPopupButton({label, filterKey, filterValue, Separator}) {
             const updatedList = prev.includes(type)
                 ? prev.filter(item => item !== type)
                 : [...prev, type];
-            setConnectList(updatedList.join(Separator))
+            setCurrentFilter(updatedList.join(Separator))
             return updatedList;
         });
     };
@@ -27,13 +27,13 @@ export function FilterPopupButton({label, filterKey, filterValue, Separator}) {
     const handleSingleSelete = (type) => {
         setActiveButtons((prev) => {
             const updateList = prev.includes(type) ? [] : [type]
-            setConnectList(updateList.toString());
+            setCurrentFilter(updateList.toString());
             return updateList;
         });
     }
 
     const getFilterVal = () => {
-        setFilterList(prev => ({...filterList,[filterKey] :connectList}));
+        setFilterList(prev => ({...filterList,[filterKey] :currentFilter}));
       }
 
     return(

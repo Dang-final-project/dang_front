@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -17,9 +19,12 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export default function FilterPopup({title, children, open, setOpen}){
 
+    const theme = useTheme();
+    const tabletWidth = useMediaQuery(theme.breakpoints.up("md"));
+
     const dialogContentProps = {
         sx: {
-            width:500,
+            width:tabletWidth ? 500 : '100%',
             height:'auto'
         },
         ...(title && { dividers: true }),
