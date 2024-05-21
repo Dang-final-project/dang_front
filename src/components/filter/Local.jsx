@@ -36,7 +36,9 @@ export default function Local({ title, children }) {
 
     return (
         <React.Fragment>
-            <Button variant="outlined" sx={{ backgroundColor: "primary" }} onClick={handleClickOpen}>
+            <Button variant="outlined" onClick={handleClickOpen} sx={{
+                backgroundColor:'primary'
+            }}>
                 지역
                 {/* 카드 만들어지면 import 하기 */}
             </Button>
