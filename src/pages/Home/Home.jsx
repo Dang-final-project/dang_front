@@ -16,7 +16,7 @@ import Loading from "../Loading";
 import FilterList from "../Map/FilterList";
 import LocateList from "../Map/LocateList";
 import BottomBtns from "../Map/BottomBtns";
-import KakaoMap from "../Map/KakaoMap";
+import KakaoMap from '../Home/components/Map/KakaoMap';
 
 const Home = () => {
     const {
