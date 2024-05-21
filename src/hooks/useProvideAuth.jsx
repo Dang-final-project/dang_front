@@ -1,19 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 // import KakaoMap from "./../components/map/KakaoMap";
+import { jwtDecode } from "jwt-decode";
 
 export const useProvideAuth = () => {
     const [loginUser, setLoginUser] = useState({
         id: localStorage.getItem("userId"),
         token: localStorage.getItem("token"),
+        nickname: "",
     });
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const decodedToken = jwtDecode(token);
+                setLoginUser((prevUser) => ({
+                    ...prevUser,
+                    nickname: decodedToken.nickname,
+                }));
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }, []);
 
     const kakaoLogin = () => {
         const cookies = new Cookies();
+
         if (cookies.get("accessToken") && cookies.get("userId")) {
             localStorage.setItem("userId", cookies.get("userId"));
             localStorage.setItem("token", cookies.get("accessToken"));
+
             setLoginUser({
                 id: cookies.get("userId"),
                 token: cookies.get("accessToken"),
@@ -29,11 +48,16 @@ export const useProvideAuth = () => {
             if (response.data.code === 200) {
                 const id = response.data.userId;
                 const token = response.data.accessToken;
+
                 localStorage.setItem("userId", id);
                 localStorage.setItem("token", token);
+
+                const decodedToken = jwtDecode(token);
+
                 setLoginUser({
                     id: id,
                     token,
+                    nickname: decodedToken.nickname,
                 });
             }
             callback(response);
@@ -41,10 +65,12 @@ export const useProvideAuth = () => {
             console.error(error);
         }
     };
-
+    const cookies = new Cookies();
     const logout = (callback) => {
         localStorage.removeItem("userId");
         localStorage.removeItem("token");
+        cookies.remove("userId");
+        cookies.remove("accessToken");
         setLoginUser(null);
         // 리프레시 토큰 삭제
         callback();
