@@ -9,12 +9,6 @@ import Review from './Review/Review'
 
 const Community = () => {
     const [activeButton, setActiveButton] = useState("review");
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const { loginUser } = useAuth();
-
-    useEffect(() => {
-        loginUser?.id ? setIsLoggedIn(true) : setIsLoggedIn(false);
-    }, [loginUser]);
 
     return (
         <Grid sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
@@ -39,7 +33,7 @@ const Community = () => {
                         backgroundColor: activeButton === "report" ? "primary.main" : "primary.light",
                     }}
                     onClick={() => {
-                        isLoggedIn ? setActiveButton("report") : window.location.replace("/login");
+                        setActiveButton("report");
                     }}
                 >
                     신고하기
