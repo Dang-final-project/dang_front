@@ -16,7 +16,7 @@ import Loading from "../Loading";
 import FilterList from "../Map/FilterList";
 import LocateList from "../Map/LocateList";
 import BottomBtns from "../Map/BottomBtns";
-import KakaoMap from "../Map/KakaoMap";
+import KakaoMap from "../Home/components/Map/KakaoMap";
 
 const Home = () => {
     const {
@@ -167,7 +167,10 @@ const Home = () => {
                             </Box>
                         </Box>
                     )}
-                    <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap>
+                    <KakaoMap
+                        sx={{ zIndex: "-100", position: "absolute", top: 0 }}
+                        positionArr={positionArr}
+                    ></KakaoMap>
                 </>
             ) : (
                 <Loading />
