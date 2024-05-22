@@ -1,5 +1,6 @@
 import { useTheme } from "@emotion/react";
 import { Button, FormControl, Grid, OutlinedInput, TextField, Typography, useMediaQuery } from "@mui/material";
+import Rating from '@mui/material/Rating';
 import { useCallback, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -7,8 +8,9 @@ import { useAuth } from './../../../hooks/useAuth';
 
 const ReviewPost = () => {
     const { loginUser } = useAuth();
-    const [carNum, setCarNum] = useState("");
+    const [title, setTitle] = useState("");
     const [station, setStation] = useState("");
+    const [starScore, setStarScore] = useState("");
     const [content, setContent] = useState("");
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
@@ -17,28 +19,31 @@ const ReviewPost = () => {
         const UserId = loginUser?.id;
         e.preventDefault();
         try {
-            if (carNum && station && content) {
+            if (UserId && title && station) {
                 const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/community/report`, {
-                    carNum,
+                    title,
                     station,
+                    starScore,
                     content,
                     UserId,
+                    //작성 날짜
                 });
 
                 if (res.data.code === 200) {
                     Swal.fire({
-                        title: `신고 되었습니다`,
+                        title: `작성 완료하였습니다.`,
                         icon: "success",
                         confirmButtonText: "확인",
                         confirmButtonColor: theme.palette.primary.main,
                     });
-                    setCarNum("");
+                    setTitle("");
                     setStation("");
+                    setStarScore("");
                     setContent("");
                 }
             } else {
                 Swal.fire({
-                    title: `내용을 입력해주세요`,
+                    title: `이용후기를 작성해 주세요`,
                     icon: "warning",
                     confirmButtonText: "확인",
                     confirmButtonColor: theme.palette.error.main,
@@ -50,22 +55,26 @@ const ReviewPost = () => {
         }
     };
 
-    const handleCarNumChange = useCallback((e) => {
-        setCarNum(e.target.value);
+    const writeTitle = useCallback((e) => {
+        setTitle(e.target.value);
     }, []);
 
-    const handleStationChange = useCallback((e) => {
+    const writeStation = useCallback((e) => {
         setStation(e.target.value);
     }, []);
 
-    const handleContentChange = useCallback((e) => {
+    const writestarScore = useCallback((e) => {
+        setStarScore(e.target.value);
+    }, []);
+
+    const writeContent = useCallback((e) => {
         setContent(e.target.value);
     }, []);
 
     return (
         <>
             <Typography variant="h5" sx={{ margin: "30px" }}>
-                비매너 차량 신고
+                이용 충전소 후기
             </Typography>
             <form onSubmit={handleSubmit}>
                 <Grid
@@ -84,11 +93,11 @@ const ReviewPost = () => {
                             alignItems: isDesktop ? "center" : "left",
                         }}
                     >
-                        <Typography sx={{ marginRight: 2 }}>차번호 {isDesktop && ":"}</Typography>
+                        <Typography sx={{ marginRight: 2 }}>제목 {isDesktop && ":"}</Typography>
                         <OutlinedInput
-                            name="carNum"
-                            value={carNum}
-                            onChange={handleCarNumChange}
+                            name="title"
+                            value={title}
+                            onChange={writeTitle}
                             sx={{ minWidth: "400px" }}
                         />
                     </FormControl>
@@ -104,8 +113,33 @@ const ReviewPost = () => {
                         <OutlinedInput
                             name="station"
                             value={station}
-                            onChange={handleStationChange}
+                            onChange={writeStation}
                             sx={{ minWidth: "400px" }}
+                        />
+                    </FormControl>
+                    <FormControl
+                        sx={{
+                            mb: 2,
+                            display: "flex",
+                            flexDirection: isDesktop ? "row" : "column",
+                            alignItems: isDesktop ? "center" : "flex-start",
+                        }}
+                    >
+                        <Typography sx={{ marginRight: 7, whiteSpace: "nowrap" }}>
+                            별 점 {isDesktop && ":"}
+                        </Typography>
+                        <Rating
+                            name="starscore"
+                            value={starScore}
+                            onChange={writestarScore}
+                            size="large"
+                        />
+                        <TextField
+                            name="starscore"
+                            value={starScore}
+                            onChange={(e) => setStarScore(e.target.value)}
+                            //onChange={writestarScore}
+                            sx={{ visibility: "hidden"}}
                         />
                     </FormControl>
                     <FormControl
@@ -117,12 +151,12 @@ const ReviewPost = () => {
                         }}
                     >
                         <Typography sx={{ marginRight: 2, whiteSpace: "nowrap" }}>
-                            신고 내용 {isDesktop && ":"}
+                            후기 내용 {isDesktop && ":"}
                         </Typography>
                         <TextField
                             name="content"
                             value={content}
-                            onChange={handleContentChange}
+                            onChange={writeContent}
                             multiline
                             rows={9}
                             sx={{ minWidth: "400px" }}
@@ -138,7 +172,7 @@ const ReviewPost = () => {
                             marginBottom: "20px",
                         }}
                     >
-                        신고
+                        작성하기
                     </Button>
                 </Grid>
             </form>
