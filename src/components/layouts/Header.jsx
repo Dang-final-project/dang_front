@@ -41,15 +41,7 @@ const Header = () => {
         } else {
             setUserStatus("guest");
         }
-    }, []);
-
-    useEffect(() => {
-        if (kakaoLogin) {
-            setUserStatus("user");
-        } else {
-            setUserStatus("guest");
-        }
-    }, [kakaoLogin]);
+    }, [loginUser, kakaoLogin]);
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
