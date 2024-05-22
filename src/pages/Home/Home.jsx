@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import { MapContext } from "../../contexts/MapContext";
 import Loading from "../Loading";
 import LocateList from "../Map/LocateList";
-import { FilterGroup } from "./components/FilterGroup"; 
+import { FilterGroup } from "./components/FilterGroup";
 import { BottomBtnGroup } from "./components/BottomBtnGroup";
 import { GetStations } from "./utils/GetStations";
 import { GetFavStations } from "./utils/GatFavStations";
@@ -13,14 +13,7 @@ import { StationField } from "./components/StationField";
 import KakaoMap from "../Home/components/Map/KakaoMap";
 
 const Home = () => {
-    const {
-        setStations,
-        setFavStation,
-        favList,
-        positionArr,
-        setPositionArr,
-        filterList,
-    } = useContext(MapContext);
+    const { setStations, setFavStation, favList, positionArr, setPositionArr, filterList } = useContext(MapContext);
 
     useEffect(() => {
         GetStations(filterList, setPositionArr, setStations);
@@ -51,10 +44,10 @@ const Home = () => {
                             </Box>
                         </Box>
                     )}
-                    <KakaoMap
+                    {/* <KakaoMap
                         sx={{ zIndex: "-100", position: "absolute", top: 0 }}
                         positionArr={positionArr}
-                    ></KakaoMap>
+                    ></KakaoMap> */}
                 </>
             ) : (
                 <Loading />
