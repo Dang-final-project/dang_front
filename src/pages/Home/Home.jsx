@@ -10,6 +10,7 @@ import { BottomBtnGroup } from "./components/BottomBtnGroup";
 import { GetStations } from "./utils/GetStations";
 import { GetFavStations } from "./utils/GatFavStations";
 import { StationField } from "./components/StationField";
+import KakaoMap from "../Home/components/Map/KakaoMap";
 
 const Home = () => {
     const {
@@ -50,7 +51,10 @@ const Home = () => {
                             </Box>
                         </Box>
                     )}
-                    {/* <KakaoMap sx={{ zIndex: "-100", position: "absolute", top: 0 }} positionArr={positionArr}></KakaoMap> */}
+                    <KakaoMap
+                        sx={{ zIndex: "-100", position: "absolute", top: 0 }}
+                        positionArr={positionArr}
+                    ></KakaoMap>
                 </>
             ) : (
                 <Loading />
