@@ -26,6 +26,21 @@ export const useProvideAuth = () => {
         }
     }, []);
 
+    useEffect(() => {
+        const kakaoToken = cookies.get("accessToken");
+        if (kakaoToken) {
+            try {
+                const decodedKakaoToken = jwtDecode(kakaoToken);
+                setLoginUser((prevUser) => ({
+                    ...prevUser,
+                    nickname: decodedKakaoToken.nickname,
+                }));
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }, []);
+
     const kakaoLogin = () => {
         const cookies = new Cookies();
 
@@ -36,6 +51,7 @@ export const useProvideAuth = () => {
             setLoginUser({
                 id: cookies.get("userId"),
                 token: cookies.get("accessToken"),
+                nickname: "",
             });
         }
         cookies.remove("userId");
