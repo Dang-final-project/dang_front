@@ -5,14 +5,17 @@ import { useCallback, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useAuth } from './../../../hooks/useAuth';
+import { useNavigate } from "react-router-dom";
 
 const ReviewPost = () => {
     const { loginUser } = useAuth();
     const [station, setStation] = useState("");
-    const [starScore, setStarScore] = useState("");
+    const [starScore, setStarScore] = useState(0);
     const [content, setContent] = useState("");
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         const UserId = loginUser?.id;
@@ -32,9 +35,9 @@ const ReviewPost = () => {
                         icon: "success",
                         confirmButtonText: "확인",
                         confirmButtonColor: theme.palette.primary.main,
-                    });
+                    }).then(() => navigate("/community"));
                     setStation("");
-                    setStarScore("");
+                    setStarScore(0);
                     setContent("");
                 }
             } else {
@@ -55,8 +58,8 @@ const ReviewPost = () => {
         setStation(e.target.value);
     }, []);
 
-    const writestarScore = useCallback((e) => {
-        setStarScore(e.target.value);
+    const writestarScore = useCallback((event, newValue) => {
+        setStarScore(newValue);
     }, []);
 
     const writeContent = useCallback((e) => {
