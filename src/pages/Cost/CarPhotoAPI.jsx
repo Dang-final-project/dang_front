@@ -2,63 +2,58 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const CarPhotoAPI = () => {
-    const [data, setData] = useState(null);
+    const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
 
-    useEffect(()=> {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('https://api.odcloud.kr/api/15039549/v1/uddi:aacd2890-94b3-4645-baba-da7f3561e83d_202004141517?page=1&perPage=10&serviceKey=4B1nW8qD9IBn0d7dknKCzNYFxKNer4bSpWUpGZ8VhpFr9XZ14V8xXcF9vAd0my6td3TGf47WXnmmtYH2V3JV3Q%3D%3D');
-                console.log('API Response', response.data);
+  useEffect(() => {
+    const fetchRandomImage = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get('https://api.unsplash.com/photos/random/', {
+          headers: {
+            Authorization: 'Client-ID n_tf9FBumTAVXh-3oZpzf4IvSWzB0AA3rgWqKSHNp9Y'
+          },
+          params: {
+            query: 'car',
+            count: 18
+          }
+        });
+        setImages(response.data);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error',err);
+        setError('Failed to fetch image');
+        setLoading(false);
+      }
+    };
 
-                if (response.data && response.data.data) {
-                    setData(response.data.data);
-                } else {
-                    setData([]);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    fetchRandomImage();
+  }, []);
 
-        fetchData();
-    }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error.message}</div>
+  if (error) {
+    return <div>{error}</div>;
+  }
 
-    return (
-        <div>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    {data.length > 0 ? (
-                        data.map((item, index) => (
-                        <div key={index} style={{
-                            border: '1px solid #ccc',
-                            padding: '3vh',
-                            margin: '1vh',
-                            width: '100%',
-                            borderRadius: '8px',
-                            boxShadow: '0 0 10px rgba(0,0,0,0.1)'
-                        }}>
-                            <strong>모델명: {item.모델명}</strong>
-                            <p>제조사: {item.제조사}</p>
-                            <p>급속충전방식: {item.급속충전방식}</p>
-                            <p>완속충전방식: {item.완속충전방식}</p>
-                            <p>배터리용량: {item.배터리용량}</p>
-                            <p>출시일: {item.출시일}</p>
-                        </div>
-                    ))
-                ) : (
-                    <p>No data available</p>
-                )}
-            </div>
-        </div>
-    );
+  return (
+    <div>
+        {images.map((image) => (
+            <img src={`${image.urls.raw}&w=80&fit=crop`}
+            style={{border: '1px solid #ccc',
+            alignItems: 'flex-start',
+            padding: '1vh',
+            marginBottom: '1vh',
+            width: '100%',
+            height: '27vh',
+            borderRadius: 8,
+            boxShadow: '0 0 10px rgba(0,0,0,0.1)'}}/>
+        ))}
+    </div>
+  );
 };
-
 
 export default CarPhotoAPI;
