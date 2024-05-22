@@ -12,83 +12,55 @@ import { useState } from "react";
 import { MapContext } from "../../contexts/MapContext";
 
 
-// 제목 넣고 싶을 때 -> <ContentsPopup title="title"></ContentsPopup>
-// 내용 넣고 싶을 때 -> <ContentsPopup>안녕하세요</ContentsPopup>
-
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
         padding: theme.spacing(2),
     },
     "& .MuiDialogActions-root": {
-        padding: theme.spacing(1),
+        padding: theme.spacing(1), 
     },
 }));
 
-const images = [
-  {
-    url: '/buttonImage/AC3.png',
-    width: '40%'
-  }, {
-    url: '/buttonImage/DC.png',
-    width: '40%',
-  }, {
-    url: '/buttonImage/무선.png',
-    width: '40%',
-  },{
-    url: '/buttonImage/완속.png',
-    width: '40%',
-  },{
-    url: '/buttonImage/이동형.png',
-    width: '40%',
-  },{
-    url: '/buttonImage/차데모.png',
-    width: '40%',
-  }, {
-    url: '/buttonImage/테슬라.png',
-    width: '40%',
-  }
-];
+// const ImageButton = styled(ButtonBase)(({ theme }) => ({
+//   position: 'relative',
+//   height: 200,
+//   [theme.breakpoints.down('sm')]: {
+//     width: '100% !important', // Overrides inline-style
+//     height: 100,
+//   },
+//   '&:hover, &.Mui-focusVisible': {
+//     zIndex: 2,
+//     '& .MuiImageBackdrop-root': {
+//       opacity: 0.15,
+//     },
+//     '& .MuiImageMarked-root': {
+//       opacity: 0,
+//     },
+//   },
+// }));
 
-const ImageButton = styled(ButtonBase)(({ theme }) => ({
-  position: 'relative',
-  height: 200,
-  [theme.breakpoints.down('sm')]: {
-    width: '100% !important', // Overrides inline-style
-    height: 100,
-  },
-  '&:hover, &.Mui-focusVisible': {
-    zIndex: 2,
-    '& .MuiImageBackdrop-root': {
-      opacity: 0.15,
-    },
-    '& .MuiImageMarked-root': {
-      opacity: 0,
-    },
-  },
-}));
+// const ImageSrc = styled('span')({
+//   position: 'absolute',
+//   left: 0,
+//   right: 0,
+//   top: 20,
+//   width: 150,
+//   height: 150,
+//   backgroundSize: 'cover',
+//   backgroundPosition: 'center',
+// });
 
-const ImageSrc = styled('span')({
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  top: 20,
-  width: 150,
-  height: 150,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-});
-
-const Image = styled('span')(({ theme }) => ({
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  top: 20,
-  width: 150,
-  height: 150,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+// const Image = styled('span')(({ theme }) => ({
+//   position: 'absolute',
+//   left: 0,
+//   right: 0,
+//   top: 20,
+//   width: 150,
+//   height: 150,
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'center',
+// }));
 
 export default function Conect({ title }) {
     const [open, setOpen] = React.useState(false);
@@ -130,7 +102,6 @@ export default function Conect({ title }) {
         // 세미콜론으로 구분된 문자열로 업데이트
         setConnectList(list.join('+'));
       };
-
       //최종데이터 전송
       const getFilterVal = () => {
         setFilterList({...filterList,chrstnType :connectList});
@@ -160,45 +131,45 @@ export default function Conect({ title }) {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent {...dialogContentProps}>
-                <Grid container spacing={3}>
-                {/* {images.map((image, index) => (
-                  <Grid item xs={12} sm={6} md={4} key={index}>
-                      <ImageButton
-                          focusRipple
-                          style={{
-                              width: '150px',
-                          }}
-                      >
-                          <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
-                      </ImageButton>
-                  </Grid>
-                ))} */}
-                    <Button
-                      onClick={() => handleButtonClick("DC콤보")}
-                      variant={activeButtons.includes("DC콤보") ? "contained" : "outlined"}
-                    >
-                      DC콤보
-                    </Button>
-                    <Button
-                      onClick={() => handleButtonClick("AC3상")}
-                      variant={activeButtons.includes("AC3상") ? "contained" : "outlined"}
-                    >
-                      AC3상
-                  </Button>
-                  <Button
-                      onClick={() => handleButtonClick("DC차데모")}
-                      variant={activeButtons.includes("DC차데모") ? "contained" : "outlined"}
-                    >
-                      DC차데모
-                  </Button>
-                    <Button
-                      onClick={() => handleButtonClick("AC완속")}
-                      variant={activeButtons.includes("AC완속") ? "contained" : "outlined"}
-                    >
-                      AC완속
-                  </Button>
-                  <Button variant="contained" onClick={getFilterVal}>적용</Button>
-                </Grid>
+                  <Grid container spacing={3}>
+                    {/* {images.map((image, index) => (
+                      <Grid item xs={12} sm={6} md={4} key={index}>
+                          <ImageButton
+                              focusRipple
+                              style={{
+                                  width: '150px',
+                              }}
+                          >
+                              <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+                          </ImageButton>
+                      </Grid>
+                    ))} */}
+                        <Button
+                          onClick={() => handleButtonClick("DC콤보")}
+                          variant={activeButtons.includes("DC콤보") ? "contained" : "outlined"}
+                        >
+                          DC콤보
+                        </Button>
+                          <Button
+                            onClick={() => handleButtonClick("AC3상")}
+                            variant={activeButtons.includes("AC3상") ? "contained" : "outlined"}
+                          >
+                            AC3상
+                        </Button>
+                        <Button
+                            onClick={() => handleButtonClick("DC차데모")}
+                            variant={activeButtons.includes("DC차데모") ? "contained" : "outlined"}
+                          >
+                            DC차데모
+                        </Button>
+                          <Button
+                            onClick={() => handleButtonClick("AC완속")}
+                            variant={activeButtons.includes("AC완속") ? "contained" : "outlined"}
+                          >
+                            AC완속
+                        </Button>
+                    </Grid>
+                    <Button variant="contained" onClick={getFilterVal}>적용</Button>
                 </DialogContent>
             </BootstrapDialog>
         </React.Fragment>
