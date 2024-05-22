@@ -8,7 +8,6 @@ import { useAuth } from './../../../hooks/useAuth';
 
 const ReviewPost = () => {
     const { loginUser } = useAuth();
-    const [title, setTitle] = useState("");
     const [station, setStation] = useState("");
     const [starScore, setStarScore] = useState("");
     const [content, setContent] = useState("");
@@ -19,14 +18,12 @@ const ReviewPost = () => {
         const UserId = loginUser?.id;
         e.preventDefault();
         try {
-            if (UserId && title && station) {
-                const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/community/report`, {
-                    title,
+            if (UserId && station) {
+                const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/community/review`, {
                     station,
                     starScore,
                     content,
                     UserId,
-                    //작성 날짜
                 });
 
                 if (res.data.code === 200) {
@@ -36,7 +33,6 @@ const ReviewPost = () => {
                         confirmButtonText: "확인",
                         confirmButtonColor: theme.palette.primary.main,
                     });
-                    setTitle("");
                     setStation("");
                     setStarScore("");
                     setContent("");
@@ -54,10 +50,6 @@ const ReviewPost = () => {
             console.error(err);
         }
     };
-
-    const writeTitle = useCallback((e) => {
-        setTitle(e.target.value);
-    }, []);
 
     const writeStation = useCallback((e) => {
         setStation(e.target.value);
@@ -85,22 +77,6 @@ const ReviewPost = () => {
                         marginRight: isDesktop ? "60px" : "0",
                     }}
                 >
-                    <FormControl
-                        sx={{
-                            mb: 2,
-                            display: "flex",
-                            flexDirection: isDesktop ? "row" : "column",
-                            alignItems: isDesktop ? "center" : "left",
-                        }}
-                    >
-                        <Typography sx={{ marginRight: 2 }}>제목 {isDesktop && ":"}</Typography>
-                        <OutlinedInput
-                            name="title"
-                            value={title}
-                            onChange={writeTitle}
-                            sx={{ minWidth: "400px" }}
-                        />
-                    </FormControl>
                     <FormControl
                         sx={{
                             mb: 2,
