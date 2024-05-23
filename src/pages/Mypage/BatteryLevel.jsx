@@ -25,7 +25,7 @@ function BatteryLevel() {
     <>
     
     <Grid sx={{display: "flex", flexDirection: "column", alignItems:'center', justifyContent: "center" }}>
-    <Typography variant="h5">배터리잔량</Typography>
+    <Typography variant="h5" sx={{ marginLeft: -70}}>배터리잔량</Typography>
     <Box sx={{display: 'flex'}}>
       <Box sx={{ display: 'flex', alignItems:'center', marginTop:'20px'}}>
         <Box sx={{display: 'inline-block', width: '450px', backgroundColor: 'lightgrey'}}>

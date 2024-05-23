@@ -2,11 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Typography, Grid, useMediaQuery } from '@mui/material';
 import BatteryLevel from './BatteryLevel';
 
-// 반응형 바꾼 것 -> 논의
-// 사진 진짜 추가되게
-// username 자동으로 비교
-// 일치하는 검색결과 없음을 알리기
-
 const Mypage = () => {
     const [carData, setCarData] = useState([]);
     const [regiNumber, setRegiNumber] = useState('');
@@ -38,7 +33,7 @@ const Mypage = () => {
     const handleSearch = () => {
         const car = carData.find((item) => item.REGINUMBER === regiNumber);
         setSelectedCar(car ? car.data : null);
-        setNotFound(!car); // 일치하는 차량 번호가 없을 때 notFound를 true로 설정
+        setNotFound(!car);
     };
 
     return (
@@ -53,7 +48,8 @@ const Mypage = () => {
                     boxShadow: 3, 
                     p: 1, 
                     mb: 3,
-                    width: isMobile ? '80%' : '60%'
+                    width: isMobile ? '80%' : '60%',
+                    marginTop: 5
                 }}
             >
                 <TextField
@@ -85,6 +81,8 @@ const Mypage = () => {
                             <Typography>연료: {selectedCar.FUEL}</Typography>
                             <Typography>가격: {selectedCar.PRICE}</Typography>
                             <Typography>배기량: {selectedCar.CC}</Typography>
+                            <Typography>충전 커넥션: {selectedCar.CONNECTION}</Typography>
+                            <Typography>충전 속도: {selectedCar.CHARGING_SPEED}</Typography>
                         </Box>
                     </Grid>
                     {selectedCar.CARURL && (
