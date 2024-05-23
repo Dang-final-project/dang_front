@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
 import { MapContext } from '../../../../contexts/MapContext'; // 경로 수정
 import Geolocate from './Geolocate';

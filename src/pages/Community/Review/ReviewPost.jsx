@@ -5,28 +5,29 @@ import { useCallback, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useAuth } from './../../../hooks/useAuth';
+import { useNavigate } from "react-router-dom";
+import SearchPopup from "./SearchPopup";
 
-const ReviewPost = () => {
+const ReviewPost = ({ open, handleClose }) => {
     const { loginUser } = useAuth();
-    const [title, setTitle] = useState("");
     const [station, setStation] = useState("");
-    const [starScore, setStarScore] = useState("");
+    const [starScore, setStarScore] = useState(0);
     const [content, setContent] = useState("");
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         const UserId = loginUser?.id;
         e.preventDefault();
         try {
-            if (UserId && title && station) {
-                const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/community/report`, {
-                    title,
+            if (UserId && station) {
+                const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/community/review`, {
                     station,
                     starScore,
                     content,
                     UserId,
-                    //작성 날짜
                 });
 
                 if (res.data.code === 200) {
@@ -35,10 +36,9 @@ const ReviewPost = () => {
                         icon: "success",
                         confirmButtonText: "확인",
                         confirmButtonColor: theme.palette.primary.main,
-                    });
-                    setTitle("");
+                    }).then(() => navigate("/community"));
                     setStation("");
-                    setStarScore("");
+                    setStarScore(0);
                     setContent("");
                 }
             } else {
@@ -55,16 +55,12 @@ const ReviewPost = () => {
         }
     };
 
-    const writeTitle = useCallback((e) => {
-        setTitle(e.target.value);
-    }, []);
-
     const writeStation = useCallback((e) => {
         setStation(e.target.value);
     }, []);
 
-    const writestarScore = useCallback((e) => {
-        setStarScore(e.target.value);
+    const writestarScore = useCallback((event, newValue) => {
+        setStarScore(newValue);
     }, []);
 
     const writeContent = useCallback((e) => {
@@ -93,29 +89,15 @@ const ReviewPost = () => {
                             alignItems: isDesktop ? "center" : "left",
                         }}
                     >
-                        <Typography sx={{ marginRight: 2 }}>제목 {isDesktop && ":"}</Typography>
-                        <OutlinedInput
-                            name="title"
-                            value={title}
-                            onChange={writeTitle}
-                            sx={{ minWidth: "400px" }}
-                        />
-                    </FormControl>
-                    <FormControl
-                        sx={{
-                            mb: 2,
-                            display: "flex",
-                            flexDirection: isDesktop ? "row" : "column",
-                            alignItems: isDesktop ? "center" : "left",
-                        }}
-                    >
                         <Typography sx={{ marginRight: 2 }}>충전소 {isDesktop && ":"}</Typography>
-                        <OutlinedInput
+                        <SearchPopup open={open} handleClose={handleClose} />
+                        {/* <OutlinedInput
                             name="station"
                             value={station}
                             onChange={writeStation}
                             sx={{ minWidth: "400px" }}
-                        />
+                            onClick={handleTextInputClick}
+                        /> */}
                     </FormControl>
                     <FormControl
                         sx={{
@@ -182,4 +164,3 @@ const ReviewPost = () => {
 
 
 export default ReviewPost;
-
