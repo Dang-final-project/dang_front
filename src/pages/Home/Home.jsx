@@ -4,8 +4,7 @@ import React, { useEffect, useContext } from "react";
 import { Box } from "@mui/material";
 import { MapContext } from "../../contexts/MapContext";
 import Loading from "../Loading";
-import LocateList from "../Map/LocateList";
-import { FilterGroup } from "./components/FilterGroup";
+import { FilterGroup } from "./components/FilterGroup"; 
 import { BottomBtnGroup } from "./components/BottomBtnGroup";
 import { GetStations } from "./utils/GetStations";
 import { GetFavStations } from "./utils/GatFavStations";
@@ -17,11 +16,11 @@ const Home = () => {
 
     useEffect(() => {
         GetStations(filterList, setPositionArr, setStations);
-    }, [filterList, setPositionArr, setStations]);
+    }, [filterList]);
 
     useEffect(() => {
         GetFavStations(favList, setFavStation);
-    }, [favList, setFavStation]);
+    }, [favList]);
 
     //반응형분기점
     const theme = useTheme();
@@ -32,9 +31,8 @@ const Home = () => {
             {positionArr ? (
                 <>
                     {tabletWidth ? (
-                        <Box component="section" sx={{ marginTop: "64px" }}>
+                        <Box component="section" sx={{ marginTop: "64px" , overflow: "hidden" }}>
                             <FilterGroup />
-                            {/* <LocateList /> */}
                             <StationField />
                         </Box>
                     ) : (
