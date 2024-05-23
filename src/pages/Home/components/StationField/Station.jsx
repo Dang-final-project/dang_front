@@ -5,9 +5,8 @@ import MemoButton from "./MemoButton";
 import LikeButton from "./LikeButton";
 import axios from "axios";
 
-const Station = ({station, tab }) => {
+const Station = ({station, tab, token }) => {
     const {setMapPos} = useContext(MapContext);
-    const token = localStorage.getItem('token');
 
     const [clicked, setClicked] = useState(false);
     const { favList, setFavList } = useContext(MapContext);
