@@ -13,7 +13,7 @@ import '@fontsource/roboto/300.css';
 
 const Detail = ({ open, handleClose, detailIndex }) => {
     const { stations } = useContext(MapContext);
-    console.log(stations, detailIndex);
+    //console.log(stations, detailIndex);
     // 첫 번째 충전소 정보를 사용합
     const stationInfo = stations.length > 0 ? stations[detailIndex] : null;
 

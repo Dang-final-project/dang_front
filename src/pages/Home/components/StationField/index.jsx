@@ -1,28 +1,22 @@
-import { Box, Paper, Tab, Typography, useTheme } from "@mui/material";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
+import { Box, Paper, Tab, Typography } from "@mui/material";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import React, { useContext, useEffect, useState } from "react";
 import Station from "./Station";
 import axios from "axios";
-import SearchBox from "./SearchBox";
-import { MapContext } from "../../contexts/MapContext";
-import Swal from "sweetalert2";
+import { MapContext } from "../../../../contexts/MapContext";
+// import SearchBox from "./SearchBox";
 
-const LocateList = () => {
+export const StationField = () => {
+
     const {
-        stations,
-        setStations,
-        favStation,
-        setFavStation,
+        stations, 
+        setStations, 
+        favStation, 
         favList,
         setFavList,
-        setPositionArr,
-        filterList,
-    } = useContext(MapContext);
+    } = useContext(MapContext)
 
-    const token = localStorage.getItem("token");
-
+    const token = localStorage.getItem('token');
 
     const [value, setValue] = useState("1");
 
@@ -30,41 +24,28 @@ const LocateList = () => {
         setValue(newValue);
     };
 
-    const theme = useTheme();
+    // const [searchWord, setSearchWord] = useState("");
 
-    const [searchWord, setSearchWord] = useState("");
+    // const handleSearchChange = (event) => {
+    //     setSearchWord(event.target.value);
+    // };
 
-    const handleSearchChange = (event) => {
-        setSearchWord(event.target.value);
-    };
-
-    const handleSearch = async () => {
-        const key = process.env.REACT_APP_STATION_API_KEY;
-        const pageIdx = 0;
-        const count = 1580;
-        const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
-        try {
-            const response = await axios.get(url);
-            const datas = response.data.items;
-
-
-            if (response.status === 200) {
-                const filteredStations = datas.filter((station) =>
-                    station.chrstnNm.includes(searchWord.toUpperCase().replace(/\s+/g, ""))
-                );
-                searchWord
-                    ? setStations(filteredStations)
-                    : Swal.fire({
-                          title: `검색어를 입력해주세요`,
-                          icon: "warning",
-                          confirmButtonText: "확인",
-                          confirmButtonColor: theme.palette.error.main,
-                      });
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    };
+    // const handleSearch = async () => {
+    //     const key = process.env.REACT_APP_STATION_API_KEY;
+    //     const pageIdx = 0;
+    //     const count = 10;
+    //     const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
+    //     try {
+    //         const response = await axios.get(url);
+    //         const datas = response.data.items;
+    //         if (response.status === 200) {
+    //             const filteredStations = datas.filter((station) => station.chrstnNm.includes(searchWord.toUpperCase()));
+    //             setStations(filteredStations);
+    //         }
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // };
 
     const getFav = async () => {
         const urll = `${process.env.REACT_APP_SERVER_URL}/stations/list`;
@@ -77,27 +58,25 @@ const LocateList = () => {
         setFavList(fav.data.payload);
     };
 
+    const containerStyle = {
+        width: "40%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "16px",
+        p: 3,
+        position: "absolute",
+        top: "130px",
+        zIndex: 10,
+        height: "calc(100vh - 64px - 52.5px)",
+    }
 
     useEffect(()=>{
         getFav();
     },[])
 
     return (
-        <>
-        <Box
-            sx={{
-                width: "40%",
-                display: "flex",
-                flexDirection: "column",
-                gap: "16px",
-                p: 3,
-                position: "absolute",
-                top: "130px",
-                zIndex: 10,
-                height: "calc(100vh - 64px - 52.5px)",
-            }}
-        >
-            <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
+        <Box sx={containerStyle}>
+            {/* <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} /> */}
             <Paper sx={{ p: 2, maxWidth: "460px", flexGrow: 1, overflow: "hidden" }}>
                 {
                     stations ?
@@ -151,7 +130,5 @@ const LocateList = () => {
                 }
             </Paper>
         </Box>
-        </>
     );
 };
-export default LocateList;

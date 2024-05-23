@@ -13,6 +13,7 @@ import { LoginContext } from "./contexts/LoginContext";
 import { useProvideAuth } from "./hooks/useProvideAuth";
 import Layout from "./components/layouts/layout";
 import { Cookies } from "react-cookie";
+import ReviewPost from "./pages/Community/Review/ReviewPost";
 
 function App() {
     const theme = createTheme({
@@ -44,6 +45,7 @@ function App() {
                                 <>
                                     <Route path="/admin" element={<Admin />} />
                                     <Route path="/community" element={<Community />} />
+                                    <Route path="/community/posting" element={<ReviewPost />} />
                                     <Route path="/mypage" element={<Mypage />} />
                                 </>
                             ) : (

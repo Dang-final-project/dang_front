@@ -1,10 +1,9 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import { useState } from "react"; 
-import { MapContext } from "../../contexts/MapContext";
+import { MapContext } from "../../../../contexts/MapContext";
 
-
-export default function Open() {
+export function FilterButton({label, filterKey, filterValue}) {
 
     const { filterList, setFilterList} = React.useContext(MapContext);
 
@@ -12,10 +11,10 @@ export default function Open() {
     const [btnClicked, setBtnClicked] = useState(false);
     const getFilterVal = () => {
         if(btnClicked){
-            setFilterList({...filterList,user_restrict : ''});
+            setFilterList({...filterList,[filterKey] : filterValue.none});
             setBtnClicked(false);
         }else{
-            setFilterList({...filterList,user_restrict : '이용자 제한 없음'});
+            setFilterList({...filterList,[filterKey] : filterValue.active}); 
             setBtnClicked(true);
         }
     }
@@ -27,7 +26,8 @@ export default function Open() {
             color="primary"
             onClick={getFilterVal}
         >
-            외부인개방
+            {label}
         </Button>
     )
 }
+

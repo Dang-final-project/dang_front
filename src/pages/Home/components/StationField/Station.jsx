@@ -5,7 +5,8 @@ import RateReviewIcon from '@mui/icons-material/RateReview';
 import { useContext, useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import { MapContext } from "../../contexts/MapContext";
+import { MapContext } from "../../../../contexts/MapContext";
+
 
 const Station = ({station, favList, getFav}) => {
     const { mapPos, setMapPos } = useContext(MapContext);
@@ -109,15 +110,12 @@ const Station = ({station, favList, getFav}) => {
    const changeStationLocation = () => {
     setMapPos({lat: station.latitude, lng: station.longitude})
    }
-   
-   
     return ( 
         <Box sx={{borderBottom:'1px solid #bdbdbd', py:2}} onClick={changeStationLocation}>
             <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                 <Chip label={station.manage_entrps_nm} color="primary" variant="outlined" />
                 {
                     token && 
-
                     <>
                         {clicked ?
                             <IconButton aria-label="like" onClick={deleteStation}>
@@ -130,7 +128,6 @@ const Station = ({station, favList, getFav}) => {
                         }
                     </>
                 }
-                
             </Box>
             {
                 clicked && (
