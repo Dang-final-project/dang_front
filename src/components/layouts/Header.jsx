@@ -127,7 +127,7 @@ const Header = () => {
                         <Grid sx={{ display: "flex" }}>
                             {guest.map((text, index) => (
                                 <Link to={text.link} key={index}>
-                                    <StyledTypo key={index}>{text.nav}</StyledTypo>
+                                    <StyledTypo>{text.nav}</StyledTypo>
                                 </Link>
                             ))}
                         </Grid>
@@ -150,7 +150,7 @@ const Header = () => {
                                 </StyledTypo>
                             </Grid>
                             {user.map((text, index) => (
-                                <Link to={text.link}>
+                                <Link to={text.link} key={index}>
                                     <StyledTypo
                                         onClick={() => {
                                             text.nav === "로그아웃" &&
@@ -168,7 +168,7 @@ const Header = () => {
                     {userStatus && userStatus === "admin" && (
                         <Grid sx={{ display: "flex" }}>
                             {admin.map((text, index) => (
-                                <Link to={text.link} key={text.nav}>
+                                <Link to={text.link} key={index}>
                                     <StyledTypo>{text.nav}</StyledTypo>
                                 </Link>
                             ))}
