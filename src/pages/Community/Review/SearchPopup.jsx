@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import { useTheme, Button, Dialog, DialogTitle, DialogContent, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
 import CloseIcon from "@mui/icons-material/Close";
 import SearchInput from "../../../components/input/SearchInput";
+import Swal from "sweetalert2";
 import { MapContext } from "../../../contexts/MapContext";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -15,11 +16,12 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-export default function SearchPopup({ title, width = 500, height = 500}) {
+export default function SearchPopup({ title, width = 500, height = 500 }) {
     const { setStations } = useContext(MapContext);
     const [open, setOpen] = useState(false);
     const [searchWord, setSearchWord] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState([]); // 검색 결과 상태 추가
+    const [selectedStation, setSelectedStation] = useState(""); // 선택한 충전소 상태 추가
     const theme = useTheme();
 
     const handleClickOpen = () => {
@@ -35,10 +37,6 @@ export default function SearchPopup({ title, width = 500, height = 500}) {
     };
 
     const handleSearch = async () => {
-        if (!searchWord) {
-            return;
-        }
-
         const key = process.env.REACT_APP_STATION_API_KEY;
         const pageIdx = 1;
         const count = 1580;
@@ -52,12 +50,21 @@ export default function SearchPopup({ title, width = 500, height = 500}) {
                 const filteredStations = datas.filter((station) =>
                     station.chrstnNm.toUpperCase().includes(searchWord.toUpperCase().replace(/\s+/g, ""))
                 );
-                setStations(filteredStations);
-                setSearchResults(filteredStations);
+                if (searchWord) {
+                    if (filteredStations.length > 0) {
+                        setStations(filteredStations);
+                        setSearchResults(filteredStations); // 검색 결과 업데이트
+                    } 
+                }
             }
         } catch (err) {
             console.error(err);
         }
+    };
+
+    const handleResultClick = (station) => {
+        setSelectedStation(station.chrstnNm);
+        setOpen(false);
     };
 
     const dialogContentProps = {
@@ -68,7 +75,7 @@ export default function SearchPopup({ title, width = 500, height = 500}) {
     return (
         <React.Fragment>
             <Button variant="outlined" onClick={handleClickOpen}>
-                찾아보기
+                {selectedStation || "찾아보기"}
             </Button>
             <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle sx={{ m: 0, p: 2, fontWeight: 600 }} id="customized-dialog-title">
@@ -91,10 +98,11 @@ export default function SearchPopup({ title, width = 500, height = 500}) {
                         onClick={handleSearch}
                         handleSearchChange={handleSearchChange}
                     />
+                    {/* 검색 결과를 표시할 리스트 추가 */}
                     {searchResults.length > 0 ? (
                         <List>
                             {searchResults.map((station, index) => (
-                                <ListItem key={index}>
+                                <ListItem button key={index} onClick={() => handleResultClick(station)}>
                                     <ListItemText primary={station.chrstnNm} />
                                 </ListItem>
                             ))}
