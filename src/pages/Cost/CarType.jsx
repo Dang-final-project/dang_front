@@ -18,28 +18,29 @@ const searchBoxStyle = {
 }
 const resultBoxStyle = {
   display: 'flex',
-  flexBasis: 'auto',
+  justifyContent: 'center',
+  alignContent: 'center',
   border: '1px solid #ccc',
   padding: '2vh',
   margin: '2vh',
   width: '80%',
   borderRadius: 8,
-  boxShadow: '0 0 10px rgba(0,0,0,0.1)'
+  boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+  alignItems: 'stretch'
 }
 
 const box1Style = {
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'flex-start',
+  alignItems: 'center',
   width: '40%',
   height: '100%',
   marginRight: '2vh',
-  
   cursor: 'pointer'
 }
 
 const box2Style = {
-  alignItems: 'flex-start', width: '60%', cursor: 'pointer',
+  alignItems: 'flex-start', width: '60%', cursor: 'pointer'
 }
 
 const ModalStyle = {
