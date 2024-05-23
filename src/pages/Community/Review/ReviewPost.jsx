@@ -6,8 +6,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useAuth } from './../../../hooks/useAuth';
 import { useNavigate } from "react-router-dom";
+import SearchPopup from "./SearchPopup";
 
-const ReviewPost = () => {
+const ReviewPost = ({ open, handleClose }) => {
     const { loginUser } = useAuth();
     const [station, setStation] = useState("");
     const [starScore, setStarScore] = useState(0);
@@ -89,12 +90,14 @@ const ReviewPost = () => {
                         }}
                     >
                         <Typography sx={{ marginRight: 2 }}>충전소 {isDesktop && ":"}</Typography>
-                        <OutlinedInput
+                        <SearchPopup open={open} handleClose={handleClose} />
+                        {/* <OutlinedInput
                             name="station"
                             value={station}
                             onChange={writeStation}
                             sx={{ minWidth: "400px" }}
-                        />
+                            onClick={handleTextInputClick}
+                        /> */}
                     </FormControl>
                     <FormControl
                         sx={{
@@ -161,4 +164,3 @@ const ReviewPost = () => {
 
 
 export default ReviewPost;
-

@@ -47,7 +47,6 @@ const LocateList = () => {
             const response = await axios.get(url);
             const datas = response.data.items;
 
-
             if (response.status === 200) {
                 const filteredStations = datas.filter((station) =>
                     station.chrstnNm.includes(searchWord.toUpperCase().replace(/\s+/g, ""))
