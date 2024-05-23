@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Typography, Grid, useMediaQuery } from '@mui/material';
+import BatteryLevel from './BatteryLevel';
 
 const Mypage = () => {
     const [carData, setCarData] = useState([]);
@@ -37,7 +38,7 @@ const Mypage = () => {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 5 }}>
-            <h1>내 차 정보</h1>
+            <BatteryLevel />
             <Box 
                 sx={{ 
                     display: 'flex', 

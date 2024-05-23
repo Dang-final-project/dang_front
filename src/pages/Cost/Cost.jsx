@@ -1,6 +1,7 @@
 import { Box, Button, Grid } from "@mui/material";
 import { useState } from "react";
 import Chart from "./Chart/Chart";
+import CarType from "./CarType";
 
 const Cost = () => {
     const [activeButton, setActiveButton] = useState("electricCar");
@@ -35,7 +36,7 @@ const Cost = () => {
                 </Button>
             </Box>
             {activeButton === "electricCar" ? (
-                "전기차"
+                <CarType />
             ) : (
                 <>
                     <Chart />
