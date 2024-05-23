@@ -33,7 +33,7 @@ export const GetFavStations = async (favList, setFavStation) => {
                         }
                     });
                     //console.log(results)
-                    console.log('즐겨찾기 리스트 생성')
+                    // console.log('즐겨찾기 리스트 생성')
                     setFavStation(results);
                 }
             } catch (err) {
