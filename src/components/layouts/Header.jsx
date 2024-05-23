@@ -32,24 +32,16 @@ const Header = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [userStatus, setUserStatus] = useState("guest"); // guest, user, admin
 
-    useEffect(() => {
-        if (loginUser?.id) {
-            setUserStatus("user");
-        } else {
-            setUserStatus("guest");
-        }
-    }, [loginUser]);
-
     const cookies = new Cookies();
     const kakaoLogin = cookies.get("userId");
 
     useEffect(() => {
-        if (kakaoLogin) {
+        if (loginUser?.id || kakaoLogin) {
             setUserStatus("user");
         } else {
             setUserStatus("guest");
         }
-    }, [kakaoLogin]);
+    }, [loginUser, kakaoLogin]);
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
@@ -81,7 +73,10 @@ const Header = () => {
                 }}
             >
                 <Box sx={{ padding: "10px" }}>
-                    <Typography>{loginUser?.nickname + "님"}</Typography>
+                    <Typography>
+                        {kakaoLogin && kakaoLogin?.nickname}
+                        {loginUser && loginUser?.nickname}님
+                    </Typography>
                     <Typography sx={{ fontSize: "14px", color: theme.palette.grey[500] }}>test@gmail.com</Typography>
                     <Typography sx={{ fontSize: "14px" }}>
                         내 자동차: <span style={{ fontWeight: 600 }}>테슬라</span>
@@ -113,7 +108,6 @@ const Header = () => {
         { nav: "커뮤니티", link: "/community" },
         { nav: "회원관리", link: "/admin" },
         { nav: "로그아웃", link: "/" },
-
     ];
 
     const ELEVATION = location.pathname === "/" ? 0 : 4;
@@ -121,7 +115,6 @@ const Header = () => {
         return (
             <AppBar color="secondary" elevation={ELEVATION}>
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-
                     <StyledTypo
                         onClick={() => {
                             window.location.href = "/";
@@ -129,7 +122,6 @@ const Header = () => {
                     >
                         당충전
                     </StyledTypo>
-
 
                     {userStatus && userStatus === "guest" && (
                         <Grid sx={{ display: "flex" }}>
@@ -147,7 +139,8 @@ const Header = () => {
                                     onClick={() => setDropdownOpen(!dropdownOpen)}
                                     sx={{ position: "relative" }}
                                 >
-                                    {loginUser?.nickname + "님"}
+                                    {kakaoLogin && kakaoLogin?.nickname}
+                                    {loginUser && loginUser?.nickname}님
                                     {dropdownOpen ? (
                                         <ArrowDropUpIcon sx={{ fontSize: "22px" }} />
                                     ) : (
@@ -232,7 +225,8 @@ const Header = () => {
                         onClick={() => setDropdownOpen(!dropdownOpen)}
                         sx={{ position: "relative" }}
                     >
-                        {loginUser && loginUser?.nickname + "님"}
+                        {kakaoLogin && kakaoLogin?.nickname}
+                        {loginUser && loginUser?.nickname}님
                         {dropdownOpen ? (
                             <ArrowDropUpIcon sx={{ fontSize: "22px" }} />
                         ) : (

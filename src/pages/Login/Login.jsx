@@ -14,7 +14,7 @@ import { InputLabel, TextField } from "@mui/material";
 const Login = () => {
     const authData = useAuth();
     const navigate = useNavigate();
-    const { login } = authData;
+    const { login, logout } = authData;
     const {
         register,
         handleSubmit,
