@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SearchInput from "../../../components/input/SearchInput";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import { Box, Button } from "@mui/material";
 import axios from "axios";
-import {useAuth} from "../../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 import PageCount from "./PageCount";
+import StationSearch from "./StationSearch";
 
 const Review = () => {
-    const [reviews, setReviews] = useState([]); // 초기값을 빈 배열로 설정
+    const [reviews, setReviews] = useState([]);
     const [page, setPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
     const reviewsPerPage = 3;
     const navigate = useNavigate();
     const { loginUser } = useAuth();
@@ -39,7 +40,15 @@ const Review = () => {
         setPage(newPage);
     };
 
-    const currentData = reviews.slice((page - 1) * reviewsPerPage, page * reviewsPerPage);
+    const handleSearch = (query) => {
+        setSearchQuery(query);
+    };
+
+    const filteredReviews = reviews.filter(review =>
+        review.station.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const currentData = filteredReviews.slice((page - 1) * reviewsPerPage, page * reviewsPerPage);
 
     const handleWriteButtonClick = () => {
         navigate("/community/posting");
@@ -47,14 +56,14 @@ const Review = () => {
 
     return (
         <>
-            <SearchInput width='100%' />
+            <StationSearch onSearch={handleSearch} />
             <List sx={{ width: '100%', maxWidth: 360, }}>
                 {currentData.length > 0 ? (
                     currentData.map((review, index) => (
                         <ListItem key={index} sx={{ flexDirection: "column" }}>
                             <Box sx={{ display: "inline-block", alignContent: "center", justifyContent: "space-between", width: '100%' }}>
                                 <Typography variant="h6">{review.station}</Typography>
-                                <Box sx={{display: "flex", justifyContent: "space-between"}}>
+                                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <Typography variant="body2">
                                         작성자: {review.User.username}
                                     </Typography>
@@ -79,7 +88,7 @@ const Review = () => {
             </List>
             <PageCount
                 page={page}
-                count={Math.ceil(reviews.length / reviewsPerPage)}
+                count={Math.ceil(filteredReviews.length / reviewsPerPage)}
                 handleChangePage={handleChangePage}
                 sx={{ marginBottom: "20px" }}
             />
