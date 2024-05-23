@@ -8,8 +8,24 @@ import axios from "axios";
 
 export const StationField = () => {
 
-    const token = localStorage.getItem('token');
     const { stations, setStations, favStation, favList } = useContext(MapContext)
+
+    //로컬,카카오 토큰 가져오기
+    const getToken = () => {
+        const cookieToken = () => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; accessToken=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null; // 쿠키가 없을 경우 null 반환
+        }
+    
+        const localToken = localStorage.getItem('token');
+        const token = cookieToken() || localToken;
+    
+        return token;
+    }
+    
+    let token = getToken();
 
     //탭 이벤트
     const [value, setValue] = useState("1");
@@ -75,6 +91,7 @@ export const StationField = () => {
                                                 key={idx}
                                                 station={station}
                                                 tab={'all'}
+                                                token={token}
                                             />
                                         );
                                     })
@@ -92,6 +109,7 @@ export const StationField = () => {
                                                         key={idx}
                                                         station={fav}
                                                         tab={'fav'}
+                                                        token={token}
                                                     />
                                                 );
                                             })
@@ -108,7 +126,9 @@ export const StationField = () => {
                     <p>리스트 가져오는 중..</p>
                 }
             </Paper>
-            <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
+            <Box mr={1}>
+                <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
+            </Box>
         </Box>
     );
 };
