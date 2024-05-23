@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Box, Typography } from '@mui/material';
+
+const boxStyle = {
+    border: '1px solid #ccc',
+    padding: '3vh',
+    marginBottom: '3vh',
+    width: '100%',
+    height: 200,
+    alignItems: 'center',
+    borderRadius: '8px',
+    boxShadow: '0 0 10px rgba(0,0,0,0.1)'
+}
 
 const CarAPI = () => {
     const [data, setData] = useState(null);
@@ -32,33 +44,22 @@ const CarAPI = () => {
     if (error) return <div>Error: {error.message}</div>
 
     return (
-        <div>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    {data.length > 0 ? (
-                        data.map((item, index) => (
-                        <div key={index} style={{
-                            border: '1px solid #ccc',
-                            padding: '3vh',
-                            marginBottom: '3vh',
-                            width: '100%',
-                            height: '26vh',
-                            alignItems: 'center',
-                            borderRadius: '8px',
-                            boxShadow: '0 0 10px rgba(0,0,0,0.1)'
-                        }}>
-                            <strong>모델명: {item.모델명}</strong>
-                            <p>제조사: {item.제조사}</p>
-                            <p>급속충전방식: {item.급속충전방식}</p>
-                            <p>완속충전방식: {item.완속충전방식}</p>
-                            <p>배터리용량: {item.배터리용량}</p>
-                            <p>출시일: {item.출시일}</p>
-                        </div>
-                    ))
-                ) : (
-                    <p>No data available</p>
-                )}
-            </div>
-        </div>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            {data.length > 0 ? (
+                data.map((item, index) => (
+                <Box key={index} sx={boxStyle}>
+                    <Typography variant = 'h6' component = 'strong'>모델명: {item.모델명}</Typography>
+                    <Typography variant = 'body1'>제조사: {item.제조사}</Typography>
+                    <Typography variant = 'body1'>급속충전방식: {item.급속충전방식}</Typography>
+                    <Typography variant = 'body1'>완속충전방식: {item.완속충전방식}</Typography>
+                    <Typography variant = 'body1'>배터리용량: {item.배터리용량}</Typography>
+                    <Typography variant = 'body1'>출시일: {item.출시일}</Typography>
+                </Box>
+            ))
+        ) : (
+            <p>No data available</p>
+        )}
+        </Box>
     );
 };
 

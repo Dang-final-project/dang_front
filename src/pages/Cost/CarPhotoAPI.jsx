@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const imageStyle = {
+  border: '1px solid #ccc',
+  alignItems: 'flex-start',
+  padding: '1vh',
+  marginBottom: '1vh',
+  width: '100%',
+  height: 200,
+  borderRadius: 8,
+  boxShadow: '0 0 10px rgba(0,0,0,0.1)'
+}
+
 const CarPhotoAPI = () => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -43,14 +54,7 @@ const CarPhotoAPI = () => {
     <div>
         {images.map((image) => (
             <img src={`${image.urls.raw}&w=80&fit=crop`}
-            style={{border: '1px solid #ccc',
-            alignItems: 'flex-start',
-            padding: '1vh',
-            marginBottom: '1vh',
-            width: '100%',
-            height: '27vh',
-            borderRadius: 8,
-            boxShadow: '0 0 10px rgba(0,0,0,0.1)'}}/>
+            style={imageStyle}/>
         ))}
     </div>
   );
