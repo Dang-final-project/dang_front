@@ -21,6 +21,7 @@ import "../../App.css";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { useAuth } from "../../hooks/useAuth";
+import { Cookies } from "react-cookie";
 
 const Header = () => {
     const theme = useTheme();
@@ -38,6 +39,17 @@ const Header = () => {
             setUserStatus("guest");
         }
     }, [loginUser]);
+
+    const cookies = new Cookies();
+    const kakaoLogin = cookies.get("userId");
+
+    useEffect(() => {
+        if (kakaoLogin) {
+            setUserStatus("user");
+        } else {
+            setUserStatus("guest");
+        }
+    }, [kakaoLogin]);
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
@@ -57,21 +69,19 @@ const Header = () => {
             <Paper
                 elevation={3}
                 sx={{
-                    width: "100px",
-                    height: "100px",
+                    width: "200px",
+                    height: "150px",
                     position: "absolute",
-                    bottom: "-360%",
-                    left: "-300%",
+                    top: "140%",
+                    right: "0",
                     backgroundColor: "white",
                     zIndex: 1,
-                    mt: 1,
                     borderRadius: 1,
-                    minWidth: "150px",
+                    // minWidth: "150px",
                 }}
             >
-                {/* 나중에 정보 받아와서 바꾸기 */}
                 <Box sx={{ padding: "10px" }}>
-                    <Typography>OO님</Typography>
+                    <Typography>{loginUser?.nickname + "님"}</Typography>
                     <Typography sx={{ fontSize: "14px", color: theme.palette.grey[500] }}>test@gmail.com</Typography>
                     <Typography sx={{ fontSize: "14px" }}>
                         내 자동차: <span style={{ fontWeight: 600 }}>테슬라</span>
@@ -94,7 +104,7 @@ const Header = () => {
         { nav: "요금현황", link: "/cost" },
         { nav: "커뮤니티", link: "/community" },
         { nav: "마이페이지", link: "/mypage" },
-        { nav: "로그아웃", link: "/login" },
+        { nav: "로그아웃", link: "/" },
     ];
 
     const admin = [
@@ -102,7 +112,8 @@ const Header = () => {
         { nav: "요금현황", link: "/cost" },
         { nav: "커뮤니티", link: "/community" },
         { nav: "회원관리", link: "/admin" },
-        { nav: "로그아웃", link: "/login" },
+        { nav: "로그아웃", link: "/" },
+
     ];
 
     const ELEVATION = location.pathname === "/" ? 0 : 4;
@@ -110,15 +121,21 @@ const Header = () => {
         return (
             <AppBar color="secondary" elevation={ELEVATION}>
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Link to="/">
-                        <StyledTypo>당충전</StyledTypo>
-                    </Link>
+
+                    <StyledTypo
+                        onClick={() => {
+                            window.location.href = "/";
+                        }}
+                    >
+                        당충전
+                    </StyledTypo>
+
 
                     {userStatus && userStatus === "guest" && (
                         <Grid sx={{ display: "flex" }}>
                             {guest.map((text, index) => (
-                                <Link to={text.link}>
-                                    <StyledTypo>{text.nav}</StyledTypo>
+                                <Link to={text.link} key={index}>
+                                    <StyledTypo key={index}>{text.nav}</StyledTypo>
                                 </Link>
                             ))}
                         </Grid>
@@ -130,7 +147,7 @@ const Header = () => {
                                     onClick={() => setDropdownOpen(!dropdownOpen)}
                                     sx={{ position: "relative" }}
                                 >
-                                    {/* 나중에 정보 받아와서 바꾸기 */}님
+                                    {loginUser?.nickname + "님"}
                                     {dropdownOpen ? (
                                         <ArrowDropUpIcon sx={{ fontSize: "22px" }} />
                                     ) : (
@@ -215,7 +232,7 @@ const Header = () => {
                         onClick={() => setDropdownOpen(!dropdownOpen)}
                         sx={{ position: "relative" }}
                     >
-                        {/* 나중에 정보 받아와서 바꾸기 */}님
+                        {loginUser && loginUser?.nickname + "님"}
                         {dropdownOpen ? (
                             <ArrowDropUpIcon sx={{ fontSize: "22px" }} />
                         ) : (

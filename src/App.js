@@ -12,6 +12,8 @@ import Mypage from "./pages/Mypage";
 import { LoginContext } from "./contexts/LoginContext";
 import { useProvideAuth } from "./hooks/useProvideAuth";
 import Layout from "./components/layouts/layout";
+import { Cookies } from "react-cookie";
+import ReviewPost from "./pages/Community/Review/ReviewPost";
 
 function App() {
     const theme = createTheme({
@@ -28,26 +30,28 @@ function App() {
 
     console.log(theme);
     const auth = useProvideAuth();
-
-    const isLoggedIn = false;
+    const cookies = new Cookies();
+    const isLoggedIn = auth.loginUser?.id;
+    const isKakaoLoggedIn = cookies.get("userId");
 
     return (
         <>
             <ThemeProvider theme={theme}>
                 <LoginContext.Provider value={auth}>
                     <CssBaseline />
-
                     <Layout>
                         <Routes>
-                            {isLoggedIn ? (
+                            {isLoggedIn || isKakaoLoggedIn ? (
                                 <>
                                     <Route path="/admin" element={<Admin />} />
                                     <Route path="/community" element={<Community />} />
+                                    <Route path="/community/posting" element={<ReviewPost />} />
                                     <Route path="/mypage" element={<Mypage />} />
                                 </>
                             ) : (
                                 <>
                                     <Route path="/login" element={<Login />} />
+                                    <Route path="/community" element={<Login />} />
                                     <Route path="/join" element={<Join />} />
                                 </>
                             )}

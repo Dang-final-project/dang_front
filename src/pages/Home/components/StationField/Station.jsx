@@ -5,7 +5,8 @@ import RateReviewIcon from '@mui/icons-material/RateReview';
 import { useContext, useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import { MapContext } from "../../contexts/MapContext";
+import { MapContext } from "../../../../contexts/MapContext";
+
 
 const Station = ({station, favList, getFav}) => {
     const { mapPos, setMapPos } = useContext(MapContext);
