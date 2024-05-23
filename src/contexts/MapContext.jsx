@@ -8,13 +8,11 @@ export const MapProvider = ({ children }) => {
     const [favList, setFavList] = useState([]);
     const [positionArr, setPositionArr] = useState();
     const [filterList, setFilterList] = useState({});
-    const [mapPos, setMapPos] = useState();
+    const [mapPos, setMapPos] = useState({lat:37.261911, lng:127.030736});
 
     useEffect(() => {
       navigator.geolocation.getCurrentPosition(pos => {
         setMapPos({lat:pos.coords.latitude, lng:pos.coords.longitude});
-      }, err => {
-        setMapPos({lat:37.261911, lng:127.030736});
       })
     }, []);
     

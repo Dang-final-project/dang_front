@@ -1,0 +1,16 @@
+[
+    {
+        "REGINUMBER" : "23사5678",
+        "OWNERNAME" : "홍길동",
+        "data" : {
+            "STATUS" : "200",
+            "CARVENDER" : "현대",
+            "CARNAME" : "YF쏘나타",
+            "CARYEAR" : "2010",
+            "FUEL" : "가솔린",
+            "PRICE" : "25800000",
+            "CC" : "1998",
+            "CARURL" : "http://www.cuberack.co.kr/wp-content/uploads/2018/10/YF%EC%86%8C%EB%82%98%ED%83%80.jpg"
+        }
+    }
+]
