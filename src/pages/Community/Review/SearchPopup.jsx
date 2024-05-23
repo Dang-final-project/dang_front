@@ -4,7 +4,6 @@ import { styled } from "@mui/material/styles";
 import { useTheme, Button, Dialog, DialogTitle, DialogContent, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
 import CloseIcon from "@mui/icons-material/Close";
 import SearchInput from "../../../components/input/SearchInput";
-import Swal from "sweetalert2";
 import { MapContext } from "../../../contexts/MapContext";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -16,13 +15,12 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-export default function SearchPopup({ title, width = 500, height = 500 }) {
+export default function SearchPopup({ title, width = 500, height = 500, station, setStation }) {
     const { setStations } = useContext(MapContext);
     const [open, setOpen] = useState(false);
     const [searchWord, setSearchWord] = useState("");
     const [searchResults, setSearchResults] = useState([]); // 검색 결과 상태 추가
-    const [selectedStation, setSelectedStation] = useState(""); // 선택한 충전소 상태 추가
-    const theme = useTheme();
+    // const [station, setstation] = useState(""); // 선택한 충전소 상태 추가
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -63,7 +61,7 @@ export default function SearchPopup({ title, width = 500, height = 500 }) {
     };
 
     const handleResultClick = (station) => {
-        setSelectedStation(station.chrstnNm);
+        setStation(station.chrstnNm);
         setOpen(false);
     };
 
@@ -75,7 +73,7 @@ export default function SearchPopup({ title, width = 500, height = 500 }) {
     return (
         <React.Fragment>
             <Button variant="outlined" onClick={handleClickOpen}>
-                {selectedStation || "찾아보기"}
+                {station || "찾아보기"}
             </Button>
             <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle sx={{ m: 0, p: 2, fontWeight: 600 }} id="customized-dialog-title">
