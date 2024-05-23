@@ -25,6 +25,7 @@ const Review = () => {
                 },
             });
             if (res.data.code === 200) {
+                console.log(res);
                 setReviews(res.data.payload || []);
             }
         } catch (error) {

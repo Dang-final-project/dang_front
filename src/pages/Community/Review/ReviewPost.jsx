@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { Button, FormControl, Grid, OutlinedInput, TextField, Typography, useMediaQuery } from "@mui/material";
+import { Button, FormControl, Grid, TextField, Typography, useMediaQuery } from "@mui/material";
 import Rating from '@mui/material/Rating';
 import { useCallback, useState } from "react";
 import axios from "axios";
@@ -22,12 +22,16 @@ const ReviewPost = ({ open, handleClose }) => {
         const UserId = loginUser?.id;
         e.preventDefault();
         try {
-            if (UserId && station) {
+            console.log(loginUser, station);
+            if (station) {
                 const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/community/review`, {
                     station,
                     starScore,
-                    content,
-                    UserId,
+                    content
+                }, {
+                    headers: {
+                        Authorization: loginUser.token
+                    }
                 });
 
                 if (res.data.code === 200) {
@@ -40,25 +44,19 @@ const ReviewPost = ({ open, handleClose }) => {
                     setStation("");
                     setStarScore(0);
                     setContent("");
+                } else{
+                    Swal.fire({
+                        title: `이용후기를 작성해 주세요`,
+                        icon: "warning",
+                        confirmButtonText: "확인",
+                        confirmButtonColor: theme.palette.error.main,
+                    });
                 }
-            } else {
-                Swal.fire({
-                    title: `이용후기를 작성해 주세요`,
-                    icon: "warning",
-                    confirmButtonText: "확인",
-                    confirmButtonColor: theme.palette.error.main,
-                });
-
-            }
+            } 
         } catch (err) {
             console.error(err);
         }
     };
-
-    const writeStation = useCallback((e) => {
-        setStation(e.target.value);
-    }, []);
-
     const writestarScore = useCallback((event, newValue) => {
         setStarScore(newValue);
     }, []);
@@ -90,14 +88,7 @@ const ReviewPost = ({ open, handleClose }) => {
                         }}
                     >
                         <Typography sx={{ marginRight: 2 }}>충전소 {isDesktop && ":"}</Typography>
-                        <SearchPopup open={open} handleClose={handleClose} />
-                        {/* <OutlinedInput
-                            name="station"
-                            value={station}
-                            onChange={writeStation}
-                            sx={{ minWidth: "400px" }}
-                            onClick={handleTextInputClick}
-                        /> */}
+                        <SearchPopup open={open} handleClose={handleClose} station={station} setStation={setStation} />
                     </FormControl>
                     <FormControl
                         sx={{
