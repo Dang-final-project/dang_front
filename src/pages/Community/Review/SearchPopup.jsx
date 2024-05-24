@@ -31,7 +31,6 @@ export default function SearchPopup({ title, width = 500, height = 500, station,
     const [open, setOpen] = useState(false);
     const [searchWord, setSearchWord] = useState("");
     const [searchResults, setSearchResults] = useState([]); // 검색 결과 상태 추가
-    // const [station, setstation] = useState(""); // 선택한 충전소 상태 추가
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -77,7 +76,7 @@ export default function SearchPopup({ title, width = 500, height = 500, station,
     };
 
     const dialogContentProps = {
-        sx: { width: width, height: height },
+        sx: { width: "430px", height: height },
         ...(title && { dividers: true }),
     };
 

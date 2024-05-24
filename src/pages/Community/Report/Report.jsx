@@ -73,6 +73,7 @@ const Report = () => {
                     setCarNum("");
                     setStation("");
                     setContent("");
+                    getReports();
                 }
             } else {
                 Swal.fire({

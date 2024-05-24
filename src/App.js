@@ -8,7 +8,7 @@ import Join from "./pages/Join";
 import Admin from "./pages/Admin";
 import Community from "./pages/Community";
 import Cost from "./pages/Cost";
-import Mypage from "./pages/Mypage";
+import MypageMain from "./pages/Mypage/MypageMain"
 import { LoginContext } from "./contexts/LoginContext";
 import { useProvideAuth } from "./hooks/useProvideAuth";
 import Layout from "./components/layouts/layout";
@@ -46,7 +46,7 @@ function App() {
                                     <Route path="/admin" element={<Admin />} />
                                     <Route path="/community" element={<Community />} />
                                     <Route path="/community/posting" element={<ReviewPost />} />
-                                    <Route path="/mypage" element={<Mypage />} />
+                                    <Route path="/mypage" element={<MypageMain />} />
                                 </>
                             ) : (
                                 <>
