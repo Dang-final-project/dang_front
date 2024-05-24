@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react"; 
 import {Button, Grid} from "@mui/material";
 import { MapContext } from "../../../../contexts/MapContext";
 import FilterPopup from "./FilterPopup";
@@ -8,9 +9,10 @@ export function FilterPopupButton({label, filterKey, filterValue, Separator}) {
     const [open, setOpen] = React.useState(false);
 
     const { filterList, setFilterList} = React.useContext(MapContext);
-    // //필터 데이터 전송
     const [activeButtons, setActiveButtons] = React.useState([]);
     const [currentFilter, setCurrentFilter] = React.useState("");
+    const [btnClicked, setBtnClicked] = useState(false);
+    const [btnText, setBtnText] = useState(label);
     
     // 중복 선택 가능 버튼
     const handleMultipleSelete = (type) => {
@@ -32,13 +34,22 @@ export function FilterPopupButton({label, filterKey, filterValue, Separator}) {
         });
     }
 
+    // 필터 데이터 전송
     const getFilterVal = () => {
         setFilterList(prev => ({...filterList,[filterKey] :currentFilter}));
-      }
+        setBtnClicked(true);
+        setOpen(false);
+    }
 
     return(
         <>
-            <Button variant="outlined" onClick={()=>setOpen(true)}>{label}</Button>
+            <Button 
+                variant="contained"
+                sx = {{bgcolor :btnClicked ? 'primary' : '#fff', color: !btnClicked && 'primary.main'}}
+                onClick={()=>setOpen(true)}
+            >
+                {btnText}
+            </Button>
             {
                 open &&
                 <FilterPopup title={label} open={open} setOpen={setOpen}>

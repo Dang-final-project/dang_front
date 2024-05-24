@@ -56,20 +56,19 @@ export const StationField = () => {
         }
     };
 
-
     const containerStyle = {
         width: "100%",
-        display: "flex",
-        justifyContent:"space-between",
-        p: 2,
-        position: "absolute",
-        zIndex: 10,
-        height: "calc(100vh - 64px - 58.5px)"
+        maxWidth: "460px",
+        height: "calc(100vh - 64px)",
+        overflow: "hidden"
     }
 
     return (
-        <Box sx={containerStyle}>
-            <Paper sx={{ p: 2, width: "40%", maxWidth: "460px", flexGrow: 1, overflow: "hidden" }}>
+        <Paper sx={containerStyle}>
+            <Box>
+                <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
+            </Box>
+            <Box sx={{ flexGrow: 1, overflowY: "hidden", height: "calc(100% - 90px)", p:2}}>
                 {
                     stations ?
                     <>
@@ -125,10 +124,7 @@ export const StationField = () => {
                     :
                     <p>리스트 가져오는 중..</p>
                 }
-            </Paper>
-            <Box mr={1}>
-                <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
             </Box>
-        </Box>
+        </Paper>
     );
 };

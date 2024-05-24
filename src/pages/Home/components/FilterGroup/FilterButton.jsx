@@ -21,9 +21,9 @@ export function FilterButton({label, filterKey, filterValue}) {
 
     return (
         <Button
-            variant={btnClicked ? 'contained' : 'outlined'}
+            variant="contained"
             size="large"
-            color="primary"
+            sx = {{bgcolor :btnClicked ? 'primary' : '#fff', color: !btnClicked && 'primary.main'}}
             onClick={getFilterVal}
         >
             {label}

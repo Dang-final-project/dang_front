@@ -26,15 +26,16 @@ const Home = () => {
     const theme = useTheme();
     const tabletWidth = useMediaQuery(theme.breakpoints.up("md"));
 
+
     return (
-        <>
+        <Box component="section" sx={{display:"flex"}}>
             {positionArr ? (
                 <>
                     {tabletWidth ? (
-                        <Box component="section" sx={{ marginTop: "64px" , overflow: "hidden" }}>
-                            <FilterGroup />
+                        <>
+                            {/* <FilterGroup /> */}
                             <StationField />
-                        </Box>
+                        </>
                     ) : (
                         <Box component="section" sx={{ position: "relative", marginTop: "64px" }}>
                             <Box component="article" sx={{ zIndex: "10", position: "absolute", bottom: 10 }}>
@@ -43,14 +44,14 @@ const Home = () => {
                         </Box>
                     )}
                     <KakaoMap
-                        sx={{ zIndex: "-100", position: "absolute", top: 0 }}
+                        // sx={{ zIndex: "-100", position: "absolute", top: 0 }}
                         positionArr={positionArr}
                     ></KakaoMap>
                 </>
             ) : (
                 <Loading />
             )}
-        </>
+        </Box>
     );
 };
 
