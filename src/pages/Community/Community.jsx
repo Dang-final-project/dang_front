@@ -20,7 +20,7 @@ const Community = () => {
                         setActiveButton("review");
                     }}
                 >
-                    후기 작성 게시판
+                    후기
                 </Button>
                 <Button
                     variant="contained"

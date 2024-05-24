@@ -3,6 +3,7 @@ import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
 import { MapContext } from '../../../../contexts/MapContext'; // 경로 수정
 import Geolocate from './Geolocate';
 import ClusterMarker from './ClusterMarker';
+import { Margin } from '@mui/icons-material';
 
 const KakaoMap = () => {
   const { positionArr, stations, mapPos, setMapPos } = useContext(MapContext);
@@ -33,7 +34,9 @@ const KakaoMap = () => {
       style={{ width: "100%", height: "calc(100vh - 64px - 58.5px)" }}
       level={3}
     >
-      <Geolocate center={center} position={position} setCenter={setCenter} setPosition={setPosition} />
+      <Geolocate center={center} position={position} setCenter={setCenter} setPosition={setPosition} 
+        sx={{marginbottom: "100%"}}
+      />
       <ClusterMarker />
     </Map>
       

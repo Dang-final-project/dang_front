@@ -36,7 +36,7 @@ const Geolocate = ({ center, setCenter, position, setPosition, handleClickOpen }
       <IconButton
         color="primary"
         onClick={comeBackHome}
-        sx={{ position: 'absolute', right: 0, bottom: 350, zIndex: 5 }}
+        sx={{ position: 'absolute', top: 315, right: 1, zIndex: 5 }}
       >
         <GpsFixedIcon />
       </IconButton>
