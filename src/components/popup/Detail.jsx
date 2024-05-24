@@ -24,7 +24,7 @@ const Detail = ({ open, handleClose, detailIndex }) => {
     const stationInfo = stations.length > 0 ? stations[detailIndex] : null;
 
     const dialogContentProps = {
-        sx: { width: "500px", height: "310px" },
+        sx: { width: "430px", height: "310px" },
     };
 
     return (
