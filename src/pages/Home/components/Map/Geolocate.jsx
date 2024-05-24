@@ -25,21 +25,15 @@ const Geolocate = ({ center, setCenter, position, handleClickOpen }) => {
 
   return (
     <>
-      <MapMarker position={position} onClick={handleClickOpen} />
-      <ZoomControl />
-      <IconButton
-        color="primary"
-        onClick={comeBackHome}
-        sx={{
-          position: 'absolute',
-          top: { xs: 'auto', sm: 315 }, // 작은 화면에서는 아래로 이동
-          bottom: { xs: 80, sm: 'auto' }, // 작은 화면에서는 아래로 이동
-          right: 1,
-          zIndex: 5,
-        }}
-      >
-        <GpsFixedIcon />
-      </IconButton>
+       <MapMarker position={position} onClick={handleClickOpen} />
+        <ZoomControl />
+        <IconButton
+          color="primary"
+          onClick={comeBackHome}
+          sx={{ position: 'absolute', top: 200, right: 1, zIndex: 5 }}
+        >
+          <GpsFixedIcon />
+        </IconButton>
     </>
   );
 };
