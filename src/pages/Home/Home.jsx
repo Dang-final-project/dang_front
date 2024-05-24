@@ -33,7 +33,7 @@ const Home = () => {
                     {tabletWidth ? (
                         <Box component="section" sx={{ marginTop: "64px" , overflow: "hidden" }}>
                             <FilterGroup />
-                            <StationField />
+                            {/* <StationField /> */}
                         </Box>
                     ) : (
                         <Box component="section" sx={{ position: "relative", marginTop: "64px" }}>

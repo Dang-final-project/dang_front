@@ -10,21 +10,27 @@ import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import '@fontsource/roboto/300.css';
+import { Box, Typography } from "@mui/material";
+
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import DirectionsIcon from '@mui/icons-material/Directions';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import ElectricalServicesIcon from '@mui/icons-material/ElectricalServices';
 
 const Detail = ({ open, handleClose, detailIndex }) => {
     const { stations } = useContext(MapContext);
     //console.log(stations, detailIndex);
-    // 첫 번째 충전소 정보를 사용합
+    // 첫 번째 충전소 정보를 사용합니다.
     const stationInfo = stations.length > 0 ? stations[detailIndex] : null;
 
     const dialogContentProps = {
-        sx: { width: "500px", height: "500px" },
+        sx: { width: "500px", height: "300px" },
     };
 
     return (
         <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-            <DialogTitle sx={{ m: 0, p: 2, fontWeight: 600 }} id="customized-dialog-title">
-                상세보기
+            <DialogTitle sx={{ m: 0, p: 2, fontWeight: 600, marginLeft: '1vw'}} id="customized-dialog-title">
+                상세 정보
                 <IconButton
                     aria-label="close"
                     onClick={handleClose}
@@ -41,17 +47,38 @@ const Detail = ({ open, handleClose, detailIndex }) => {
             <DialogContent {...dialogContentProps}>
                 {stationInfo && (
                     <List
-                        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+                        sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }} // 여백 제거
                         component="nav"
                         aria-labelledby="nested-list-subheader"
                         subheader={
-                            <ListSubheader component="h5">{stationInfo.chrstnNm}</ListSubheader>
+                            <ListSubheader component="h5">
+                                <Typography variant="h6" 
+                                    sx={{textAlign:"center", border:'1px solid #eeeeee', backgroundColor:'#eeeeee', color:'black', fontFamily:'Arial, sans-serif', fontWeight: 'bolder'}}
+                                >
+                                    {stationInfo.chrstnNm}
+                                </Typography>
+                            </ListSubheader>
                         }
                     >
-                        <ListItemText primary="운영시간" secondary={stationInfo.useOpenTime} />
-                        <ListItemText primary="도로명 주소" secondary={stationInfo.rdnmadr} />
-                        <ListItemText primary="운영기관" secondary={stationInfo.manage_entrps_nm} />
-                        <ListItemText primary="충전기 타입" secondary={stationInfo.chrstnType} />
+                        <Box sx={{marginLeft: "3vw", marginTop: "2vw"}}>
+                            <Box sx={{display:'flex'}}>
+                                <AccessTimeIcon sx={{marginTop:"0.6vw"}}/>
+                                <ListItemText primary="운영시간" secondary={stationInfo.useOpenTime} sx={{marginLeft: '3px'}}/>
+                            </Box>
+                            <Box sx={{display:'flex'}}>
+                                <DirectionsIcon sx={{marginTop:"0.6vw"}}/>
+                                <ListItemText primary="도로명 주소" secondary={stationInfo.rdnmadr} sx={{marginLeft: '3px'}}/>
+                            </Box>
+                            <Box sx={{display:'flex'}}>
+                                <ApartmentIcon sx={{marginTop:"0.6vw"}}/>
+                                <ListItemText primary="운영기관" secondary={stationInfo.manage_entrps_nm} sx={{marginLeft: '3px'}}/>
+                            </Box>
+                            <Box sx={{display:'flex'}}>
+                                <ElectricalServicesIcon sx={{marginTop:"0.6vw"}}/>
+                                <ListItemText primary="충전기 타입" secondary={stationInfo.chrstnType} sx={{marginLeft: '3px'}}/>
+                            </Box>
+                        </Box>
+                        
                     </List>
                 )}
             </DialogContent>
