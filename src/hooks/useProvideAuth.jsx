@@ -9,6 +9,7 @@ export const useProvideAuth = () => {
         id: localStorage.getItem("userId"),
         token: localStorage.getItem("token"),
         nickname: "",
+        email: "",
     });
 
     useEffect(() => {
@@ -19,6 +20,7 @@ export const useProvideAuth = () => {
                 setLoginUser((prevUser) => ({
                     ...prevUser,
                     nickname: decodedToken.nickname,
+                    email: decodedToken.email,
                 }));
             } catch (err) {
                 console.error(err);
@@ -74,6 +76,7 @@ export const useProvideAuth = () => {
                     id: id,
                     token,
                     nickname: decodedToken.nickname,
+                    email: decodedToken.email,
                 });
             }
             callback(response);

@@ -49,7 +49,6 @@ const Header = () => {
 
     const StyledTypo = styled(Typography)({
         cursor: "pointer",
-        fontSize: "18px",
         margin: "10px",
         color: "#4b4037",
         "&:hover": {
@@ -70,7 +69,7 @@ const Header = () => {
                     backgroundColor: "white",
                     zIndex: 1,
                     borderRadius: 1,
-                    // minWidth: "150px",
+                    padding: 1,
                 }}
             >
                 <Box sx={{ padding: "10px" }}>
@@ -78,7 +77,9 @@ const Header = () => {
                         {kakaoLogin && kakaoLogin?.nickname}
                         {loginUser && loginUser?.nickname}님
                     </Typography>
-                    <Typography sx={{ fontSize: "14px", color: theme.palette.grey[500] }}>test@gmail.com</Typography>
+                    <Typography sx={{ fontSize: "14px", color: theme.palette.grey[500] }}>
+                        {loginUser?.email}
+                    </Typography>
                     <Typography sx={{ fontSize: "14px" }}>
                         내 자동차: <span style={{ fontWeight: 600 }}>테슬라</span>
                     </Typography>
@@ -119,7 +120,7 @@ const Header = () => {
                             window.location.href = "/";
                         }}
                     >
-                        <Box component="img" src="danglogo.svg" alt="logo" sx={{ width: 25 }} />
+                        <Box component="img" src="danglogo.svg" alt="logo" sx={{ width: 24 }} />
                         <StyledTypo>당충전</StyledTypo>
                     </Box>
                     {userStatus && userStatus === "guest" && (
@@ -132,7 +133,7 @@ const Header = () => {
                         </Grid>
                     )}
                     {userStatus && userStatus === "user" && (
-                        <Grid sx={{ display: "flex" }}>
+                        <Grid sx={{ display: "flex", alignItems: "center" }}>
                             <Grid>
                                 <StyledTypo
                                     onClick={() => setDropdownOpen(!dropdownOpen)}
