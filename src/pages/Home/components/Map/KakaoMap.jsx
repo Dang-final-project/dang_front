@@ -6,7 +6,7 @@ import ClusterMarker from './ClusterMarker';
 
 const KakaoMap = () => {
   const { positionArr, stations, mapPos, setMapPos } = useContext(MapContext);
-  console.log(stations);
+  //console.log(stations);
 
   const [loading, error] = useKakaoLoader({
     appkey: process.env.REACT_APP_KAKAO_MAP_API_KEY,
@@ -30,7 +30,7 @@ const KakaoMap = () => {
       id="map"
       position="absolute"
       center={center}
-      style={{ width: "100%", height: "calc(100vh - 64px - 52.5px)" }}
+      style={{ width: "100%", height: "calc(100vh - 64px - 58.5px)" }}
       level={3}
     >
       <Geolocate center={center} position={position} setCenter={setCenter} setPosition={setPosition} />

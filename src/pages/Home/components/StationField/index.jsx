@@ -1,83 +1,75 @@
 import { Box, Paper, Tab, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Station from "./Station";
-import axios from "axios";
 import { MapContext } from "../../../../contexts/MapContext";
-// import SearchBox from "./SearchBox";
+import SearchBox from "./SearchBox";
+import axios from "axios";
 
 export const StationField = () => {
 
-    const {
-        stations, 
-        setStations, 
-        favStation, 
-        favList,
-        setFavList,
-    } = useContext(MapContext)
+    const { stations, setStations, favStation, favList } = useContext(MapContext)
 
-    const token = localStorage.getItem('token');
+    //로컬,카카오 토큰 가져오기
+    const getToken = () => {
+        const cookieToken = () => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; accessToken=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null; // 쿠키가 없을 경우 null 반환
+        }
+    
+        const localToken = localStorage.getItem('token');
+        const token = cookieToken() || localToken;
+    
+        return token;
+    }
+    
+    let token = getToken();
 
+    //탭 이벤트
     const [value, setValue] = useState("1");
-
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
-    // const [searchWord, setSearchWord] = useState("");
+    const [searchWord, setSearchWord] = useState("");
 
-    // const handleSearchChange = (event) => {
-    //     setSearchWord(event.target.value);
-    // };
-
-    // const handleSearch = async () => {
-    //     const key = process.env.REACT_APP_STATION_API_KEY;
-    //     const pageIdx = 0;
-    //     const count = 10;
-    //     const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
-    //     try {
-    //         const response = await axios.get(url);
-    //         const datas = response.data.items;
-    //         if (response.status === 200) {
-    //             const filteredStations = datas.filter((station) => station.chrstnNm.includes(searchWord.toUpperCase()));
-    //             setStations(filteredStations);
-    //         }
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // };
-
-    const getFav = async () => {
-        const urll = `${process.env.REACT_APP_SERVER_URL}/stations/list`;
-        const fav = await axios.get(urll, { 
-            headers : {
-                'authorization' : `${token}`
-            }
-         });
-        // console.log(fav.data.payload);
-        setFavList(fav.data.payload);
+    const handleSearchChange = (event) => {
+        setSearchWord(event.target.value);
     };
 
-    const containerStyle = {
-        width: "40%",
-        display: "flex",
-        flexDirection: "column",
-        gap: "16px",
-        p: 3,
-        position: "absolute",
-        top: "130px",
-        zIndex: 10,
-        height: "calc(100vh - 64px - 52.5px)",
-    }
+    const handleSearch = async () => {
+        const key = process.env.REACT_APP_STATION_API_KEY;
+        const pageIdx = 0;
+        const count = 10;
+        const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
+        try {
+            const response = await axios.get(url);
+            const datas = response.data.items;
+            if (response.status === 200) {
+                const filteredStations = datas.filter((station) => station.chrstnNm.includes(searchWord.toUpperCase()));
+                setStations(filteredStations);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
-    useEffect(()=>{
-        getFav();
-    },[])
+
+    const containerStyle = {
+        width: "100%",
+        display: "flex",
+        justifyContent:"space-between",
+        p: 2,
+        position: "absolute",
+        zIndex: 10,
+        height: "calc(100vh - 64px - 58.5px)"
+    }
 
     return (
         <Box sx={containerStyle}>
-            {/* <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} /> */}
-            <Paper sx={{ p: 2, maxWidth: "460px", flexGrow: 1, overflow: "hidden" }}>
+            <Paper sx={{ p: 2, width: "40%", maxWidth: "460px", flexGrow: 1, overflow: "hidden" }}>
                 {
                     stations ?
                     <>
@@ -98,8 +90,8 @@ export const StationField = () => {
                                             <Station
                                                 key={idx}
                                                 station={station}
-                                                favList={favList}
-                                                getFav={getFav}
+                                                tab={'all'}
+                                                token={token}
                                             />
                                         );
                                     })
@@ -108,20 +100,25 @@ export const StationField = () => {
                                 )}
                             </TabPanel>
                             <TabPanel value="2" sx={{ height: "100%", overflow: "scroll" }}>
-                                {favStation.length !== 0 && favList.length !== 0  ? (
-                                    favStation.map((fav, idx) => {
-                                        return (
-                                            <Station
-                                                key={idx}
-                                                station={fav}
-                                                favList={favList}
-                                                getFav={getFav}
-                                            />
-                                        );
-                                    })
-                                ) : (
-                                    <Typography>즐겨찾기가 존재하지 않습니다.</Typography>
-                                )}
+                                {
+                                    token ?
+                                        (favStation && favStation.length !== 0 && favList.length !== 0  ? (
+                                            favStation.map((fav, idx) => {
+                                                return (
+                                                    <Station
+                                                        key={idx}
+                                                        station={fav}
+                                                        tab={'fav'}
+                                                        token={token}
+                                                    />
+                                                );
+                                            })
+                                        ) : (
+                                            <Typography>즐겨찾기가 존재하지 않습니다.</Typography>
+                                        ))
+                                    :
+                                    <Typography>로그인 후 이용해주세요.</Typography>
+                                }
                             </TabPanel>
                         </TabContext>
                     </>
@@ -129,6 +126,9 @@ export const StationField = () => {
                     <p>리스트 가져오는 중..</p>
                 }
             </Paper>
+            <Box mr={1}>
+                <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
+            </Box>
         </Box>
     );
 };
