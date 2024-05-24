@@ -49,6 +49,7 @@ const Header = () => {
 
     const StyledTypo = styled(Typography)({
         cursor: "pointer",
+        fontSize: "18px",
         margin: "10px",
         color: "#4b4037",
         "&:hover": {
@@ -87,24 +88,21 @@ const Header = () => {
     };
 
     const guest = [
-        { nav: "홈", link: "/" },
-        { nav: "요금현황", link: "/cost" },
+        { nav: "정보마당", link: "/cost" },
         { nav: "커뮤니티", link: "/community" },
         { nav: "회원가입", link: "/join" },
         { nav: "로그인", link: "/login" },
     ];
 
     const user = [
-        { nav: "홈", link: "/" },
-        { nav: "요금현황", link: "/cost" },
+        { nav: "정보마당", link: "/cost" },
         { nav: "커뮤니티", link: "/community" },
         { nav: "마이페이지", link: "/mypage" },
         { nav: "로그아웃", link: "/" },
     ];
 
     const admin = [
-        { nav: "홈", link: "/" },
-        { nav: "요금현황", link: "/cost" },
+        { nav: "정보마당", link: "/cost" },
         { nav: "커뮤니티", link: "/community" },
         { nav: "회원관리", link: "/admin" },
         { nav: "로그아웃", link: "/" },
@@ -115,14 +113,15 @@ const Header = () => {
         return (
             <AppBar color="secondary" elevation={ELEVATION}>
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <StyledTypo
+                    <Box
+                        sx={{ display: "flex" }}
                         onClick={() => {
                             window.location.href = "/";
                         }}
                     >
-                        당충전
-                    </StyledTypo>
-
+                        <Box component="img" src="danglogo.svg" alt="logo" sx={{ width: 25 }} />
+                        <StyledTypo>당충전</StyledTypo>
+                    </Box>
                     {userStatus && userStatus === "guest" && (
                         <Grid sx={{ display: "flex" }}>
                             {guest.map((text, index) => (
@@ -202,6 +201,18 @@ const Header = () => {
     const DrawerList = (
         <Box sx={{ width: "250px" }} role="presentation" onClick={toggleDrawer(false)}>
             <List>
+                <ListItem disablePadding>
+                    <Link to="/">
+                        <ListItemButton sx={{ width: "88px" }}>
+                            <ListItemText
+                                onClick={() => {
+                                    window.location.href = "/";
+                                }}
+                                primary="홈"
+                            />
+                        </ListItemButton>
+                    </Link>
+                </ListItem>
                 {userStatus && userStatus === "guest" && guest.map((text, index) => DrawerItem(text))}
                 {userStatus && userStatus === "user" && user.map((text, index) => DrawerItem(text))}
                 {userStatus && userStatus === "admin" && admin.map((text, index) => DrawerItem(text))}
