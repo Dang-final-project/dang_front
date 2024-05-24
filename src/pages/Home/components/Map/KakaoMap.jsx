@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
 import { MapContext } from '../../../../contexts/MapContext'; // 경로 수정
 import Geolocate from './Geolocate';
@@ -20,6 +22,10 @@ const KakaoMap = () => {
     lng: 126.570667,
   });
   const [position, setPosition] = useState(center);
+
+  //반응형분기점
+  const theme = useTheme();
+  const tabletWidth = useMediaQuery(theme.breakpoints.up("md"));
     
   useEffect(() => {
       setCenter(mapPos);
@@ -38,7 +44,7 @@ const KakaoMap = () => {
         <Geolocate center={center} position={position} setCenter={setCenter} setPosition={setPosition} />
         <ClusterMarker />
       </Map>
-      <FilterGroup />
+      {tabletWidth ? <FilterGroup /> : null}
     </Box>
   );
 };

@@ -13,6 +13,20 @@ export function FilterPopupButton({label, filterKey, filterValue, Separator}) {
     const [currentFilter, setCurrentFilter] = React.useState("");
     const [btnClicked, setBtnClicked] = useState(false);
     const [btnText, setBtnText] = useState(label);
+
+    // 버튼 스타일 변경
+    const changeStyle = () => {
+        if(activeButtons.length === 0) {
+            setBtnClicked(false);
+            setBtnText(label);
+        }else if(activeButtons.length === 1){
+            setBtnText(activeButtons[0]);
+            setBtnClicked(true);
+        }else {
+            setBtnText( activeButtons.length > 1 ? `${activeButtons[0]}\u00A0외\u00A0${activeButtons.length-1}개` : activeButtons[0] );
+            setBtnClicked(true);
+        }
+    }
     
     // 중복 선택 가능 버튼
     const handleMultipleSelete = (type) => {
@@ -24,6 +38,7 @@ export function FilterPopupButton({label, filterKey, filterValue, Separator}) {
             return updatedList;
         });
     };
+
 
     // 단일 선택 버튼
     const handleSingleSelete = (type) => {
@@ -37,8 +52,8 @@ export function FilterPopupButton({label, filterKey, filterValue, Separator}) {
     // 필터 데이터 전송
     const getFilterVal = () => {
         setFilterList(prev => ({...filterList,[filterKey] :currentFilter}));
-        setBtnClicked(true);
         setOpen(false);
+        changeStyle();
     }
 
     return(
