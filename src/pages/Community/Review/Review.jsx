@@ -57,11 +57,11 @@ const Review = () => {
 
     return (
         <>
-            <StationSearch onSearch={handleSearch} />
-            <List sx={{ width: "100%", maxWidth: 360 }}>
+            <StationSearch onSearch={handleSearch} sx={{width: "90%"}}/>
+            <List sx={{ width: "100%", maxWidth: 480, margin: "0 auto" }}>
                 {currentData.length > 0 ? (
                     currentData.map((review, index) => (
-                        <ListItem key={index} sx={{ flexDirection: "column" }}>
+                        <ListItem key={index} sx={{ flexDirection: "column", paddingLeft: "20px", paddingRight: "20px" }}>
                             <Box
                                 sx={{
                                     display: "inline-block",
@@ -97,7 +97,7 @@ const Review = () => {
                         </ListItem>
                     ))
                 ) : (
-                    <Typography variant="body1">리뷰를 작성해주세요.</Typography>
+                    <Typography variant="body1" align="center">리뷰를 작성해주세요.</Typography>
                 )}
             </List>
             <PageCount
@@ -106,7 +106,7 @@ const Review = () => {
                 handleChangePage={handleChangePage}
                 sx={{ marginBottom: "20px" }}
             />
-            <Button variant="text" onClick={handleWriteButtonClick} sx={{ marginBottom: "50px", marginTop: "-20px" }}>
+            <Button variant="text" onClick={handleWriteButtonClick} fullWidth sx={{ marginBottom: "50px", marginTop: "-20px" }}>
                 작성하기
             </Button>
         </>
