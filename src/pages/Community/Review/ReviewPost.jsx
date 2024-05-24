@@ -1,10 +1,10 @@
 import { useTheme } from "@emotion/react";
 import { Button, FormControl, Grid, OutlinedInput, TextField, Typography, useMediaQuery } from "@mui/material";
-import Rating from '@mui/material/Rating';
+import Rating from "@mui/material/Rating";
 import { useCallback, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useAuth } from './../../../hooks/useAuth';
+import { useAuth } from "./../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import SearchPopup from "./SearchPopup";
 
@@ -48,17 +48,11 @@ const ReviewPost = ({ open, handleClose }) => {
                     confirmButtonText: "확인",
                     confirmButtonColor: theme.palette.error.main,
                 });
-
             }
         } catch (err) {
             console.error(err);
         }
     };
-
-    const writeStation = useCallback((e) => {
-        setStation(e.target.value);
-    }, []);
-
     const writestarScore = useCallback((event, newValue) => {
         setStarScore(newValue);
     }, []);
@@ -74,30 +68,15 @@ const ReviewPost = ({ open, handleClose }) => {
             </Typography>
             <form onSubmit={handleSubmit}>
                 <Grid
-                    sx={{
-                        display: "flex",
-                        flexDirection: isDesktop ? "column" : "column",
-                        alignItems: isDesktop ? "flex-end" : "center",
-                        marginRight: isDesktop ? "60px" : "0",
-                    }}
+                    container
+                    direction="column"
+                    justifyContent="flex-start" // 왼쪽 정렬 설정
+                    // alignItems="center"
+                    sx={{ margin: "0 auto", width: "90%" }}
                 >
-                    <FormControl
-                        sx={{
-                            mb: 2,
-                            display: "flex",
-                            flexDirection: isDesktop ? "row" : "column",
-                            alignItems: isDesktop ? "center" : "left",
-                        }}
-                    >
-                        <Typography sx={{ marginRight: 2 }}>충전소 {isDesktop && ":"}</Typography>
-                        <SearchPopup open={open} handleClose={handleClose} />
-                        {/* <OutlinedInput
-                            name="station"
-                            value={station}
-                            onChange={writeStation}
-                            sx={{ minWidth: "400px" }}
-                            onClick={handleTextInputClick}
-                        /> */}
+                    <FormControl sx={{ mb: 2 }}>
+                        <Typography>충전소:</Typography>
+                        <SearchPopup open={open} handleClose={handleClose} station={station} setStation={setStation} />
                     </FormControl>
                     <FormControl
                         sx={{
@@ -107,53 +86,28 @@ const ReviewPost = ({ open, handleClose }) => {
                             alignItems: isDesktop ? "center" : "flex-start",
                         }}
                     >
-                        <Typography sx={{ marginRight: 7, whiteSpace: "nowrap" }}>
-                            별 점 {isDesktop && ":"}
-                        </Typography>
-                        <Rating
-                            name="starscore"
-                            value={starScore}
-                            onChange={writestarScore}
-                            size="large"
-                        />
+                        <Typography sx={{ marginRight: 7, whiteSpace: "nowrap" }}>별 점 {isDesktop && ":"}</Typography>
+                        <Rating name="starscore" value={starScore} onChange={writestarScore} size="large" />
                         <TextField
                             name="starscore"
                             value={starScore}
                             onChange={(e) => setStarScore(e.target.value)}
                             //onChange={writestarScore}
-                            sx={{ visibility: "hidden"}}
+                            sx={{ visibility: "hidden" }}
                         />
                     </FormControl>
-                    <FormControl
-                        sx={{
-                            mb: 2,
-                            display: "flex",
-                            flexDirection: isDesktop ? "row" : "column",
-                            alignItems: isDesktop ? "center" : "left",
-                        }}
-                    >
-                        <Typography sx={{ marginRight: 2, whiteSpace: "nowrap" }}>
-                            후기 내용 {isDesktop && ":"}
-                        </Typography>
+                    <FormControl sx={{ mb: 2 }}>
+                        <Typography>후기 내용:</Typography>
                         <TextField
                             name="content"
                             value={content}
                             onChange={writeContent}
                             multiline
                             rows={9}
-                            sx={{ minWidth: "400px" }}
+                            fullWidth
                         />
                     </FormControl>
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        sx={{
-                            width: isDesktop ? "300px" : "200px",
-                            height: "40px",
-                            marginRight: isDesktop ? "60px" : "0",
-                            marginBottom: "20px",
-                        }}
-                    >
+                    <Button type="submit" variant="contained" size="large" sx={{ width: "100%", mt: 2 }}>
                         작성하기
                     </Button>
                 </Grid>
@@ -161,6 +115,5 @@ const ReviewPost = ({ open, handleClose }) => {
         </>
     );
 };
-
 
 export default ReviewPost;
