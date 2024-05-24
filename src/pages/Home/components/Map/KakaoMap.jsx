@@ -1,8 +1,13 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
 import { MapContext } from '../../../../contexts/MapContext'; // 경로 수정
 import Geolocate from './Geolocate';
 import ClusterMarker from './ClusterMarker';
+import { FilterGroup } from '../FilterGroup';
+import { Box } from '@mui/material';
+
 
 const KakaoMap = () => {
   const { positionArr, stations, mapPos, setMapPos } = useContext(MapContext);
@@ -21,6 +26,9 @@ const KakaoMap = () => {
   });
   const [position, setPosition] = useState(center);
 
+  //반응형분기점
+  const theme = useTheme();
+  const tabletWidth = useMediaQuery(theme.breakpoints.up("md"));
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(pos => {
         setCenter({lat:pos.coords.latitude, lng:pos.coords.longitude});
@@ -43,24 +51,21 @@ const onCenterChanged = (map) => {
 
 
   return (
-    <>
-    <Map
-      id="map"
-      position="absolute"
-      center={center}
-      style={{ width: "100%", height: "calc(100vh - 64px - 58.5px)" }}
-      level={3}
-      ref={mapRef}
-      onCenterChanged={onCenterChanged}
-    >
-      <Geolocate center={center} position={position} setCenter={setCenter} setPosition={setPosition} mapRef={mapRef}
-        sx={{marginbottom: "100%"}}
-      />
-      <ClusterMarker />
-    </Map>
-      
-
-    </>
+    <Box component="section" sx={{position:"relative", width: "100%", height: "calc(100vh - 64px)"}}>
+      <Map
+        id="map"
+        position="absolute"
+        center={center}
+        style={{ width: "100%", height: "100%" }}
+        level={3}
+        ref={mapRef}
+        onCenterChanged={onCenterChanged}
+      >
+        <Geolocate center={center} position={position} setCenter={setCenter} setPosition={setPosition} mapRef={mapRef} />
+        <ClusterMarker />
+      </Map>
+      {tabletWidth ? <FilterGroup /> : null}
+    </Box>
   );
 };
 
