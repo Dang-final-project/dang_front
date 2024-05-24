@@ -1,10 +1,10 @@
 import { useTheme } from "@emotion/react";
-import { Button, FormControl, Grid, TextField, Typography, useMediaQuery } from "@mui/material";
-import Rating from '@mui/material/Rating';
+import { Button, FormControl, Grid, OutlinedInput, TextField, Typography, useMediaQuery } from "@mui/material";
+import Rating from "@mui/material/Rating";
 import { useCallback, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useAuth } from './../../../hooks/useAuth';
+import { useAuth } from "./../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import SearchPopup from "./SearchPopup";
 
@@ -22,15 +22,12 @@ const ReviewPost = ({ open, handleClose }) => {
         const UserId = loginUser?.id;
         e.preventDefault();
         try {
-            if (station) {
+            if (UserId && station) {
                 const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/community/review`, {
                     station,
                     starScore,
-                    content
-                }, {
-                    headers: {
-                        Authorization: loginUser.token
-                    }
+                    content,
+                    UserId,
                 });
 
                 if (res.data.code === 200) {
@@ -43,15 +40,15 @@ const ReviewPost = ({ open, handleClose }) => {
                     setStation("");
                     setStarScore(0);
                     setContent("");
-                } else{
-                    Swal.fire({
-                        title: `이용후기를 작성해 주세요`,
-                        icon: "warning",
-                        confirmButtonText: "확인",
-                        confirmButtonColor: theme.palette.error.main,
-                    });
                 }
-            } 
+            } else {
+                Swal.fire({
+                    title: `이용후기를 작성해 주세요`,
+                    icon: "warning",
+                    confirmButtonText: "확인",
+                    confirmButtonColor: theme.palette.error.main,
+                });
+            }
         } catch (err) {
             console.error(err);
         }
@@ -75,19 +72,28 @@ const ReviewPost = ({ open, handleClose }) => {
                     direction="column"
                     justifyContent="flex-start" // 왼쪽 정렬 설정
                     // alignItems="center"
-                    sx={{ margin: "0 auto", width: "90%"}}
+                    sx={{ margin: "0 auto", width: "90%" }}
                 >
                     <FormControl sx={{ mb: 2 }}>
                         <Typography>충전소:</Typography>
                         <SearchPopup open={open} handleClose={handleClose} station={station} setStation={setStation} />
                     </FormControl>
-                    <FormControl sx={{ mb: 2 }}>
-                        <Typography>별 점:</Typography>
-                        <Rating
+                    <FormControl
+                        sx={{
+                            mb: 2,
+                            display: "flex",
+                            flexDirection: isDesktop ? "row" : "column",
+                            alignItems: isDesktop ? "center" : "flex-start",
+                        }}
+                    >
+                        <Typography sx={{ marginRight: 7, whiteSpace: "nowrap" }}>별 점 {isDesktop && ":"}</Typography>
+                        <Rating name="starscore" value={starScore} onChange={writestarScore} size="large" />
+                        <TextField
                             name="starscore"
                             value={starScore}
-                            onChange={writestarScore}
-                            size="large"
+                            onChange={(e) => setStarScore(e.target.value)}
+                            //onChange={writestarScore}
+                            sx={{ visibility: "hidden" }}
                         />
                     </FormControl>
                     <FormControl sx={{ mb: 2 }}>
@@ -101,12 +107,7 @@ const ReviewPost = ({ open, handleClose }) => {
                             fullWidth
                         />
                     </FormControl>
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        size="large"
-                        sx={{ width: "100%", mt: 2 }}
-                    >
+                    <Button type="submit" variant="contained" size="large" sx={{ width: "100%", mt: 2 }}>
                         작성하기
                     </Button>
                 </Grid>
