@@ -24,7 +24,7 @@ const Detail = ({ open, handleClose, detailIndex }) => {
     const stationInfo = stations.length > 0 ? stations[detailIndex] : null;
 
     const dialogContentProps = {
-        sx: { width: "500px", height: "300px" },
+        sx: { width: "500px", height: "310px" },
     };
 
     return (
@@ -53,7 +53,8 @@ const Detail = ({ open, handleClose, detailIndex }) => {
                         subheader={
                             <ListSubheader component="h5">
                                 <Typography variant="h6" 
-                                    sx={{textAlign:"center", border:'1px solid #eeeeee', backgroundColor:'#eeeeee', color:'black', fontFamily:'Arial, sans-serif', fontWeight: 'bolder'}}
+                                    sx={{textAlign:"center", border:'1px solid #fff', backgroundColor:'secondary.main', 
+                                        color:'black', fontFamily:'Arial, sans-serif', fontWeight: 'bolder', paddingTop: '2px', paddingBottom: '2px'}}
                                 >
                                     {stationInfo.chrstnNm}
                                 </Typography>
