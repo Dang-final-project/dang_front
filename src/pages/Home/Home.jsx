@@ -14,6 +14,11 @@ import KakaoMap from "../Home/components/Map/KakaoMap";
 const Home = () => {
     const { setStations, setFavStation, favList, positionArr, setPositionArr, filterList } = useContext(MapContext);
 
+    useEffect(()=>{
+        GetStations(filterList, setPositionArr, setStations);
+        GetFavStations(favList, setFavStation);
+    },[]);
+
     useEffect(() => {
         GetStations(filterList, setPositionArr, setStations);
     }, [filterList]);
@@ -28,12 +33,11 @@ const Home = () => {
 
 
     return (
-        <Box component="section" sx={{display:"flex"}}>
+        <>
             {positionArr ? (
-                <>
+                <Box component="section" sx={{display:"flex"}}>
                     {tabletWidth ? (
                         <>
-                            {/* <FilterGroup /> */}
                             <StationField />
                         </>
                     ) : (
@@ -47,11 +51,11 @@ const Home = () => {
                         // sx={{ zIndex: "-100", position: "absolute", top: 0 }}
                         positionArr={positionArr}
                     ></KakaoMap>
-                </>
+                </Box>
             ) : (
                 <Loading />
             )}
-        </Box>
+        </>
     );
 };
 

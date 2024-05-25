@@ -1,8 +1,6 @@
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useContext, useEffect, useState, useRef } from 'react';
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
 import { MapContext } from '../../../../contexts/MapContext'; // 경로 수정
 import Geolocate from './Geolocate';

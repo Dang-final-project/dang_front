@@ -1,4 +1,4 @@
-import { Button, InputLabel, TextField, Box, FormControl, OutlinedInput, InputAdornment, IconButton, } from '@mui/material/'
+import { Button, InputLabel, TextField, Box, FormControl, OutlinedInput, InputAdornment, IconButton, Stack, Typography, } from '@mui/material/'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
@@ -55,8 +55,8 @@ const Join = () => {
 
 
     return ( 
-        <>
-            <h1>회원가입</h1>
+        <Box component="section" sx={{display:'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Typography variant="h4" my={3}>회원가입</Typography>
             <Box
                 component="form"
                 noValidate
@@ -140,16 +140,16 @@ const Join = () => {
                     />
                 </FormControl>
                 {/* button */}
-                <Box mt={3} sx={{width : '100%', display: 'flex', gap:'8px', flexDirection: {sm : 'row', xs: 'column-reverse'}}} >
-                    <Button variant="outlined" onClick={(e) => {
+                <Box mt={2} sx={{width : '100%', display: 'flex', gap:'8px', flexDirection: {sm : 'row', xs: 'column-reverse'}}} >
+                    <Button variant="outlined" sx={{width: '50%'}} onClick={(e) => {
                         e.preventDefault()
                         reset();
                     }} >초기화</Button>
-                    <Button type='suibmit' variant="contained" size="large">회원가입</Button>
+                    <Button type='suibmit' variant="contained" size="large" sx={{width: '50%'}} >회원가입</Button>
                 </Box>
                 
             </Box>
-        </> 
+        </Box> 
     );
 }
  

@@ -1,6 +1,6 @@
 import { Box, Paper, Tab, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Station from "./Station";
 import { MapContext } from "../../../../contexts/MapContext";
 import SearchBox from "./SearchBox";
@@ -9,6 +9,7 @@ import axios from "axios";
 export const StationField = () => {
 
     const { stations, setStations, favStation, favList } = useContext(MapContext)
+    const [count, setCount] = useState(0);
 
     //로컬,카카오 토큰 가져오기
     const getToken = () => {
@@ -60,21 +61,27 @@ export const StationField = () => {
         width: "100%",
         maxWidth: "460px",
         height: "calc(100vh - 64px)",
-        overflow: "hidden"
+        overflow: "hidden",
+        display: "flex",
+        flexDirection : "column"
     }
 
+    useEffect(()=>{
+        setCount(stations.length);
+    },[])
+
     return (
-        <Paper sx={containerStyle}>
+        <Paper sx={containerStyle} square >
+            {/* <Typography sx={{px:2, pt:2}}>
+                            주변 충전소 : <span>{count}</span>개
+            </Typography> */}
             <Box>
                 <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
             </Box>
-            <Box sx={{ flexGrow: 1, overflowY: "hidden", height: "calc(100% - 90px)", p:2}}>
+            <Box sx={{ flexGrow: 1, overflowY: "hidden", height: "calc(100% - 90px)", pb: 2 }}>
                 {
                     stations ?
                     <>
-                        <Typography>
-                            주변 충전소 : <span>{stations.length}</span>개
-                        </Typography>
                         <TabContext value={value}>
                             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                                 <TabList onChange={handleChange} aria-label="충전소리스트">
@@ -82,7 +89,7 @@ export const StationField = () => {
                                     <Tab label="MY충전소" value="2" sx={{ width: "50%" }} />
                                 </TabList>
                             </Box>
-                            <TabPanel value="1" sx={{ height: "100%", overflow: "scroll" }}>
+                            <TabPanel value="1" sx={{ height: "calc(100% - 40px)", overflowY: "scroll", bgcolor:'grey.100'}}>
                                 {stations ? (
                                     stations.map((station, idx) => {
                                         return (
@@ -98,7 +105,7 @@ export const StationField = () => {
                                     <Typography>데이터 로딩중</Typography>
                                 )}
                             </TabPanel>
-                            <TabPanel value="2" sx={{ height: "100%", overflow: "scroll" }}>
+                            <TabPanel value="2" sx={{ height: "calc(100% - 40px)",  overflowY: "scroll", bgcolor:'grey.100' }}>
                                 {
                                     token ?
                                         (favStation && favStation.length !== 0 && favList.length !== 0  ? (
