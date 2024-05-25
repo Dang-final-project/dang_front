@@ -1,9 +1,10 @@
-import { Box, Stack, Typography, Button } from "@mui/material";
+import { Box, Stack, Typography, Button, Paper } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { MapContext } from "../../../../contexts/MapContext";
 import MemoButton from "./MemoButton";
 import LikeButton from "./LikeButton";
 import axios from "axios";
+import ReserveBox from "./ReserveBox";
 
 const Station = ({station, tab, token }) => {
     const {setMapPos} = useContext(MapContext);
@@ -28,7 +29,7 @@ const Station = ({station, tab, token }) => {
    }
 
     return ( 
-        <Box sx={{borderBottom:'1px solid #bdbdbd', py:2}} onClick={changeStationLocation}>
+        <Paper elevation={4} sx={{p:2, mb: 2}} onClick={changeStationLocation}>
             { token && 
                 <MemoButton token={token} station={station} getFav={getFav} clicked={clicked}/> 
             }
@@ -46,11 +47,10 @@ const Station = ({station, tab, token }) => {
                 <Typography gutterBottom sx={{width:'100px'}}>충전타입</Typography>
                 <Typography gutterBottom >{station.chrstnType}</Typography>
             </Stack>
-            <Box sx={{bgcolor:'grey.100',p:1, mt:1, display:'flex', display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                <Typography>충전원할<span>{station.avail_count}</span>/<span>{station.tot_count}</span></Typography>
-                <Button variant="contained" color="secondary">예약하기</Button>
-            </Box>
-        </Box>
+            {token && 
+                <ReserveBox chrstnNm={station.chrstnNm} avail_count={station.avail_count} tot_count={station.tot_count} />
+            }
+        </Paper>
      );
 }
 

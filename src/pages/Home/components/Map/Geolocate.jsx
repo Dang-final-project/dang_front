@@ -25,15 +25,15 @@ const Geolocate = ({ center, setCenter, position, handleClickOpen }) => {
 
   return (
     <>
-       <MapMarker position={position} onClick={handleClickOpen} />
-        <ZoomControl />
-        <IconButton
-          color="primary"
-          onClick={comeBackHome}
-          sx={{ position: 'absolute', top: 200, right: 1, zIndex: 5 }}
-        >
-          <GpsFixedIcon />
-        </IconButton>
+      <MapMarker position={position} onClick={handleClickOpen} />
+      <ZoomControl />
+      <IconButton
+        color="primary"
+        onClick={comeBackHome}
+        sx={{ position: 'absolute', top: 200, right: 1, zIndex: 5 }}
+      >
+        <GpsFixedIcon />
+      </IconButton>
     </>
   );
 };

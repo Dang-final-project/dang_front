@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
 import { MapContext } from '../../../../contexts/MapContext'; // 경로 수정
 import Geolocate from './Geolocate';
 import ClusterMarker from './ClusterMarker';
 import { FilterGroup } from '../FilterGroup';
 import { Box } from '@mui/material';
-
 
 const KakaoMap = () => {
   const { positionArr, stations, mapPos, setMapPos } = useContext(MapContext);
