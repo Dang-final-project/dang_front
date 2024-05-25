@@ -232,20 +232,24 @@ const Header = () => {
                     <Drawer open={open} onClose={toggleDrawer(false)}>
                         {DrawerList}
                     </Drawer>
-                    <StyledTypo
-                        variant="h6"
-                        onClick={() => setDropdownOpen(!dropdownOpen)}
-                        sx={{ position: "relative" }}
-                    >
-                        {kakaoLogin && kakaoLogin?.nickname}
-                        {loginUser && loginUser?.nickname}님
-                        {dropdownOpen ? (
-                            <ArrowDropUpIcon sx={{ fontSize: "22px" }} />
-                        ) : (
-                            <ArrowDropDownIcon sx={{ fontSize: "22px" }} />
-                        )}
-                        {dropdownOpen && <MessageBox />}
-                    </StyledTypo>
+                    {(loginUser?.id || kakaoLogin) && (
+                        <>
+                            <StyledTypo
+                                variant="h6"
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                                sx={{ position: "relative" }}
+                            >
+                                {kakaoLogin && kakaoLogin?.nickname}
+                                {loginUser && loginUser?.nickname}님
+                                {dropdownOpen ? (
+                                    <ArrowDropUpIcon sx={{ fontSize: "22px" }} />
+                                ) : (
+                                    <ArrowDropDownIcon sx={{ fontSize: "22px" }} />
+                                )}
+                                {dropdownOpen && <MessageBox />}
+                            </StyledTypo>
+                        </>
+                    )}
                 </Toolbar>
             </AppBar>
         );
