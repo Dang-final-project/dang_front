@@ -4,7 +4,7 @@ import Mypage from "./components/Mypage";
 import ModifyInfo from './components/ModifyInfo';
 
 const Community = () => {
-    const [activeButton, setActiveButton] = useState("review");
+    const [activeButton, setActiveButton] = useState("mycar");
 
     return (
         <Grid sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
@@ -13,11 +13,11 @@ const Community = () => {
                     variant="contained"
                     sx={{
                         width: "150px",
-                        backgroundColor: activeButton === "review" ? "primary.main" : "primary.light",
+                        backgroundColor: activeButton === "mycar" ? "primary.main" : "primary.light",
                         marginRight: "10px",
                     }}
                     onClick={() => {
-                        setActiveButton("review");
+                        setActiveButton("mycar");
                     }}
                 >
                     내 차량 정보
@@ -26,16 +26,16 @@ const Community = () => {
                     variant="contained"
                     sx={{
                         width: "150px",
-                        backgroundColor: activeButton === "report" ? "primary.main" : "primary.light",
+                        backgroundColor: activeButton === "myinfo" ? "primary.main" : "primary.light",
                     }}
                     onClick={() => {
-                        setActiveButton("report");
+                        setActiveButton("myinfo");
                     }}
                 >
                     개인정보
                 </Button>
             </Box>
-            {activeButton === "review" ? (
+            {activeButton === "mycar" ? (
                 //이 부분에 추가해주시면 됩니다!
                 <Mypage />
             ) : (
