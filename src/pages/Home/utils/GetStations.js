@@ -51,7 +51,7 @@ export const GetStations = async (filterList, setPositionArr, setStations) => {
             const arr = [];
             results.forEach((r) => {
                 //console.log(r)
-                const p = { title: r.chrstnNm, latlng: { lat: r.latitude, lng: r.longitude } };
+                const p = { title: r.chrstnNm, fav: false, latlng: { lat: r.latitude, lng: r.longitude } };
                 arr.push(p);
             });
             setPositionArr(arr);
