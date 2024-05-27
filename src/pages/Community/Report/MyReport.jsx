@@ -16,7 +16,7 @@ const MyReport = ({ reports }) => {
     return (
         <>
             <Grid
-                sx={{ width: "450px", height: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}
+                sx={{ width: "390px", height: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}
             >
                 <Typography variant="h5" sx={{ marginBottom: "20px" }}>
                     나의 신고
@@ -41,7 +41,7 @@ const MyReport = ({ reports }) => {
                             </Box>
                         ))
                     ) : (
-                        <Typography sx={{ padding: "10px", marginBottom: "10px", marginLeft: "32%" }}>
+                        <Typography sx={{ width: "100%", padding: "10px", marginBottom: "10px", marginLeft: "25%" }}>
                             신고 내역이 없습니다.
                         </Typography>
                     )}

@@ -38,7 +38,14 @@ const Report = () => {
     }, []);
 
     return (
-        <Grid sx={{ display: "flex", flexDirection: isDesktop ? "row" : "column", marginTop: "50px" }}>
+        <Grid
+            sx={{
+                display: "flex",
+                flexDirection: isDesktop ? "row" : "column",
+                marginTop: "50px",
+                marginLeft: "-40px",
+            }}
+        >
             <ReportDriver
                 isDesktop={isDesktop}
                 theme={theme}
