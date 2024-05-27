@@ -37,7 +37,7 @@ const MyReport = ({ reports }) => {
                                 <Typography sx={{ fontSize: "20px", fontWeight: 600, marginTop: 1, marginBottom: 1 }}>
                                     {report.content}
                                 </Typography>
-                                <Typography>{new Date(report.createdAt).toLocaleString()}</Typography>
+                                <Typography>{new Date(report.createdAt).toLocaleString("ko-KR")}</Typography>
                             </Box>
                         ))
                     ) : (

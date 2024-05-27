@@ -1,7 +1,7 @@
 import { Box, Button, Grid } from "@mui/material";
 import { useState } from "react";
-import Report from './Report/Report';
-import Review from './Review/Review'
+import Report from "./Report/Report";
+import Review from "./Review/Review";
 
 const Community = () => {
     const [activeButton, setActiveButton] = useState("review");
