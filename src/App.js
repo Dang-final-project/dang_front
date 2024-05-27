@@ -8,7 +8,7 @@ import Join from "./pages/Join";
 import Admin from "./pages/Admin";
 import Community from "./pages/Community";
 import Cost from "./pages/Cost";
-import MypageMain from "./pages/Mypage/MypageMain"
+import MypageMain from "./pages/Mypage/MypageMain";
 import { LoginContext } from "./contexts/LoginContext";
 import { useProvideAuth } from "./hooks/useProvideAuth";
 import Layout from "./components/layouts/layout";

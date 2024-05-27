@@ -69,7 +69,7 @@ const ReportDriver = ({ isDesktop, theme, getReports, loginUser, kakaoId }) => {
                             display: "flex",
                             flexDirection: isDesktop ? "column" : "column",
                             alignItems: isDesktop ? "flex-end" : "center",
-                            marginRight: isDesktop ? "60px" : "0",
+                            marginRight: isDesktop ? "30px" : "0",
                         }}
                     >
                         <FormControl
@@ -85,7 +85,7 @@ const ReportDriver = ({ isDesktop, theme, getReports, loginUser, kakaoId }) => {
                                 name="carNum"
                                 value={carNum}
                                 onChange={handleCarNumChange}
-                                sx={{ minWidth: "400px" }}
+                                sx={{ minWidth: "350px" }}
                             />
                         </FormControl>
                         <FormControl
@@ -101,7 +101,7 @@ const ReportDriver = ({ isDesktop, theme, getReports, loginUser, kakaoId }) => {
                                 name="station"
                                 value={station}
                                 onChange={handleStationChange}
-                                sx={{ minWidth: "400px" }}
+                                sx={{ minWidth: "350px" }}
                             />
                         </FormControl>
                         <FormControl
@@ -121,16 +121,16 @@ const ReportDriver = ({ isDesktop, theme, getReports, loginUser, kakaoId }) => {
                                 onChange={handleContentChange}
                                 multiline
                                 rows={13}
-                                sx={{ minWidth: "400px" }}
+                                sx={{ minWidth: "350px" }}
                             />
                         </FormControl>
                         <Button
                             type="submit"
                             variant="contained"
                             sx={{
-                                width: isDesktop ? "300px" : "200px",
+                                width: isDesktop ? "280px" : "200px",
                                 height: "40px",
-                                marginRight: isDesktop ? "60px" : "0",
+                                marginRight: isDesktop ? "45px" : "0",
                                 marginBottom: "20px",
                             }}
                         >
