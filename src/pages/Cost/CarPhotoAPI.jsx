@@ -4,13 +4,9 @@ import { Box, Grid, Typography } from "@mui/material";
 
 const imageStyle = {
     border: "1px solid #ccc",
-    alignItems: "flex-start",
-    padding: "1vh",
-    marginBottom: "1vh",
-    width: "100%",
-    height: 200,
-    borderRadius: 8,
-    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+    width: 300,
+    height: 220,
+
 };
 
 export const CarPhotoAPI = () => {
@@ -79,19 +75,17 @@ export const CarPhotoAPI = () => {
     const boxStyle = {
         border: "1px solid #ccc",
         padding: "3vh",
-        marginBottom: "3vh",
-        width: "100%",
-        height: 200,
+        marginTop: -1,
+        width: 300,
+        height: 230,
         alignItems: "center",
-        borderRadius: "8px",
-        boxShadow: "0 0 10px rgba(0,0,0,0.1)",
     };
     return (
-        <div>
+        <Grid container spacing={2}>
             {images.map((image, idx) => (
-                <Grid sx={{ display: "flex" }}>
-                    <img src={`${image.urls.raw}&w=80&fit=crop`} style={imageStyle} alt="car" />
-                    {
+                <Grid item xs={12} sm={6} md={4} key={idx} >
+                    <Box sx={{cursor: 'pointer'}}>
+                    <img src={`${image.urls.raw}&w=300&fit=crop`} style={imageStyle} alt="car" />
                         <Box sx={boxStyle}>
                             <Typography variant="h6" component="strong">
                                 모델명: {data[idx].모델명}
@@ -101,11 +95,11 @@ export const CarPhotoAPI = () => {
                             <Typography variant="body1">완속충전방식: {data[idx].완속충전방식}</Typography>
                             <Typography variant="body1">배터리용량: {data[idx].배터리용량}</Typography>
                             <Typography variant="body1">출시일: {data[idx].출시일}</Typography>
-                        </Box>
-                    }
+                        </Box> 
+                    </Box>
                 </Grid>
             ))}
-        </div>
+        </Grid>
     );
 };
 

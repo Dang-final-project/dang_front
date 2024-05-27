@@ -8,32 +8,23 @@ const gridStyle = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    width: "70%",
+    width: "80%",
     marginTop: "1vh",
 };
 const searchBoxStyle = {
-    backgroundColor: "#f1f1f1",
     width: "100%",
     border: "1px solid black",
-    boxShadow: "0px 5px 5px rgba(58, 56, 56, 0.5)",
     padding: "3vh",
     marginBottom: "2vh",
-    borderRadius: 8,
 };
 const resultBoxStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignContent: "center",
-    border: "1px solid #ccc",
-    padding: "2vh",
-    margin: "2vh",
-    width: "80%",
-    borderRadius: 8,
-    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-    alignItems: "stretch",
+    marginTop: "2vh",
+    width: "100%",
 };
 
 const CarType = () => {
+    const [open, setOpen] = useState(false);
+
     return (
         <Grid sx={gridStyle}>
             <Box sx={searchBoxStyle}>
@@ -83,7 +74,9 @@ const CarType = () => {
             </Box>
 
             <Box sx={resultBoxStyle}>
-                <CarPhotoAPI />
+                <Box sx={{cursor: 'pointer', display: 'flex'}} >
+                    <CarPhotoAPI />
+                </Box>
             </Box>
         </Grid>
     );
