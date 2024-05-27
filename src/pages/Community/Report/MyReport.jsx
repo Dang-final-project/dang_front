@@ -12,6 +12,7 @@ const MyReport = ({ reports }) => {
     };
 
     const currentPage = reports.slice((page - 1) * reportsPerPage, page * reportsPerPage);
+
     return (
         <>
             <Grid
@@ -33,12 +34,10 @@ const MyReport = ({ reports }) => {
                                     <Typography sx={{ marginRight: 3 }}>{report.carNum}</Typography>
                                     <Typography>{report.station}</Typography>
                                 </Grid>
-                                <Typography sx={{ fontSize: "20px", fontWeight: 600 }}>{report.content}</Typography>
-                                <Typography>
-                                    {Date(report.createdAt)
-                                        .toLocaleString()
-                                        .slice(0, 25)}
+                                <Typography sx={{ fontSize: "20px", fontWeight: 600, marginTop: 1, marginBottom: 1 }}>
+                                    {report.content}
                                 </Typography>
+                                <Typography>{new Date(report.createdAt).toLocaleString()}</Typography>
                             </Box>
                         ))
                     ) : (
