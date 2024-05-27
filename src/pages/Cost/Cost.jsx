@@ -11,7 +11,7 @@ const Cost = () => {
 
     return (
         <Grid sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-            <PageHeader title="정보마당" desc="정보를 보여주는 페이지입니다" />
+            <PageHeader title="정보마당" desc="전기차 종류 및 브랜드별 요금 현황을 볼 수 있습니다." />
             <Box
                 sx={{ marginBottom: "10px", display: "flex", width: isMobile ? "90vh" : "100%", marginBottom: "50px" }}
             >

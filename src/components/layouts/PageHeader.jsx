@@ -10,7 +10,7 @@ const PageHeader = ({ title, desc }) => {
                 <Typography variant="h4" sx={{ fontWeight: "bold", color: theme.palette.primary.dark }}>
                     {title}
                 </Typography>
-                <Typography>{desc}</Typography>
+                <Typography sx={{ width: "75%", whiteSpace: "pre-wrap" }}>{desc}</Typography>
             </Grid>
 
             <Box component="img" src="/car.png" alt="car" />
