@@ -2,6 +2,7 @@ import { Button, FormControl, Grid, OutlinedInput, TextField, Typography } from 
 import axios from "axios";
 import { useCallback, useState } from "react";
 import Swal from "sweetalert2";
+import { communityApi } from "../../../api/services/community";
 
 const ReportDriver = ({ isDesktop, theme, getReports, loginUser, kakaoId }) => {
     const [carNum, setCarNum] = useState("");
@@ -13,12 +14,7 @@ const ReportDriver = ({ isDesktop, theme, getReports, loginUser, kakaoId }) => {
         e.preventDefault();
         try {
             if (carNum && station && content) {
-                const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/community/report`, {
-                    carNum,
-                    station,
-                    content,
-                    UserId,
-                });
+                const res = await communityApi.postReport({ carNum, station, content, UserId });
 
                 if (res.data.code === 200) {
                     Swal.fire({

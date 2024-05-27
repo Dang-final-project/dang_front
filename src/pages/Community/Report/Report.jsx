@@ -6,6 +6,7 @@ import MyReport from "./MyReport";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import { useAuth } from "../../../hooks/useAuth";
+import { communityApi } from "../../../api/services/community";
 
 const Report = () => {
     const theme = useTheme();
@@ -17,14 +18,9 @@ const Report = () => {
     const kakaoToken = cookies.get("accessToken");
     const getReports = async () => {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/community/report`, {
-                headers: {
-                    Authorization: loginUser?.token || kakaoToken,
-                },
-                params: {
-                    userId: loginUser?.id || kakaoId,
-                },
-            });
+            const userId = loginUser?.id || kakaoId;
+            const token = loginUser?.token || kakaoToken;
+            const res = await communityApi.getReport(userId, token);
             if (res.data.code === 200) {
                 setReports(res.data.payload);
             }
@@ -43,7 +39,7 @@ const Report = () => {
                 display: "flex",
                 flexDirection: isDesktop ? "row" : "column",
                 marginTop: "50px",
-                marginLeft: "-40px",
+                marginLeft: isDesktop ? "-40px" : 0,
             }}
         >
             <ReportDriver
