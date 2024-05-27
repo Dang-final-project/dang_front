@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import FilterPopup from "../FilterGroup/FilterPopup";
 import { FilterContent } from "./FilterContent";
 import { SearchContent } from "./SearchContent";
+import FavContent from "./FavContent";
 
 export const BottomBtnGroup = () => {
     const buttonValue = [
         { label: "검색", icon: <ManageSearchIcon fontSize="large" />, content: <SearchContent /> },
-        { label: "My충전소", icon: <VerifiedIcon fontSize="large" />, content: null },
+        { label: "My충전소", icon: <VerifiedIcon fontSize="large" />, content: <FavContent /> },
         { label: "필터", icon: <FilterAltIcon fontSize="large" />, content: <FilterContent /> },
     ];
 
