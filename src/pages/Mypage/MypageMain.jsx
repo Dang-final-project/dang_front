@@ -1,18 +1,16 @@
-import { Box, Button, Grid, useMediaQuery } from "@mui/material";
+import { Box, Button, Grid, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
-import Report from "./Report/Report";
-import Review from "./Review/Review";
+import Mypage from "./components/Mypage";
+import ModifyInfo from "./components/ModifyInfo";
 import PageHeader from "../../components/layouts/PageHeader";
-import { useTheme } from "@emotion/react";
 
 const Community = () => {
-    const [activeButton, setActiveButton] = useState("review");
+    const [activeButton, setActiveButton] = useState("mycar");
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.up("md"));
-
     return (
         <Grid sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-            <PageHeader title="커뮤니티" desc="커뮤니티 페이지입니다" />
+            <PageHeader title="마이페이지" desc="마이페이지 입니다" />
             <Box
                 sx={{ marginBottom: "10px", display: "flex", width: isMobile ? "90vh" : "100%", marginBottom: "50px" }}
             >
@@ -20,38 +18,38 @@ const Community = () => {
                     variant="contained"
                     sx={{
                         width: "50%",
-                        backgroundColor: activeButton === "review" ? "primary.main" : "grey.100",
-                        color: activeButton === "review" ? "white" : "grey.500",
+                        backgroundColor: activeButton === "mycar" ? "primary.main" : "grey.100",
+                        color: activeButton === "mycar" ? "white" : "grey.500",
                         borderTopRightRadius: 0,
                         borderBottomRightRadius: 0,
                     }}
                     onClick={() => {
-                        setActiveButton("review");
+                        setActiveButton("mycar");
                     }}
                 >
-                    후기
+                    내 차량 정보
                 </Button>
                 <Button
                     variant="contained"
                     sx={{
                         width: "50%",
-                        backgroundColor: activeButton === "report" ? "primary.main" : "grey.100",
-                        color: activeButton === "report" ? "white" : "grey.500",
+                        backgroundColor: activeButton === "myinfo" ? "primary.main" : "grey.100",
+                        color: activeButton === "myinfo" ? "white" : "grey.500",
                         borderTopLeftRadius: 0,
                         borderBottomLeftRadius: 0,
                     }}
                     onClick={() => {
-                        setActiveButton("report");
+                        setActiveButton("myinfo");
                     }}
                 >
-                    신고하기
+                    개인정보
                 </Button>
             </Box>
-            {activeButton === "review" ? (
+            {activeButton === "mycar" ? (
                 //이 부분에 추가해주시면 됩니다!
-                <Review />
+                <Mypage />
             ) : (
-                <Report />
+                <ModifyInfo />
             )}
         </Grid>
     );

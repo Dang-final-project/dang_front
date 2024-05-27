@@ -3,7 +3,7 @@ import { Map as KakaoMapComponent, ZoomControl, MapMarker } from 'react-kakao-ma
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import IconButton from '@mui/material/IconButton';
 
-const Geolocate = ({ center, setCenter, position, setPosition, handleClickOpen }) => {
+const Geolocate = ({ center, setCenter, position, handleClickOpen }) => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -11,23 +11,17 @@ const Geolocate = ({ center, setCenter, position, setPosition, handleClickOpen }
     console.log(mapRef.current);
   }, []);
 
-  const onCenterChanged = (map) => {
-    setCenter({
-      lat: map.getCenter().getLat(),
-      lng: map.getCenter().getLng(),
-    });
-  };
-
+  
   const comeBackHome = () => {
     setCenter(position);
   };
 
-  useEffect(() => {
-    const map = mapRef.current;
-    if (map) {
-      map.setCenter(center);
-    }
-  }, [center]);
+  // useEffect(() => {
+  //   const map = mapRef.current;
+  //   if (map) {
+  //     map.setCenter(center);
+  //   }
+  // }, [center]);
 
   return (
     <>
@@ -36,7 +30,7 @@ const Geolocate = ({ center, setCenter, position, setPosition, handleClickOpen }
       <IconButton
         color="primary"
         onClick={comeBackHome}
-        sx={{ position: 'absolute', right: 0, bottom: 350, zIndex: 5 }}
+        sx={{ position: 'absolute', top: 200, right: 1, zIndex: 5 }}
       >
         <GpsFixedIcon />
       </IconButton>

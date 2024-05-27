@@ -1,20 +1,28 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
 import Chart from "./Chart/Chart";
 import CarType from "./CarType";
+import PageHeader from "../../components/layouts/PageHeader";
 
 const Cost = () => {
     const [activeButton, setActiveButton] = useState("electricCar");
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.up("md"));
 
     return (
         <Grid sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-            <Box sx={{ marginBottom: "10px" }}>
+            <PageHeader title="정보마당" desc="정보를 보여주는 페이지입니다" />
+            <Box
+                sx={{ marginBottom: "10px", display: "flex", width: isMobile ? "90vh" : "100%", marginBottom: "50px" }}
+            >
                 <Button
                     variant="contained"
                     sx={{
-                        width: "150px",
-                        backgroundColor: activeButton === "electricCar" ? "primary.main" : "primary.light",
-                        marginRight: "10px",
+                        width: "50%",
+                        backgroundColor: activeButton === "electricCar" ? "primary.main" : "grey.100",
+                        color: activeButton === "electricCar" ? "white" : "grey.500",
+                        borderTopRightRadius: 0,
+                        borderBottomRightRadius: 0,
                     }}
                     onClick={() => {
                         setActiveButton("electricCar");
@@ -25,8 +33,11 @@ const Cost = () => {
                 <Button
                     variant="contained"
                     sx={{
-                        width: "150px",
-                        backgroundColor: activeButton === "costTable" ? "primary.main" : "primary.light",
+                        width: "50%",
+                        backgroundColor: activeButton === "costTable" ? "primary.main" : "grey.100",
+                        color: activeButton === "costTable" ? "white" : "grey.500",
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0,
                     }}
                     onClick={() => {
                         setActiveButton("costTable");

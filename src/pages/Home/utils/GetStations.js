@@ -59,5 +59,6 @@ export const GetStations = async (filterList, setPositionArr, setStations) => {
         }
     } catch (err) {
         console.error(err);
+        alert('결과값이 없습니다.')
     }
 };

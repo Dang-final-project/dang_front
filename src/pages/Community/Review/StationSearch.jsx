@@ -14,7 +14,7 @@ const StationSearch = ({ onSearch }) => {
 
     return (
         <SearchInput
-            width="100%"
+            width="60%"
             handleSearchChange={handleSearchChange}
             onClick={handleSearch}
         />

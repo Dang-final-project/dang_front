@@ -56,6 +56,10 @@ const Header = () => {
         },
     });
 
+    const ActiveNav = styled(StyledTypo)({
+        fontWeight: "bold",
+    });
+
     const MessageBox = () => {
         return (
             <Paper
@@ -69,7 +73,7 @@ const Header = () => {
                     backgroundColor: "white",
                     zIndex: 1,
                     borderRadius: 1,
-                    // minWidth: "150px",
+                    padding: 1,
                 }}
             >
                 <Box sx={{ padding: "10px" }}>
@@ -77,7 +81,9 @@ const Header = () => {
                         {kakaoLogin && kakaoLogin?.nickname}
                         {loginUser && loginUser?.nickname}님
                     </Typography>
-                    <Typography sx={{ fontSize: "14px", color: theme.palette.grey[500] }}>test@gmail.com</Typography>
+                    <Typography sx={{ fontSize: "14px", color: theme.palette.grey[500] }}>
+                        {loginUser?.email}
+                    </Typography>
                     <Typography sx={{ fontSize: "14px" }}>
                         내 자동차: <span style={{ fontWeight: 600 }}>테슬라</span>
                     </Typography>
@@ -87,24 +93,21 @@ const Header = () => {
     };
 
     const guest = [
-        { nav: "홈", link: "/" },
-        { nav: "요금현황", link: "/cost" },
+        { nav: "정보마당", link: "/cost" },
         { nav: "커뮤니티", link: "/community" },
         { nav: "회원가입", link: "/join" },
         { nav: "로그인", link: "/login" },
     ];
 
     const user = [
-        { nav: "홈", link: "/" },
-        { nav: "요금현황", link: "/cost" },
+        { nav: "정보마당", link: "/cost" },
         { nav: "커뮤니티", link: "/community" },
         { nav: "마이페이지", link: "/mypage" },
         { nav: "로그아웃", link: "/" },
     ];
 
     const admin = [
-        { nav: "홈", link: "/" },
-        { nav: "요금현황", link: "/cost" },
+        { nav: "정보마당", link: "/cost" },
         { nav: "커뮤니티", link: "/community" },
         { nav: "회원관리", link: "/admin" },
         { nav: "로그아웃", link: "/" },
@@ -115,28 +118,34 @@ const Header = () => {
         return (
             <AppBar color="secondary" elevation={ELEVATION}>
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <StyledTypo
+                    <Box
+                        sx={{ display: "flex" }}
                         onClick={() => {
                             window.location.href = "/";
                         }}
                     >
-                        당충전
-                    </StyledTypo>
-
+                        <Box component="img" src="/danglogo.svg" alt="logo" sx={{ width: "90px", height: "auto" }} />
+                    </Box>
                     {userStatus && userStatus === "guest" && (
                         <Grid sx={{ display: "flex" }}>
                             {guest.map((text, index) => (
                                 <Link to={text.link} key={index}>
-                                    <StyledTypo>{text.nav}</StyledTypo>
+                                    {location.pathname === text.link ? (
+                                        <ActiveNav>{text.nav}</ActiveNav>
+                                    ) : (
+                                        <StyledTypo>{text.nav}</StyledTypo>
+                                    )}
                                 </Link>
                             ))}
                         </Grid>
                     )}
                     {userStatus && userStatus === "user" && (
-                        <Grid sx={{ display: "flex" }}>
+                        <Grid sx={{ display: "flex", alignItems: "center" }}>
                             <Grid>
                                 <StyledTypo
-                                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                                    onClick={(e) => {
+                                        setDropdownOpen(!dropdownOpen);
+                                    }}
                                     sx={{ position: "relative" }}
                                 >
                                     {kakaoLogin && kakaoLogin?.nickname}
@@ -151,16 +160,31 @@ const Header = () => {
                             </Grid>
                             {user.map((text, index) => (
                                 <Link to={text.link} key={index}>
-                                    <StyledTypo
-                                        onClick={() => {
-                                            text.nav === "로그아웃" &&
-                                                logout(() => {
-                                                    setUserStatus("guest");
-                                                });
-                                        }}
-                                    >
-                                        {text.nav}
-                                    </StyledTypo>
+                                    {text.nav !== "로그아웃" && location.pathname === text.link ? (
+                                        <ActiveNav
+                                            onClick={() => {
+                                                text.nav === "로그아웃" &&
+                                                    logout(() => {
+                                                        setUserStatus("guest");
+                                                    });
+                                            }}
+                                        >
+                                            {text.nav}
+                                        </ActiveNav>
+                                    ) : (
+                                        <>
+                                            <StyledTypo
+                                                onClick={() => {
+                                                    text.nav === "로그아웃" &&
+                                                        logout(() => {
+                                                            setUserStatus("guest");
+                                                        });
+                                                }}
+                                            >
+                                                {text.nav}
+                                            </StyledTypo>
+                                        </>
+                                    )}
                                 </Link>
                             ))}
                         </Grid>
@@ -169,7 +193,11 @@ const Header = () => {
                         <Grid sx={{ display: "flex" }}>
                             {admin.map((text, index) => (
                                 <Link to={text.link} key={index}>
-                                    <StyledTypo>{text.nav}</StyledTypo>
+                                    {text.nav !== "로그아웃" && location.pathname === text.link ? (
+                                        <ActiveNav>{text.nav}</ActiveNav>
+                                    ) : (
+                                        <StyledTypo>{text.nav}</StyledTypo>
+                                    )}
                                 </Link>
                             ))}
                         </Grid>
@@ -202,6 +230,18 @@ const Header = () => {
     const DrawerList = (
         <Box sx={{ width: "250px" }} role="presentation" onClick={toggleDrawer(false)}>
             <List>
+                <ListItem disablePadding>
+                    <Link to="/">
+                        <ListItemButton sx={{ width: "88px" }}>
+                            <ListItemText
+                                onClick={() => {
+                                    window.location.href = "/";
+                                }}
+                                primary="홈"
+                            />
+                        </ListItemButton>
+                    </Link>
+                </ListItem>
                 {userStatus && userStatus === "guest" && guest.map((text, index) => DrawerItem(text))}
                 {userStatus && userStatus === "user" && user.map((text, index) => DrawerItem(text))}
                 {userStatus && userStatus === "admin" && admin.map((text, index) => DrawerItem(text))}
@@ -220,20 +260,24 @@ const Header = () => {
                     <Drawer open={open} onClose={toggleDrawer(false)}>
                         {DrawerList}
                     </Drawer>
-                    <StyledTypo
-                        variant="h6"
-                        onClick={() => setDropdownOpen(!dropdownOpen)}
-                        sx={{ position: "relative" }}
-                    >
-                        {kakaoLogin && kakaoLogin?.nickname}
-                        {loginUser && loginUser?.nickname}님
-                        {dropdownOpen ? (
-                            <ArrowDropUpIcon sx={{ fontSize: "22px" }} />
-                        ) : (
-                            <ArrowDropDownIcon sx={{ fontSize: "22px" }} />
-                        )}
-                        {dropdownOpen && <MessageBox />}
-                    </StyledTypo>
+                    {(loginUser?.id || kakaoLogin) && (
+                        <>
+                            <StyledTypo
+                                variant="h6"
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                                sx={{ position: "relative" }}
+                            >
+                                {kakaoLogin && kakaoLogin?.nickname}
+                                {loginUser && loginUser?.nickname}님
+                                {dropdownOpen ? (
+                                    <ArrowDropUpIcon sx={{ fontSize: "22px" }} />
+                                ) : (
+                                    <ArrowDropDownIcon sx={{ fontSize: "22px" }} />
+                                )}
+                                {dropdownOpen && <MessageBox />}
+                            </StyledTypo>
+                        </>
+                    )}
                 </Toolbar>
             </AppBar>
         );
