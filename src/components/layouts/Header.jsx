@@ -56,6 +56,10 @@ const Header = () => {
         },
     });
 
+    const ActiveNav = styled(StyledTypo)({
+        fontWeight: "bold",
+    });
+
     const MessageBox = () => {
         return (
             <Paper
@@ -127,7 +131,11 @@ const Header = () => {
                         <Grid sx={{ display: "flex" }}>
                             {guest.map((text, index) => (
                                 <Link to={text.link} key={index}>
-                                    <StyledTypo>{text.nav}</StyledTypo>
+                                    {location.pathname === text.link ? (
+                                        <ActiveNav>{text.nav}</ActiveNav>
+                                    ) : (
+                                        <StyledTypo>{text.nav}</StyledTypo>
+                                    )}
                                 </Link>
                             ))}
                         </Grid>
@@ -151,16 +159,31 @@ const Header = () => {
                             </Grid>
                             {user.map((text, index) => (
                                 <Link to={text.link} key={index}>
-                                    <StyledTypo
-                                        onClick={() => {
-                                            text.nav === "로그아웃" &&
-                                                logout(() => {
-                                                    setUserStatus("guest");
-                                                });
-                                        }}
-                                    >
-                                        {text.nav}
-                                    </StyledTypo>
+                                    {text.nav !== "로그아웃" && location.pathname === text.link ? (
+                                        <ActiveNav
+                                            onClick={() => {
+                                                text.nav === "로그아웃" &&
+                                                    logout(() => {
+                                                        setUserStatus("guest");
+                                                    });
+                                            }}
+                                        >
+                                            {text.nav}
+                                        </ActiveNav>
+                                    ) : (
+                                        <>
+                                            <StyledTypo
+                                                onClick={() => {
+                                                    text.nav === "로그아웃" &&
+                                                        logout(() => {
+                                                            setUserStatus("guest");
+                                                        });
+                                                }}
+                                            >
+                                                {text.nav}
+                                            </StyledTypo>
+                                        </>
+                                    )}
                                 </Link>
                             ))}
                         </Grid>
@@ -169,7 +192,11 @@ const Header = () => {
                         <Grid sx={{ display: "flex" }}>
                             {admin.map((text, index) => (
                                 <Link to={text.link} key={index}>
-                                    <StyledTypo>{text.nav}</StyledTypo>
+                                    {text.nav !== "로그아웃" && location.pathname === text.link ? (
+                                        <ActiveNav>{text.nav}</ActiveNav>
+                                    ) : (
+                                        <StyledTypo>{text.nav}</StyledTypo>
+                                    )}
                                 </Link>
                             ))}
                         </Grid>
