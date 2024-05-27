@@ -27,21 +27,6 @@ const Home = () => {
         GetFavStations(favList, setFavStation);
     }, [favList]);
 
-    useEffect(()=> {
-        const tempFavStation = {};
-        favStation?.forEach(fs => {
-            tempFavStation[fs.chrstnNm] = fs
-        });
-
-        const newPositionArr = positionArr?.map(pa => {
-            if (tempFavStation[pa.title]) {
-                return {...pa, fav: true}
-            }
-            return pa
-        })
-        setPositionArr(newPositionArr);
-    }, [favStation, stations])
-
     //반응형분기점
     const theme = useTheme();
     const tabletWidth = useMediaQuery(theme.breakpoints.up("md"));
