@@ -42,6 +42,7 @@ const ClusterMarker = () => {
           key={`${position.title}-${index}`}
           position={position.latlng}
           onClick={() => handleClickOpen(index)}
+
           image={position.fav === true ?
             {
               src:'/즐겨찾기.png',

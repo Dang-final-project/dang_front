@@ -10,7 +10,7 @@ const Community = () => {
     const isMobile = useMediaQuery(theme.breakpoints.up("md"));
     return (
         <Grid sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-            <PageHeader title="마이페이지" desc="마이페이지 입니다" />
+            <PageHeader title="마이페이지" desc="내 차량 정보 및 개인정보를 확인하고 수정할 수 있습니다." />
             <Box
                 sx={{ marginBottom: "10px", display: "flex", width: isMobile ? "90vh" : "100%", marginBottom: "50px" }}
             >
