@@ -14,11 +14,6 @@ import KakaoMap from "../Home/components/Map/KakaoMap";
 const Home = () => {
     const { favStation, stations, setStations, setFavStation, favList, positionArr, setPositionArr, filterList } = useContext(MapContext);
 
-    // useEffect(()=>{
-    //     GetStations(filterList, setPositionArr, setStations);
-    //     GetFavStations(favList, setFavStation);
-    // },[]);
-
     useEffect(() => {
         GetStations(filterList, setPositionArr, setStations);
     }, [filterList]);
