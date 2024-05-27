@@ -85,8 +85,8 @@ export const StationField = () => {
                         <TabContext value={value}>
                             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                                 <TabList onChange={handleChange} aria-label="충전소리스트">
-                                    <Tab label="충전소 리스트" value="1" sx={{ width: "50%" }} />
-                                    <Tab label="MY충전소" value="2" sx={{ width: "50%" }} />
+                                    <Tab label="주변 충전소" value="1" sx={{ width: "50%" }} />
+                                    <Tab label="자주 가는 충전소" value="2" sx={{ width: "50%" }} />
                                 </TabList>
                             </Box>
                             <TabPanel value="1" sx={{ height: "calc(100% - 40px)", overflowY: "scroll", bgcolor:'grey.100'}}>
