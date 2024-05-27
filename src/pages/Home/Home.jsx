@@ -1,6 +1,6 @@
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Box } from "@mui/material";
 import { MapContext } from "../../contexts/MapContext";
 import Loading from "../Loading";
@@ -12,12 +12,12 @@ import { StationField } from "./components/StationField";
 import KakaoMap from "../Home/components/Map/KakaoMap";
 
 const Home = () => {
-    const { setStations, setFavStation, favList, positionArr, setPositionArr, filterList } = useContext(MapContext);
+    const { favStation, stations, setStations, setFavStation, favList, positionArr, setPositionArr, filterList } = useContext(MapContext);
 
-    useEffect(()=>{
-        GetStations(filterList, setPositionArr, setStations);
-        GetFavStations(favList, setFavStation);
-    },[]);
+    // useEffect(()=>{
+    //     GetStations(filterList, setPositionArr, setStations);
+    //     GetFavStations(favList, setFavStation);
+    // },[]);
 
     useEffect(() => {
         GetStations(filterList, setPositionArr, setStations);
@@ -26,6 +26,21 @@ const Home = () => {
     useEffect(() => {
         GetFavStations(favList, setFavStation);
     }, [favList]);
+
+    useEffect(()=> {
+        const tempFavStation = {};
+        favStation?.forEach(fs => {
+            tempFavStation[fs.chrstnNm] = fs
+        });
+
+        const newPositionArr = positionArr?.map(pa => {
+            if (tempFavStation[pa.title]) {
+                return {...pa, fav: true}
+            }
+            return pa
+        })
+        setPositionArr(newPositionArr);
+    }, [favStation, stations])
 
     //반응형분기점
     const theme = useTheme();
