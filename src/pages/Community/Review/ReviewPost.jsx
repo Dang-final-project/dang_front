@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { useAuth } from "./../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import SearchPopup from "./SearchPopup";
+import { reviewApi } from "../../../api/services/review";
 
 const ReviewPost = ({ open, handleClose }) => {
     const { loginUser } = useAuth();
@@ -23,13 +24,15 @@ const ReviewPost = ({ open, handleClose }) => {
         e.preventDefault();
         try {
             if (UserId && station) {
-                const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/community/review`, {
+                const data= {
                     station,
                     starScore,
                     content,
                     UserId,
-                });
-
+                }
+                const token = loginUser.token;
+                const res = await reviewApi.reviewPost(data, token);
+                console.log(res);
                 if (res.data.code === 200) {
                     Swal.fire({
                         title: `작성 완료하였습니다.`,
@@ -64,7 +67,7 @@ const ReviewPost = ({ open, handleClose }) => {
     return (
         <>
             <Typography variant="h5" sx={{ margin: "30px" }}>
-                이용 충전소 후기
+                충전소 이용 후기 작성
             </Typography>
             <form onSubmit={handleSubmit}>
                 <Grid
