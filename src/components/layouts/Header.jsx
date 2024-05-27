@@ -43,6 +43,18 @@ const Header = () => {
         }
     }, [loginUser, kakaoLogin]);
 
+    // const focusModal = () => {
+    //     if (!dropdownOpen) {
+    //         document.addEventListener("mousedown", () => {
+    //             setDropdownOpen(false);
+    //         });
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     focusModal();
+    // }, []);
+
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
     };
@@ -124,8 +136,7 @@ const Header = () => {
                             window.location.href = "/";
                         }}
                     >
-                        <Box component="img" src="danglogo.svg" alt="logo" sx={{ width: 24 }} />
-                        <StyledTypo>당충전</StyledTypo>
+                        <Box component="img" src="/danglogo.svg" alt="logo" sx={{ width: "90px", height: "auto" }} />
                     </Box>
                     {userStatus && userStatus === "guest" && (
                         <Grid sx={{ display: "flex" }}>
@@ -144,7 +155,9 @@ const Header = () => {
                         <Grid sx={{ display: "flex", alignItems: "center" }}>
                             <Grid>
                                 <StyledTypo
-                                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                                    onClick={(e) => {
+                                        setDropdownOpen(!dropdownOpen);
+                                    }}
                                     sx={{ position: "relative" }}
                                 >
                                     {kakaoLogin && kakaoLogin?.nickname}
