@@ -12,10 +12,11 @@ const MyReport = ({ reports }) => {
     };
 
     const currentPage = reports.slice((page - 1) * reportsPerPage, page * reportsPerPage);
+
     return (
         <>
             <Grid
-                sx={{ width: "450px", height: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}
+                sx={{ width: "390px", height: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}
             >
                 <Typography variant="h5" sx={{ marginBottom: "20px" }}>
                     나의 신고
@@ -33,16 +34,14 @@ const MyReport = ({ reports }) => {
                                     <Typography sx={{ marginRight: 3 }}>{report.carNum}</Typography>
                                     <Typography>{report.station}</Typography>
                                 </Grid>
-                                <Typography sx={{ fontSize: "20px", fontWeight: 600 }}>{report.content}</Typography>
-                                <Typography>
-                                    {Date(report.createdAt)
-                                        .toLocaleString()
-                                        .slice(0, 25)}
+                                <Typography sx={{ fontSize: "20px", fontWeight: 600, marginTop: 1, marginBottom: 1 }}>
+                                    {report.content}
                                 </Typography>
+                                <Typography>{new Date(report.createdAt).toLocaleString("ko-KR")}</Typography>
                             </Box>
                         ))
                     ) : (
-                        <Typography sx={{ padding: "10px", marginBottom: "10px", marginLeft: "32%" }}>
+                        <Typography sx={{ width: "100%", padding: "10px", marginBottom: "10px", marginLeft: "25%" }}>
                             신고 내역이 없습니다.
                         </Typography>
                     )}

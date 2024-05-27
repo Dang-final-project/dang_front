@@ -84,6 +84,13 @@ export const useProvideAuth = () => {
             console.error(error);
         }
     };
+
+    const refreshToken = (newToken) => {
+        setLoginUser((prevUser) => ({
+            ...prevUser,
+            token: newToken
+        }));
+    }
     const cookies = new Cookies();
     const logout = (callback) => {
         localStorage.removeItem("userId");
@@ -100,5 +107,6 @@ export const useProvideAuth = () => {
         login,
         logout,
         kakaoLogin,
+        refreshToken
     };
 };

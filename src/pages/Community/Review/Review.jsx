@@ -11,6 +11,8 @@ import StationSearch from './StationSearch';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 
+import { reviewApi } from "../../../api/services/review";
+
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: '100%',
   padding: theme.spacing(2),
@@ -29,11 +31,13 @@ const Review = () => {
 
   const getReviews = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/community/review`, {
-        headers: {
-          Authorization: loginUser.token,
-        },
-      });
+      const token = loginUser.token;
+      const res = await reviewApi.getAll(token);
+      // const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/community/review`, {
+      //   headers: {
+      //     Authorization: loginUser.token,
+      //   },
+      // });
       if (res.data.code === 200) {
         console.log(res);
         setReviews(res.data.payload || []);
