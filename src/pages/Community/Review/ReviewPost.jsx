@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { useAuth } from "./../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import SearchPopup from "./SearchPopup";
-import { postApi } from "../../../api/services/post";
+import { reviewApi } from "../../../api/services/review";
 
 const ReviewPost = ({ open, handleClose }) => {
     const { loginUser } = useAuth();
@@ -31,7 +31,7 @@ const ReviewPost = ({ open, handleClose }) => {
                     UserId,
                 }
                 const token = loginUser.token;
-                const res = await postApi.reviewPost(data, token);
+                const res = await reviewApi.reviewPost(data, token);
                 console.log(res);
                 if (res.data.code === 200) {
                     Swal.fire({
