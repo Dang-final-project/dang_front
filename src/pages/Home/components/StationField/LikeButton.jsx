@@ -48,7 +48,7 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
                         return pa
                     })
                     setPositionArr(newPA)
-                    tab === 'fav' ? setClicked(true): setClicked(!clicked);
+                    //tab === 'fav' ? setClicked(true): setClicked(!clicked);
                 }
             } catch (err) {
                 console.error(err);
@@ -57,17 +57,15 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
     };
 
     useEffect(() => {
-        const fetchFavList = async () => {
-            await getFav();
-        };
-        fetchFavList();
+        getFav();
     }, []); 
 
     useEffect(() => {
         if (favList?.length > 0) {
             setClicked(favList.some(f => station.chrstn_id === f.chrstn_id));
+            console.log(123);
         }
-    }, [favList, station.chrstn_id]); 
+    }, [favStation]); 
 
     return ( 
         <>
