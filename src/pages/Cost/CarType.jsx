@@ -54,10 +54,28 @@ const handleHomepageRedirect = (manufacturer) => {
 };
 
 const CarType = () => {
-    const [open, setOpen] = useState(false);
+    const [selectedCars, setSelectedCars] = useState([]);
+    const [selectedChargingTypes, setSelectedChargingTypes] = useState([]);
     const [selectedCar, setSelectedCar] = useState(null);
+    const [open, setOpen] = useState(false);
 
-    const handleCarClick = (car) => {
+    const handleCarClick = (manufacturer) => {
+        if (selectedCars.includes(manufacturer)) {
+            setSelectedCars(selectedCars.filter((car) => car !== manufacturer));
+        } else {
+            setSelectedCars([...selectedCars, manufacturer]);
+        }
+    };
+
+    const handleChargingTypeClick = (chargingType) => {
+        if (selectedChargingTypes.includes(chargingType)) {
+            setSelectedChargingTypes(selectedChargingTypes.filter((type) => type !== chargingType));
+        } else {
+            setSelectedChargingTypes([...selectedChargingTypes, chargingType]);
+        }
+    };
+
+    const handleCarDetailClick = (car) => {
         setSelectedCar(car);
         setOpen(true);
     };
@@ -66,62 +84,42 @@ const CarType = () => {
         <Grid sx={gridStyle}>
             <Box sx={searchBoxStyle}>
                 <Typography>제조사별</Typography>
-                <Button variant="outlined" sx={{ marginRight: "1vh" }}>
-                    현대
-                </Button>
-                <Button variant="outlined" sx={{ marginRight: "1vh" }}>
-                    기아
-                </Button>
-                <Button variant="outlined" sx={{ marginRight: "1vh" }}>
-                    테슬라
-                </Button>
-                <Button variant="outlined" sx={{ marginRight: "1vh" }}>
-                    BMW
-                </Button>
-                <Button variant="outlined" sx={{ marginRight: "1vh" }}>
-                    벤츠
-                </Button>
-                <Button variant="outlined" sx={{ marginRight: "1vh" }}>
-                    르노삼성
-                </Button>
-                <Button variant="outlined" sx={{ marginRight: "1vh" }}>
-                    닛산
-                </Button>
-                <Button variant="outlined" sx={{ marginRight: "1vh" }}>
-                    한국GM
-                </Button>
+                {["현대", "기아", "테슬라", "BMW", "벤츠", "르노삼성", "닛산", "한국GM"].map((manufacturer) => (
+                    <Button
+                        key={manufacturer}
+                        variant="outlined"
+                        sx={{
+                            marginRight: "1vh",
+                            backgroundColor: selectedCars.includes(manufacturer) ? "lightblue" : "white",
+                        }}
+                        onClick={() => handleCarClick(manufacturer)}
+                    >
+                        {manufacturer}
+                    </Button>
+                ))}
                 <Typography sx={{ marginTop: "1vh" }}>충전방식</Typography>
-                <Button variant="outlined" sx={{ marginRight: "1vh" }}>
-                    DC콤보
-                    <br />
-                    (급속)
-                </Button>
-                <Button variant="outlined" sx={{ marginRight: "1vh" }}>
-                    AC완속
-                    <br />
-                    (5핀)
-                </Button>
-                <Button variant="outlined" sx={{ marginRight: "1vh" }}>
-                    AC완속
-                    <br />
-                    (7핀)
-                </Button>
+                {["DC콤보 (급속)", "AC완속 (5핀)", "AC완속 (7핀)"].map((type) => (
+                    <Button
+                        key={type}
+                        variant="outlined"
+                        sx={{
+                            marginRight: "1vh",
+                            backgroundColor: selectedChargingTypes.includes(type) ? "lightblue" : "white",
+                        }}
+                        onClick={() => handleChargingTypeClick(type)}
+                    >
+                        {type}
+                    </Button>
+                ))}
                 <Typography sx={{ marginTop: "1vh" }}>차량검색</Typography>
                 <SearchInput />
             </Box>
 
             <Box sx={resultBoxStyle}>
-                <CarPhotoAPI onCarClick={handleCarClick} />
-            {/* {["Car1", "Car2", "Car3"].map((car) => (
-                    <Box
-                        key={car}
-                        sx={{ cursor: 'pointer', display: 'flex' }}
-                        onClick={() => handleResultBoxClick(car)}
-                    >
-                        <CarPhotoAPI car={car} />
-                    </Box>
-                ))} */}
+                <CarPhotoAPI 
+                    onCarClick={handleCarDetailClick} />
             </Box>
+
             <Modal open={open} onClose={() => setOpen(false)} onClick={() => setOpen(false)}>
                 <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
                     {selectedCar && 
