@@ -81,8 +81,15 @@ const CarType = () => {
     };
 
     return (
+        // <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit(modify)}
+        //         sx={{width: "400px", padding: "40px", backgroundColor: "white", borderRadius: "8px", 
+        //         boxShadow:"0 0 12px rgba(0,0,0,0.271)", textAlign: "center", 
+        //         '& .MuiTextField-root': { marginTop: 1 }}}
+        //     ></Box>
         <Grid sx={gridStyle}>
-            <Box sx={searchBoxStyle}>
+            <Box sx={{width: "900px", padding: "40px", backgroundColor: "white", borderRadius: "8px", 
+                boxShadow:"0 0 12px rgba(0,0,0,0.271)"}}>
+
                 <Typography>제조사별</Typography>
                 {["현대", "기아", "테슬라", "BMW", "벤츠", "르노삼성", "닛산", "한국GM"].map((manufacturer) => (
                     <Button
@@ -90,14 +97,14 @@ const CarType = () => {
                         variant="outlined"
                         sx={{
                             marginRight: "1vh",
-                            backgroundColor: selectedCars.includes(manufacturer) ? "lightblue" : "white",
+                            backgroundColor: selectedCars.includes(manufacturer) ? "lightgrey" : "white",
                         }}
                         onClick={() => handleCarClick(manufacturer)}
                     >
                         {manufacturer}
                     </Button>
                 ))}
-                <Typography sx={{ marginTop: "1vh" }}>충전방식</Typography>
+                <Typography sx={{ marginTop: "2vh" }}>충전방식</Typography>
                 {["DC콤보 (급속)", "AC완속 (5핀)", "AC완속 (7핀)"].map((type) => (
                     <Button
                         key={type}
@@ -111,7 +118,7 @@ const CarType = () => {
                         {type}
                     </Button>
                 ))}
-                <Typography sx={{ marginTop: "1vh" }}>차량검색</Typography>
+                <Typography sx={{ marginTop: "2vh" }}>차량검색</Typography>
                 <SearchInput />
             </Box>
 
@@ -121,7 +128,7 @@ const CarType = () => {
             </Box>
 
             <Modal open={open} onClose={() => setOpen(false)} onClick={() => setOpen(false)}>
-                <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
+                <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4}}>
                     {selectedCar && 
                     <>
                     <img src={`${selectedCar.image}&w=200&h=200&fit=crop`} style={{ width: '100%', marginBottom: 20 }} alt="car" />

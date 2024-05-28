@@ -77,7 +77,7 @@ export const CarPhotoAPI = ({onCarClick}) => {
         padding: "3vh",
         marginTop: -1,
         width: 300,
-        height: 230,
+        height: 180,
         alignItems: "center",
     };
     return (
@@ -93,8 +93,8 @@ export const CarPhotoAPI = ({onCarClick}) => {
                             <Typography variant="body1">제조사: {data[idx].제조사}</Typography>
                             <Typography variant="body1">급속충전방식: {data[idx].급속충전방식}</Typography>
                             <Typography variant="body1">완속충전방식: {data[idx].완속충전방식}</Typography>
-                            <Typography variant="body1">배터리용량: {data[idx].배터리용량}</Typography>
-                            <Typography variant="body1">출시일: {data[idx].출시일}</Typography>
+                            {/* <Typography variant="body1">배터리용량: {data[idx].배터리용량}</Typography>
+                            <Typography variant="body1">출시일: {data[idx].출시일}</Typography> */}
                         </Box> 
                     </Box>
                 </Grid>
