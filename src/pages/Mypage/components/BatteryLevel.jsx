@@ -25,12 +25,12 @@ function BatteryLevel() {
   return (
     <>
     
-    <Grid container sx={{display: "flex", flexDirection: "column", alignItems:'center', justifyContent: "center", position: 'relative' }}>
-    <Typography variant="h5" sx={{ marginLeft: -70}}>배터리잔량</Typography>
+    <Grid container sx={{display: "flex", flexDirection: "column", alignItems:'left', justifyContent: "center", position: 'relative' }}>
+    <Typography variant="h5">배터리잔량</Typography>
     <Box sx={{display: 'flex'}}>
       <Box sx={{ display: 'flex', alignItems:'center', marginLeft:3}}>
         <Box sx={{display: 'inline-block', width: 320, marginTop:7, marginBottom: 5, backgroundColor: 'lightgrey'}}>
-        <Box sx={{width: `${batteryLevel}%`, height: '24vh',backgroundColor: barColor}}></Box>
+        <Box sx={{width: `${batteryLevel}%`, height: 160,backgroundColor: barColor}}></Box>
         </Box>
         <Box sx = {{display: 'inline-block', fontSize: 18, marginLeft: 10, color: textColor, position: 'relative', zIndex: 1}}> 
         <Typography>배터리 잔량이 {batteryLevel}% 남았습니다.</Typography>
@@ -45,7 +45,6 @@ function BatteryLevel() {
             width: '100%',
             maxWidth: '400px',
             height: 'auto',
-            maxHeight: '60vh',
             top: '50%', // 부모 요소의 상단에 맞추기
             transform: 'translateY(-45%)',
             zIndex: 0, // 이미지가 박스 뒤로 가도록 설정
