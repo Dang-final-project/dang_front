@@ -1,10 +1,9 @@
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { Box } from "@mui/material";
 import { MapContext } from "../../contexts/MapContext";
 import Loading from "../Loading";
-import { FilterGroup } from "./components/FilterGroup"; 
 import { BottomBtnGroup } from "./components/BottomBtnGroup";
 import { GetStations } from "./utils/GetStations";
 import { GetFavStations } from "./utils/GatFavStations";
