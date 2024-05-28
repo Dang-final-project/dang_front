@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { authApi } from "../../../api/services/auth";
 import { useAuth } from './../../../hooks/useAuth';
-import { useState } from "react";
+import bcrypt from 'bcryptjs';
 
 const ModifyInfo = () => {
     const { loginUser } = useAuth();
@@ -17,12 +17,12 @@ const ModifyInfo = () => {
     } = useForm();
     const navigate = useNavigate();
 
-    
-
     const modify = async(e) => {
         // e.preventDefault();
         try {
-            const data = {username: e.username, password: e.password};
+            const hashedPassword = await bcrypt.hash(e.password, 10);
+            const data = { username: e.username, password: hashedPassword };
+            // const data = {username: e.username, password: e.password};
             const token = loginUser.token;
             const res = await authApi.authPut(data, token);
             
@@ -43,6 +43,23 @@ const ModifyInfo = () => {
                 text: err.message,
                 icon: "error"
             });
+        }
+    }
+
+    const deleteButton = async(e) => {
+        const data = { username: e.username };
+        const token = loginUser.token;
+        const res = await authApi.authDel(data, token);
+        try{
+            if(res.data.code === 200){
+                Swal.fire({
+                    title: "삭제되었습니다.",
+                    text: "삭제되었습니다.",
+                    icon: "success"
+                });
+            }
+        } catch(err){
+            console.error(err);
         }
     }
     
@@ -98,7 +115,7 @@ const ModifyInfo = () => {
             <Box sx={{ mt: 3 }}>
                 <Typography variant="h6">회원 탈퇴</Typography>
                 <Typography variant="subtitle1">탈퇴 약정</Typography>
-                <Button type="button" variant="contained" size="large" fullWidth>
+                <Button type="button" variant="contained" size="large" fullWidth onClick={deleteButton}>
                     탈퇴하기
                 </Button>
             </Box>
