@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useEffect, useContext } from "react";
 import { IconButton } from "@mui/material";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
@@ -7,7 +7,7 @@ import { MapContext } from "../../../../contexts/MapContext";
 import { stationApi } from "../../../../api/services/station";
 
 const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
-    const { favList, setFavList } = useContext(MapContext);
+    const { favList, setFavList, positionArr, setPositionArr } = useContext(MapContext);
 
     const addStation = async (e) => {
         //e.stopPropagation()
@@ -26,6 +26,13 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
                 const res = await stationApi.addLikeStation(data, token)
                 if (res.data.code === 200) {
                     getFav();
+                    const newPA = positionArr.map(pa => {
+                        if (pa.title === station.chrstnNm) {
+                            return {...pa, fav: true}
+                        }
+                        return pa
+                    })
+                    setPositionArr(newPA)
                     setClicked(true)
                 }
             } catch (err) {
@@ -48,6 +55,14 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
                 const res = await stationApi.deleteLikeStation(data, token)
                 if (res.data.code === 200) {
                     getFav();
+                    const newPA = positionArr.map(pa => {
+                        console.log(pa, station);
+                        if (pa.fav && pa.title === station.chrstnNm) {
+                            return {...pa, fav: false }
+                        }
+                        return pa
+                    })
+                    setPositionArr(newPA)
                     tab === 'fav' ? setClicked(true): setClicked(!clicked);
                 }
             } catch (err) {
@@ -56,7 +71,6 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
         }
     };
     
-
     // useEffect(()=>{
     //     getFav();
     //     setClicked(favList.some(f => station.chrstn_id === f.chrstn_id))
