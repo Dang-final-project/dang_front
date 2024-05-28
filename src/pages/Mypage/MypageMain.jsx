@@ -11,13 +11,12 @@ const Community = () => {
     return (
         <Grid sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
             <PageHeader title="마이페이지" desc="내 차량 정보 및 개인정보를 확인하고 수정할 수 있습니다." />
-            <Box
-                sx={{ marginBottom: "10px", display: "flex", width: isMobile ? "90vh" : "100%", marginBottom: "50px" }}
-            >
+            <Box sx={{ marginBottom: "10px", display: "flex", width: "100%", marginBottom: "50px" }}>
                 <Button
                     variant="contained"
                     sx={{
                         width: "50%",
+                        height: "46px",
                         backgroundColor: activeButton === "mycar" ? "primary.main" : "grey.100",
                         color: activeButton === "mycar" ? "white" : "grey.500",
                         borderTopRightRadius: 0,
@@ -33,6 +32,7 @@ const Community = () => {
                     variant="contained"
                     sx={{
                         width: "50%",
+                        height: "46px",
                         backgroundColor: activeButton === "myinfo" ? "primary.main" : "grey.100",
                         color: activeButton === "myinfo" ? "white" : "grey.500",
                         borderTopLeftRadius: 0,

@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const GetStations = async (filterList, setPositionArr, setStations) => {
-
     const handleFilter = (obj) => {
         return Object.entries(obj)
             .filter(([key, value]) => value !== undefined && value !== null && value !== "")
@@ -59,6 +58,6 @@ export const GetStations = async (filterList, setPositionArr, setStations) => {
         }
     } catch (err) {
         console.error(err);
-        alert('결과값이 없습니다.')
+        alert("결과값이 없습니다.");
     }
 };

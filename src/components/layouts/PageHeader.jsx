@@ -5,7 +5,7 @@ const PageHeader = ({ title, desc }) => {
     const isMobile = useMediaQuery(theme.breakpoints.up("md"));
 
     return isMobile ? (
-        <Grid sx={{ width: "90vh", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <Grid sx={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <Grid>
                 <Typography variant="h4" sx={{ fontWeight: "bold", color: theme.palette.primary.dark }}>
                     {title}
