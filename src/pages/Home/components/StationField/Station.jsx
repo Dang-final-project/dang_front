@@ -15,12 +15,6 @@ const Station = ({station, tab, token }) => {
 
     //즐겨찾기 데이터 갱신
     const getFav = async () => {
-        // const urll = `${process.env.REACT_APP_SERVER_URL}/stations/list`;
-        // const fav = await axios.get(urll, { 
-        //     headers : {
-        //         'authorization' : `${token}`
-        //     }
-        //     });
         const fav = await stationApi.getFav(token);
         setFavList(fav.data.payload);    
     };
