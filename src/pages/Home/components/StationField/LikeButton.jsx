@@ -66,7 +66,6 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
         }
     };
     
-
     // useEffect(()=>{
     //     getFav();
     //     setClicked(favList.some(f => station.chrstn_id === f.chrstn_id))
