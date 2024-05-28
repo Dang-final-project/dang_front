@@ -24,12 +24,11 @@ function BatteryLevel() {
 
   return (
     <>
-    
     <Grid container sx={{display: "flex", flexDirection: "column", alignItems:'left', justifyContent: "center", position: 'relative' }}>
     <Typography variant="h5">배터리잔량</Typography>
     <Box sx={{display: 'flex'}}>
       <Box sx={{ display: 'flex', alignItems:'center', marginLeft:3}}>
-        <Box sx={{display: 'inline-block', width: 320, marginTop:7, marginBottom: 5, backgroundColor: 'lightgrey'}}>
+        <Box sx={{display: 'inline-block', width: 320, marginTop: 7, marginBottom: 5, backgroundColor: 'lightgrey'}}>
         <Box sx={{width: `${batteryLevel}%`, height: 160,backgroundColor: barColor}}></Box>
         </Box>
         <Box sx = {{display: 'inline-block', fontSize: 18, marginLeft: 10, color: textColor, position: 'relative', zIndex: 1}}> 
@@ -43,7 +42,7 @@ function BatteryLevel() {
           sx={{
             position: 'absolute',
             width: '100%',
-            maxWidth: '400px',
+            maxWidth: 400,
             height: 'auto',
             top: '50%', // 부모 요소의 상단에 맞추기
             transform: 'translateY(-45%)',

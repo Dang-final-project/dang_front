@@ -9,7 +9,7 @@ const imageStyle = {
 
 };
 
-export const CarPhotoAPI = () => {
+export const CarPhotoAPI = ({onCarClick}) => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -84,7 +84,7 @@ export const CarPhotoAPI = () => {
         <Grid container spacing={2}>
             {images.map((image, idx) => (
                 <Grid item xs={12} sm={6} md={4} key={idx} >
-                    <Box sx={{cursor: 'pointer'}}>
+                    <Box sx={{cursor: 'pointer'}} onClick={() => onCarClick({ ...data[idx], image: image.urls.raw })}>
                     <img src={`${image.urls.raw}&w=300&fit=crop`} style={imageStyle} alt="car" />
                         <Box sx={boxStyle}>
                             <Typography variant="h6" component="strong">
