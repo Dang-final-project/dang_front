@@ -4,6 +4,7 @@ import { IconButton } from "@mui/material";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import { MapContext } from "../../../../contexts/MapContext";
+import { stationApi } from "../../../../api/services/station";
 
 const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
     const { favList, setFavList } = useContext(MapContext);
@@ -12,15 +13,17 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
         //e.stopPropagation()
         if (clicked === false) {
             try {
-                const res = await axios.post(
-                    `${process.env.REACT_APP_SERVER_URL}/stations/add`,
-                    { chrstn_id: station.chrstn_id },
-                    {
-                        headers: {
-                            'Authorization': `${token}`
-                        }
-                    }
-                );
+                // const res = await axios.post(
+                //     `${process.env.REACT_APP_SERVER_URL}/stations/add`,
+                //     { chrstn_id: station.chrstn_id },
+                //     {
+                //         headers: {
+                //             'Authorization': `${token}`
+                //         }
+                //     }
+                // );
+                const data = { chrstn_id: station.chrstn_id };
+                const res = await stationApi.addLikeStation(data, token)
                 if (res.data.code === 200) {
                     getFav();
                     setClicked(true)
@@ -35,12 +38,14 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
         //e.stopPropagation()
         if (clicked === true) {
             try {
-                const res = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/stations/remove`, {
-                    data: { chrstn_id: station.chrstn_id },
-                    headers: {
-                        'Authorization': `${token}`
-                    }
-                });
+                // const res = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/stations/remove`, {
+                //     data: { chrstn_id: station.chrstn_id },
+                //     headers: {
+                //         'Authorization': `${token}`
+                //     }
+                // });
+                const data = { chrstn_id: station.chrstn_id };
+                const res = await stationApi.deleteLikeStation(data, token)
                 if (res.data.code === 200) {
                     getFav();
                     tab === 'fav' ? setClicked(true): setClicked(!clicked);
@@ -56,10 +61,12 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
     //     getFav();
     //     setClicked(favList.some(f => station.chrstn_id === f.chrstn_id))
     // },[])
+
+    console.log(favList);
     
     useEffect(() => {
         getFav();
-        if (favList.length > 0) {
+        if (favList?.length > 0) {
             setClicked(favList.some(f => station.chrstn_id === f.chrstn_id));
         }
     }, []);
