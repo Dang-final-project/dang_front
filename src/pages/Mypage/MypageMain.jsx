@@ -3,6 +3,7 @@ import { useState } from "react";
 import Mypage from "./components/Mypage";
 import ModifyInfo from "./components/ModifyInfo";
 import PageHeader from "../../components/layouts/PageHeader";
+import { useAuth } from "../../hooks/useAuth";
 
 const Community = () => {
     const [activeButton, setActiveButton] = useState("mycar");

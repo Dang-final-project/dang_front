@@ -2,9 +2,13 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
-import axios from "axios";
+import { authApi } from "../../../api/services/auth";
+import { useAuth } from './../../../hooks/useAuth';
+import { useState } from "react";
 
 const ModifyInfo = () => {
+    const { loginUser } = useAuth();
+    const email = loginUser.email; // 고정된 이메일 값
     const {
         register,
         handleSubmit,
@@ -13,51 +17,48 @@ const ModifyInfo = () => {
     } = useForm();
     const navigate = useNavigate();
 
-    const onSubmit = async(data) => {
-        const { username, password, passwordCheck } = data;
-        const email = "zeus@gmail.com"; // 고정된 이메일 값
-        
-        try{            
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/join`,{
-                email,
-                username, 
-                password
-            })
+    
 
-            console.log(response);
-            if (response.data.code === 200) {
+    const modify = async(e) => {
+        // e.preventDefault();
+        try {
+            const data = {username: e.username, password: e.password};
+            const token = loginUser.token;
+            const res = await authApi.authPut(data, token);
+            
+            if (res.data.code === 200) {
                 Swal.fire({
                     title: "축하합니다!",
-                    text: response.data.message,
+                    text: "수정이 완료되었습니다.",
                     icon: "success"
                 });
-                navigate('/login');
-            } else {
-                throw new Error(response.data.message);
-            }
-        }catch(err){
-            console.log(username)
+                console.log(res);
+                navigate('/');
+            } 
+        } catch (err) {
+            console.error(err);
+
             Swal.fire({
                 title: "에러 발생",
                 text: err.message,
                 icon: "error"
             });
         }
-    };
-
+    }
+    
     return ( 
         <>
-            <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}
+            <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit(modify)}
                 sx={{'& .MuiTextField-root': { m: 1, width: '25ch' }}}
             >
-                <TextField disabled variant="outlined" label="이메일" defaultValue="zeus@gmail.com"
+                <TextField disabled variant="outlined" label="이메일" defaultValue={email}
                     sx={{ display: 'block' }} fullWidth
                 />
                 <TextField variant="outlined" label="이름" autoComplete="username"
                     error={errors.username ? true : false}
                     helperText={errors.username && errors.username.message}
                     sx={{ display: 'block' }} fullWidth 
-                    {...register("username", { required: "이름을 입력해주세요." })}
+                    {...register("username", { value: loginUser.nickname, required: "이름을 입력해주세요." })}
                 />
                 <TextField variant="outlined" label="비밀번호" type="password"
                     error={errors.password ? true : false}

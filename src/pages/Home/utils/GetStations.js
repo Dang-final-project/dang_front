@@ -27,7 +27,7 @@ export const GetStations = async (filterList, setPositionArr, setStations) => {
         const response = await axios.get(url);
         if (response.status === 200) {
             const results = [];
-            response.data.items.forEach((item) => {
+            response.data.items?.forEach((item) => {
                 const cur_lat = item.latitude;
                 const cur_lng = item.longtitude;
                 const ex_item = results.find((r) => r.latitude === cur_lat && r.longtitude === cur_lng);
