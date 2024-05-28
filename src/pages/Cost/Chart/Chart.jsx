@@ -78,6 +78,8 @@ const Chart = () => {
                     height: chartWidth ? "60vh" : "40vh",
                     minHeight: "300px",
                     marginRight: chartWidth ? 5 : 0,
+                    display: "flex",
+                    justifyContent: "center",
                 }}
             >
                 <Bar data={data} options={options} sx={{ width: "100%", height: "100%" }} />

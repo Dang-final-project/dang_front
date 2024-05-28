@@ -1,6 +1,11 @@
 import api from "../api";
 
 export const communityApi = {
-    // 리포트가져오기 : (사용자아이디, 토큰) => api.get('url?userId=사용자아이디, {headers})
-    
-}
+    getReport: (userId, token) =>
+        api.get(`/community/report?userId=${userId}`, {
+            headers: {
+                Authorization: token,
+            },
+        }),
+    postReport: (data) => api.post("/community/report", data),
+};
