@@ -24,7 +24,7 @@ const Detail = ({ open, handleClose, detailIndex }) => {
     const stationInfo = stations.length > 0 ? stations[detailIndex] : null;
 
     const dialogContentProps = {
-        sx: { width: "430px", height: "310px" },
+        sx: { width: "430px", height: "auto", maxHeight: "400px" },
     };
 
     return (
@@ -61,7 +61,7 @@ const Detail = ({ open, handleClose, detailIndex }) => {
                             </ListSubheader>
                         }
                     >
-                        <Box sx={{marginLeft: "3vw", marginTop: "2vw"}}>
+                        <Box sx={{p:2}}>
                             <Box sx={{display:'flex'}}>
                                 <AccessTimeIcon sx={{marginTop:"0.6vw"}}/>
                                 <ListItemText primary="운영시간" secondary={stationInfo.useOpenTime} sx={{marginLeft: '3px'}}/>
