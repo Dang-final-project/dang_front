@@ -18,6 +18,8 @@ const Mypage = () => {
                 }
                 const data = await response.json();
                 setCarData(data);
+                const defaultCar = data.find((item) => item.REGINUMBER === '23사5678');
+                setSelectedCar(defaultCar ? defaultCar.data : null);
             } catch (error) {
                 console.error(error);
             }
@@ -80,7 +82,6 @@ const Mypage = () => {
                             <Typography>연식: {selectedCar.CARYEAR}</Typography>
                             <Typography>연료: {selectedCar.FUEL}</Typography>
                             <Typography>가격: {selectedCar.PRICE}</Typography>
-                            <Typography>배기량: {selectedCar.CC}</Typography>
                             <Typography>충전 커넥션: {selectedCar.CONNECTION}</Typography>
                             <Typography>충전 속도: {selectedCar.CHARGING_SPEED}</Typography>
                         </Box>
