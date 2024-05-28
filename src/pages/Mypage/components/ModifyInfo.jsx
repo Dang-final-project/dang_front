@@ -7,7 +7,7 @@ import { useAuth } from './../../../hooks/useAuth';
 import bcrypt from 'bcryptjs';
 
 const ModifyInfo = () => {
-    const { loginUser } = useAuth();
+    const { loginUser, logout } = useAuth();
     const email = loginUser.email; // 고정된 이메일 값
     const {
         register,
@@ -47,16 +47,21 @@ const ModifyInfo = () => {
     }
 
     const deleteButton = async(e) => {
-        const data = { username: e.username };
         const token = loginUser.token;
-        const res = await authApi.authDel(data, token);
+        const res = await authApi.authDel(token);
         try{
             if(res.data.code === 200){
-                Swal.fire({
-                    title: "삭제되었습니다.",
-                    text: "삭제되었습니다.",
-                    icon: "success"
-                });
+                logout(
+                    () =>{
+                        Swal.fire({
+                            title: "삭제되었습니다.",
+                            text: "삭제되었습니다.",
+                            icon: "success"
+                        })
+                        navigate('/');
+                    }
+                )
+               
             }
         } catch(err){
             console.error(err);

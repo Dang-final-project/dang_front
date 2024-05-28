@@ -7,7 +7,7 @@ export const authApi = {
         }
         }
     ), 
-    authDel:(data, token) => api.delete('/mypage/admin', data, {
+    authDel:(token) => api.delete('/mypage/admin', {
         headers: {
             Authorization: token
         }
