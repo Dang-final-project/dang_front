@@ -13,21 +13,21 @@ export const FilterValue = [
         filterValue:{active:"이용자 제한 없음",none:""}
     },
     {
-        label:"전용주차장", 
+        label:"전용 주차장", 
         icon:<LocalParkingIcon />,
         needPopup:false,
         filterKey:"privateCarPark", 
         filterValue:{active:"O",none:""}
     },
     {
-        label:"24시간 이용가능", 
+        label:"24시간 이용 가능", 
         icon:<AccessTimeIcon />,
         needPopup:false,
         filterKey:"useOpenTime", 
         filterValue:{active:"24시간 이용가능",none:""}
     },
     {
-        label:"관리업체명", 
+        label:"관리 업체명", 
         icon:<ApartmentIcon />,
         needPopup:true,
         filterKey:"manage_entrps_nm", 

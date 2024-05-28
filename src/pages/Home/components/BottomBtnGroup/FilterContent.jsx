@@ -57,7 +57,7 @@ export const FilterContent = () => {
                         <Box key={idx}>
                             <Box sx={{display:'flex', gap:'4px', color:"grey.700"}}>
                                 {f.icon}
-                                <Typography>{f.label}</Typography>
+                                <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'bold'}}>{f.label}</Typography>
                             </Box>
                             <Stack direction="row" spacing={1}>
                                 {

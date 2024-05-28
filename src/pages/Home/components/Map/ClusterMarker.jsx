@@ -28,7 +28,7 @@ const ClusterMarker = () => {
       setOpen(false);
   };
 
-  console.log(positionArr);
+  //console.log(positionArr);
 
   return (
     <MarkerClusterer
