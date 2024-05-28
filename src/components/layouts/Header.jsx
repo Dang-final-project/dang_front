@@ -43,6 +43,18 @@ const Header = () => {
         }
     }, [loginUser, kakaoLogin]);
 
+    // const focusModal = () => {
+    //     if (!dropdownOpen) {
+    //         document.addEventListener("mousedown", () => {
+    //             setDropdownOpen(false);
+    //         });
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     focusModal();
+    // }, []);
+
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
     };
