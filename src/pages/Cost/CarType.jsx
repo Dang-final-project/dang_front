@@ -5,7 +5,7 @@ import SearchInput from "./../../components/input/SearchInput";
 
 const resultBoxStyle = {
     marginTop: "2vh",
-    width: "100%",
+    width: "80%",
 };
 
 const getHomepageURL = (manufacturer) => {
