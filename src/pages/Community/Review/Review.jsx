@@ -117,12 +117,12 @@ const Review = () => {
       >
         <EditIcon />작성하기
       </Button>
-      {/* <PageCount
+      <PageCount
         page={page}
         count={Math.ceil(filteredReviews.length / reviewsPerPage)}
         handleChangePage={handleChangePage}
         sx={{ marginBottom: '10px' }}
-      /> */}
+      />
     </>
   );
 };
