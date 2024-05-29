@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { authApi } from "../../../api/services/auth";
 import { useAuth } from './../../../hooks/useAuth';
-import bcrypt from 'bcryptjs';
 
 const ModifyInfo = () => {
     const { loginUser, logout } = useAuth();
@@ -20,9 +19,7 @@ const ModifyInfo = () => {
     const modify = async(e) => {
         // e.preventDefault();
         try {
-            const hashedPassword = await bcrypt.hash(e.password, 10);
-            const data = { username: e.username, password: hashedPassword };
-            // const data = {username: e.username, password: e.password};
+            const data = {username: e.username, password: e.password};
             const token = loginUser.token;
             const res = await authApi.authPut(data, token);
             
