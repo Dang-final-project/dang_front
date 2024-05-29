@@ -39,61 +39,95 @@ const Mypage = () => {
     };
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 5 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 5, width: '100%' }}>
             <BatteryLevel />
             <Box 
                 sx={{ 
                     display: 'flex', 
                     alignItems: 'center', 
-                    backgroundColor: 'white', 
+                    backgroundColor: '#f0f0f0', 
                     borderRadius: 1, 
-                    boxShadow: 3, 
                     p: 1, 
                     mb: 3,
-                    width: isMobile ? '80%' : '60%',
+                    width: '100%',
+                    maxWidth: '1000px',
                     marginTop: 5
                 }}
             >
+                <Typography sx={{ flexGrow: 1, ml: 2 }}>
+                    차량 번호 <span style={{ color: 'blue', fontWeight: "bol" }}>7자리 혹은 8자리</span>를 입력해주세요.
+                </Typography>
                 <TextField
                     variant="outlined"
                     placeholder="차량 번호를 입력하세요"
                     value={regiNumber}
                     onChange={handleInputChange}
-                    sx={{ flexGrow: 1, mr: 1, margin: 2 }}
+                    sx={{ flexGrow: 1, mr: 1, margin: 1, backgroundColor: '#fff' }}
                 />
                 <Button 
                     variant="contained" 
-                    color="primary"
                     onClick={handleSearch}
-                    sx={{ height: '56px', marginRight: 2 }}
+                    sx={{ height: '40px', marginRight: 1, backgroundColor: '#007BFF' }}
                 >
-                    검색
+                    입력
                 </Button>
             </Box>
             {selectedCar ? (
-                <Grid container spacing={3} sx={{ width: '100%', maxWidth: '1000px' }}>
-                    <Grid item xs={12} sm={6}>
-                        <Box sx={{ p: 2, border: '1px solid #ccc', borderRadius: 1, boxShadow: 3 }}>
-                            <Typography variant="h6" gutterBottom>
-                                차량 정보
-                            </Typography>
-                            <Typography>차량 제조사: {selectedCar.CARVENDER}</Typography>
-                            <Typography>차량 이름: {selectedCar.CARNAME}</Typography>
-                            <Typography>연식: {selectedCar.CARYEAR}</Typography>
-                            <Typography>연료: {selectedCar.FUEL}</Typography>
-                            <Typography>가격: {selectedCar.PRICE}</Typography>
-                            <Typography>충전 커넥션: {selectedCar.CONNECTION}</Typography>
-                            <Typography>충전 속도: {selectedCar.CHARGING_SPEED}</Typography>
-                        </Box>
-                    </Grid>
-                    {selectedCar.CARURL && (
-                        <Grid item xs={12} sm={6}>
-                            <Box sx={{ p: 2, border: '1px solid #ccc', borderRadius: 1, boxShadow: 3 }}>
-                                <img src={selectedCar.CARURL} alt={selectedCar.CARNAME} style={{ width: '100%', maxWidth: '400px' }} />
+                <Box 
+                    sx={{ 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        width: '100%', 
+                        maxWidth: '1000px', 
+                        border: '1px solid #ccc', 
+                        borderRadius: 1, 
+                        p: 2,
+                        backgroundColor: 'white',
+                        position: 'relative'
+                    }}
+                >
+                    <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
+                        {regiNumber}
+                    </Typography>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} md={4}>
+                            <Box 
+                                component="img"
+                                src={selectedCar.CARURL}
+                                alt={selectedCar.CARNAME}
+                                sx={{ width: '100%', borderRadius: 1 }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={8}>
+                            <Box sx={{ p: 2 }}>
+                                <Typography variant="h6" gutterBottom>
+                                    차량 정보 {regiNumber}
+                                </Typography>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={6}>
+                                        <Typography>차량 제조사: {selectedCar.CARVENDER}</Typography>
+                                        <Typography>연식: {selectedCar.CARYEAR}</Typography>
+                                        <Typography>연료: {selectedCar.FUEL}</Typography>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Typography>차량 이름: {selectedCar.CARNAME}</Typography>
+                                        <Typography>가격: {selectedCar.PRICE}원</Typography>
+                                        <Typography>충전 커넥션: {selectedCar.CONNECTION}</Typography>
+                                        <Typography>충전 속도: {selectedCar.CHARGING_SPEED}</Typography>
+                                    </Grid>
+                                </Grid>
                             </Box>
                         </Grid>
-                    )}
-                </Grid>
+                    </Grid>
+                    <Button 
+                        variant="contained" 
+                        color="secondary"
+                        sx={{ position: 'absolute', bottom: 16, right: 16, backgroundColor: '#6c757d' }}
+                    >
+                        삭제
+                    </Button>
+                </Box>
             ) : (
                 notFound && (
                     <Typography variant="h6" color="error" sx={{ mt: 3 }}>
