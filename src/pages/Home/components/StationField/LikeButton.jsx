@@ -49,7 +49,6 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
                 if (res.data.code === 200) {
                     getFav();
                     const newPA = positionArr.map(pa => {
-                        console.log(pa, station);
                         if (pa.fav && pa.title === station.chrstnNm) {
                             return {...pa, fav: false }
                         }
@@ -74,7 +73,7 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
     }, []); 
 
     useEffect(() => {
-        if (favList?.length > 0) {
+        if (favList?.length >= 0) {
             setClicked(favList.some(f => station.chrstn_id === f.chrstn_id));
         }
     }, [favStation]); 
