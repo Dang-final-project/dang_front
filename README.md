@@ -8,3 +8,23 @@
   git (clone 또는 pull 또는 push) https://[본인 깃아이디]@github.com/Dang-final-project/dang_front.git
   ```
 
+
+### 구조
+
+```
+root/
+  ├─ src/
+  │  ├─ api/
+  │  ├─ assets/
+  │  ├─ components/
+  │  ├─ contexts/
+  │  ├─ hooks/
+  │  ├─ pages/
+  │  ├─ App.css
+  │  ├─ App.js
+  │  ├─ index.js
+  ├─ .env
+  ├─ .gitigore  
+  ├─ package.json
+  └─ README.md
+```
