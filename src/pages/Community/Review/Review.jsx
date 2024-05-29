@@ -7,9 +7,6 @@ import PostButton from './PostButton';
 import StationSearch from './StationSearch';
 import PageCount from '../utils/PageCount';
 
-import useIntersectionObserver from './../../../hooks/useIntersectionObserver';
-import reviewService from '../utils/review';
-
 const Review = () => {
   const [reviews, setReviews] = useState([]);
   const [page, setPage] = useState(1);
