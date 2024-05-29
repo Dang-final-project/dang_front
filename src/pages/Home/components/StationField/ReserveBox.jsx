@@ -52,7 +52,7 @@ const ReserveBox = ({chrstnNm, avail_count, tot_count}) => {
                         tot_count > avail_count ?
                         <>
                             <Typography>{tot_count}대 중&nbsp;</Typography>
-                            <Typography color="primary" sx={{fontWeight:'bold'}}>&nbsp;{avail_count}대 사용가능</Typography>
+                            <Typography color="primary" sx={{fontWeight:'bold'}}>&nbsp;{tot_count - avail_count}대 사용가능</Typography>
                         </>
                         :
                         <Typography>지금은 사용할 수 없어요</Typography>
