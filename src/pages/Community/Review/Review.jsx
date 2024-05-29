@@ -33,11 +33,6 @@ const Review = () => {
     try {
       const token = loginUser.token;
       const res = await reviewApi.getAll(token);
-      // const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/community/review`, {
-      //   headers: {
-      //     Authorization: loginUser.token,
-      //   },
-      // });
       if (res.data.code === 200) {
         console.log(res);
         setReviews(res.data.payload || []);
@@ -72,7 +67,7 @@ const Review = () => {
   return (
     <>
       <StationSearch onSearch={handleSearch} />
-      <List sx={{ width: '100%', margin: '0 auto' }}>
+      <List sx={{ width: '100%', margin: '0 auto' }} reviews={reviews}>
         {currentData.length > 0 ? (
           currentData.map((review, index) => (
             <DemoPaper key={index} elevation={5}>
