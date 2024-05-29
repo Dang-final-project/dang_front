@@ -9,12 +9,13 @@ import SearchPopup from "./SearchPopup";
 import { reviewApi } from "../../../api/services/review";
 
 const ReviewPost = ({ open, handleClose }) => {
-    const { loginUser } = useAuth();
+    const { loginUser, logout } = useAuth();
     const [station, setStation] = useState("");
     const [starScore, setStarScore] = useState(0);
     const [content, setContent] = useState("");
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+    const token = localStorage.getItem('token');
 
     const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ const ReviewPost = ({ open, handleClose }) => {
                     content,
                     UserId,
                 }
-                const token = loginUser.token;
+                // const token = loginUser.token;
                 const res = await reviewApi.reviewPost(data, token);
                 console.log(res);
                 if (res.data.code === 200) {
@@ -52,7 +53,12 @@ const ReviewPost = ({ open, handleClose }) => {
                 });
             }
         } catch (err) {
-            console.error(err);
+            if(err.response.data.code == 500) {
+                logout(()=>{
+                  console.error(err);
+                  navigate('/')
+                })
+              }
         }
     };
     const writestarScore = useCallback((event, newValue) => {

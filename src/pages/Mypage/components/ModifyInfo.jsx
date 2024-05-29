@@ -15,12 +15,13 @@ const ModifyInfo = () => {
         getValues
     } = useForm();
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
 
     const modify = async(e) => {
         // e.preventDefault();
         try {
             const data = {username: e.username, password: e.password};
-            const token = loginUser.token;
+            // const token = loginUser.token;
             const res = await authApi.authPut(data, token);
             
             if (res.data.code === 200) {
@@ -33,7 +34,12 @@ const ModifyInfo = () => {
                 navigate('/');
             } 
         } catch (err) {
-            console.error(err);
+            if(err.response.data.code == 500) {
+                logout(()=>{
+                    console.error(err);
+                    navigate('/')
+                })
+            }
 
             Swal.fire({
                 title: "에러 발생",
@@ -44,7 +50,7 @@ const ModifyInfo = () => {
     }
 
     const deleteButton = async(e) => {
-        const token = loginUser.token;
+        // const token = loginUser.token;
         const res = await authApi.authDel(token);
         try{
             if(res.data.code === 200){

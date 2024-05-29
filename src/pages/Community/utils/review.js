@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function getList(pageIndex = 0, pageSize = 5) {
+async function getReview(pageIndex = 0, pageSize = 5) {
   const { data } = await axios.get('/quizzes', {
     params: {
       pageIndex,
@@ -22,5 +22,5 @@ async function getList(pageIndex = 0, pageSize = 5) {
 }
 
 export default {
-  getList,
+  getReview,
 };

@@ -12,25 +12,26 @@ export const StationField = () => {
     const [count, setCount] = useState(0);
 
     //로컬,카카오 토큰 가져오기
-    const getToken = () => {
-        const cookieToken = () => {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; accessToken=`);
-            if (parts.length === 2)
-                return parts
-                    .pop()
-                    .split(";")
-                    .shift();
-            return null; // 쿠키가 없을 경우 null 반환
-        };
+    // const getToken = () => {
+    //     const cookieToken = () => {
+    //         const value = `; ${document.cookie}`;
+    //         const parts = value.split(`; accessToken=`);
+    //         if (parts.length === 2)
+    //             return parts
+    //                 .pop()
+    //                 .split(";")
+    //                 .shift();
+    //         return null; // 쿠키가 없을 경우 null 반환
+    //     };
 
-        const localToken = localStorage.getItem("token");
-        const token = cookieToken() || localToken;
+    //     const localToken = localStorage.getItem("token");
+    //     const token = cookieToken() || localToken;
 
-        return token;
-    };
+    //     return token;
+    // };
 
-    let token = getToken();
+    // let token = getToken();
+    const token = localStorage.getItem("token");
 
     //탭 이벤트
     const [value, setValue] = useState("1");

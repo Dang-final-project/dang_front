@@ -7,24 +7,32 @@ import PostButton from './PostButton';
 import StationSearch from './StationSearch';
 import PageCount from '../utils/PageCount';
 
+import useIntersectionObserver from './../../../hooks/useIntersectionObserver';
+import reviewService from '../utils/review';
+
 const Review = () => {
   const [reviews, setReviews] = useState([]);
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const reviewsPerPage = 3;
   const navigate = useNavigate();
-  const { loginUser } = useAuth();
-
+  const token = localStorage.getItem('token');
+  const { logout } = useAuth();
   const getReviews = async () => {
     try {
-      const token = loginUser.token;
+      // const token = loginUser.token;
       const res = await reviewApi.getAll(token);
       if (res.data.code === 200) {
         console.log(res);
         setReviews(res.data.payload || []);
       }
     } catch (error) {
-      console.error(error);
+      if(error.response.data.code == 500) {
+        logout(()=>{
+          console.error(error);
+          navigate('/')
+        })
+      }
     }
   };
 
