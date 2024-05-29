@@ -47,19 +47,20 @@ const ReserveBox = ({chrstnNm, avail_count, tot_count}) => {
     return ( 
         <Box sx={{bgcolor:'grey.100',p:1, mt:1, display:'flex', display:'flex',justifyContent:'space-between',alignItems:'center'}}>
             <Stack direction="row" spacing={2}>
-                {avail_count < tot_count ?
-                    <Typography color="primary" sx={{fontWeight:'bold'}}>충전가능</Typography>
-                    :
-                    <Typography>충전불가</Typography>
-                }
                 <Stack direction="row">
-                    <Typography>{avail_count}</Typography>
-                    <Typography>/</Typography>
-                    <Typography>{tot_count}</Typography>
+                    {
+                        tot_count > avail_count ?
+                        <>
+                            <Typography>{tot_count}대 중&nbsp;</Typography>
+                            <Typography color="primary" sx={{fontWeight:'bold'}}>&nbsp;{avail_count}대 사용가능</Typography>
+                        </>
+                        :
+                        <Typography>지금은 사용할 수 없어요</Typography>
+                    }
                 </Stack>
             </Stack>
             {avail_count === tot_count ?
-                <Button variant="contained" sx={{boxShadow:"none", bgcolor:"grey.500",'&:hover': {bgcolor: "grey.500",boxShadow:"none"}}}>예약불가</Button>
+                <></>
                 :
                 <Button variant="contained" color="secondary" onClick={reserve}>예약하기</Button>
             }

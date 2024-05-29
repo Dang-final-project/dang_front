@@ -31,15 +31,16 @@ export const FilterValue = [
         icon:<ApartmentIcon />,
         needPopup:true,
         filterKey:"manage_entrps_nm", 
-        filterValue:["환경부(한국자동차환경협회)","한국전력","제주전기자동차서비스"]
+        filterValue:["환경부(한국자동차환경협회)","한국전력","제주전기자동차서비스"],
+        Separator:";"
     },
     {
         label:"커넥트", 
         icon:<ElectricalServicesIcon />,
         needPopup:true,
         filterKey:"chrstnType", 
-        filterValue:["AC3상","DC차데모","DC콤보"], 
-        Separator:"+"
+        filterValue:["AC3상","DC차데모","DC콤보","DC차데모+AC3상+DC콤보", "AC완속"],
+        Separator:";"
     }
 ]
  
