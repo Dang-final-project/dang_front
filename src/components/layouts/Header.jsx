@@ -21,7 +21,6 @@ import "../../App.css";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { useAuth } from "../../hooks/useAuth";
-import { Cookies } from "react-cookie";
 
 const Header = () => {
     const theme = useTheme();
@@ -32,11 +31,8 @@ const Header = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [userStatus, setUserStatus] = useState("guest"); // guest, user, admin
 
-    // const cookies = new Cookies();
-    // const kakaoLogin = cookies.get("userId");
-
     useEffect(() => {
-        kakaoLogin()
+        kakaoLogin();
         if (loginUser?.id) {
             setUserStatus("user");
         } else {
@@ -90,9 +86,7 @@ const Header = () => {
                 }}
             >
                 <Box sx={{ padding: "10px" }}>
-                    <Typography>
-                        {loginUser && loginUser?.nickname}님
-                    </Typography>
+                    <Typography>{loginUser && loginUser?.nickname}님</Typography>
                     <Typography sx={{ fontSize: "14px", color: theme.palette.grey[500] }}>
                         {loginUser?.email}
                     </Typography>
@@ -271,7 +265,7 @@ const Header = () => {
                     <Drawer open={open} onClose={toggleDrawer(false)}>
                         {DrawerList}
                     </Drawer>
-                    {(loginUser?.id) && (
+                    {loginUser?.id && (
                         <>
                             <StyledTypo
                                 variant="h6"

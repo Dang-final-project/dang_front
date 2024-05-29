@@ -34,6 +34,8 @@ export const GetFavStations = async (favList, setFavStation) => {
             } catch (err) {
                 console.error(err);
             }
+        }else {
+            setFavStation([]);
         }
     }
 };
