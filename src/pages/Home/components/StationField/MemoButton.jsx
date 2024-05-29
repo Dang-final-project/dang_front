@@ -3,6 +3,7 @@ import axios from "axios";
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import { Box, Typography, Button, IconButton, TextField } from "@mui/material";
 import { MapContext } from "../../../../contexts/MapContext";
+import { stationApi } from "../../../../api/services/station";
 
 const MemoButton = ({ token, station, clicked }) => {
 
@@ -22,18 +23,9 @@ const MemoButton = ({ token, station, clicked }) => {
     };
 
     const postMemo = async()=>{
+        const data = { chrstn_id : station.chrstn_id, memo:text }
         try{
-            await axios.put(`${process.env.REACT_APP_SERVER_URL}/stations/memo`,
-                {
-                    chrstn_id : station.chrstn_id,
-                    memo:text
-                },
-                {
-                    headers: {
-                        'Authorization': `${token}`
-                    }
-                }
-            )
+            stationApi.postMemo(data)
             .then(() => {
                 if (text === '' && text !== null) {
                     setWrite(false);
@@ -65,8 +57,6 @@ const MemoButton = ({ token, station, clicked }) => {
     useEffect(() => {
         getMeMmo();
     }, [favList]);
-
-   useEffect(()=>{getMeMmo()},[favList]);
 
     return ( 
         <>

@@ -5,6 +5,9 @@ import MemoButton from "./MemoButton";
 import LikeButton from "./LikeButton";
 import axios from "axios";
 import ReserveBox from "./ReserveBox";
+import { stationApi } from "../../../../api/services/station";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../hooks/useAuth";
 
 const Station = ({station, tab, token }) => {
     const {setMapPos} = useContext(MapContext);
@@ -12,15 +15,22 @@ const Station = ({station, tab, token }) => {
     const [clicked, setClicked] = useState(false);
     const { favList, setFavList } = useContext(MapContext);
 
+    const navigate = useNavigate();
+    const { logout } = useAuth();
+
     //즐겨찾기 데이터 갱신
     const getFav = async () => {
-        const urll = `${process.env.REACT_APP_SERVER_URL}/stations/list`;
-        const fav = await axios.get(urll, { 
-            headers : {
-                'authorization' : `${token}`
+        try{
+            const fav = await stationApi.getFav(token);
+            setFavList(fav.data.payload);
+        } catch(err){ 
+            if(err.response.data.code == 500) {
+                logout(()=>{
+                    console.error(err);
+                    navigate('/')
+                })
             }
-            });
-        setFavList(fav.data.payload);     
+        }
     };
 
 

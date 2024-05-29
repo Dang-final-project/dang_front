@@ -7,11 +7,13 @@ import axios from "axios";
 import { Cookies } from "react-cookie";
 import { useAuth } from "../../../hooks/useAuth";
 import { communityApi } from "../../../api/services/community";
+import { useNavigate } from "react-router-dom";
 
 const Report = () => {
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
-    const { loginUser } = useAuth();
+    const { loginUser, logout } = useAuth();
+    const navigate = useNavigate();
     const [reports, setReports] = useState([]);
     const cookies = new Cookies();
     const kakaoId = cookies.get("userId");
@@ -25,7 +27,12 @@ const Report = () => {
                 setReports(res.data.payload);
             }
         } catch (err) {
-            console.error(err);
+            if(err.response.data.code == 500) {
+                logout(()=>{
+                  console.error(err);
+                  navigate('/')
+                })
+              }
         }
     };
 

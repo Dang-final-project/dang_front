@@ -16,6 +16,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import SearchInput from "../../../components/input/SearchInput";
 import { MapContext } from "../../../contexts/MapContext";
+import { externalApi } from "../../../api/services/external";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
@@ -45,13 +46,13 @@ export default function SearchPopup({ title, width = 500, height = 500, station,
     };
 
     const handleSearch = async () => {
-        const key = process.env.REACT_APP_STATION_API_KEY;
+        // const key = process.env.REACT_APP_STATION_API_KEY;
         const pageIdx = 1;
         const count = 1580;
-        const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
+        // const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
 
         try {
-            const response = await axios.get(url);
+            const response = await externalApi.getAllStation(count, pageIdx);
             const datas = response.data?.items || [];
 
             if (response.status === 200) {

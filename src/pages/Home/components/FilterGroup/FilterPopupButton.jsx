@@ -51,7 +51,16 @@ export function FilterPopupButton({label, filterKey, filterValue, Separator}) {
 
     // 필터 데이터 전송
     const getFilterVal = () => {
-        setFilterList(prev => ({...filterList,[filterKey] :currentFilter}));
+        if (currentFilter) {
+            setFilterList(prev => ({...filterList,[filterKey] :currentFilter}));
+        } else {
+            setFilterList(prev => {
+                const flist = Object.assign({}, prev);
+                delete flist[filterKey]
+                return flist
+            });
+        }
+
         setOpen(false);
         changeStyle();
     }

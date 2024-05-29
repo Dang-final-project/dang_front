@@ -4,13 +4,7 @@ import { Box, Typography } from '@mui/material';
 
 const boxStyle = {
     border: '1px solid #ccc',
-    padding: '3vh',
-    marginBottom: '3vh',
     width: '100%',
-    height: 200,
-    alignItems: 'center',
-    borderRadius: '8px',
-    boxShadow: '0 0 10px rgba(0,0,0,0.1)'
 }
 
 const CarAPI = () => {

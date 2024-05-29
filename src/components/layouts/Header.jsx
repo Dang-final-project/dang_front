@@ -27,21 +27,22 @@ const Header = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.up("md"));
     const location = useLocation();
-    const { loginUser, logout } = useAuth();
+    const { loginUser, logout, kakaoLogin } = useAuth();
     const [open, setOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [userStatus, setUserStatus] = useState("guest"); // guest, user, admin
 
-    const cookies = new Cookies();
-    const kakaoLogin = cookies.get("userId");
+    // const cookies = new Cookies();
+    // const kakaoLogin = cookies.get("userId");
 
     useEffect(() => {
-        if (loginUser?.id || kakaoLogin) {
+        kakaoLogin()
+        if (loginUser?.id) {
             setUserStatus("user");
         } else {
             setUserStatus("guest");
         }
-    }, [loginUser, kakaoLogin]);
+    }, [loginUser]);
 
     // const focusModal = () => {
     //     if (!dropdownOpen) {
@@ -90,7 +91,6 @@ const Header = () => {
             >
                 <Box sx={{ padding: "10px" }}>
                     <Typography>
-                        {kakaoLogin && kakaoLogin?.nickname}
                         {loginUser && loginUser?.nickname}님
                     </Typography>
                     <Typography sx={{ fontSize: "14px", color: theme.palette.grey[500] }}>
@@ -160,7 +160,6 @@ const Header = () => {
                                     }}
                                     sx={{ position: "relative" }}
                                 >
-                                    {kakaoLogin && kakaoLogin?.nickname}
                                     {loginUser && loginUser?.nickname}님
                                     {dropdownOpen ? (
                                         <ArrowDropUpIcon sx={{ fontSize: "22px" }} />
@@ -272,14 +271,13 @@ const Header = () => {
                     <Drawer open={open} onClose={toggleDrawer(false)}>
                         {DrawerList}
                     </Drawer>
-                    {(loginUser?.id || kakaoLogin) && (
+                    {(loginUser?.id) && (
                         <>
                             <StyledTypo
                                 variant="h6"
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
                                 sx={{ position: "relative" }}
                             >
-                                {kakaoLogin && kakaoLogin?.nickname}
                                 {loginUser && loginUser?.nickname}님
                                 {dropdownOpen ? (
                                     <ArrowDropUpIcon sx={{ fontSize: "22px" }} />
