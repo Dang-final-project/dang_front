@@ -1,4 +1,4 @@
-import { Stack, Typography, Box, Button } from "@mui/material";
+import { Stack, Typography, Box, Button, Grid } from "@mui/material";
 import { FilterValue } from "../FilterGroup/FilterValue";
 import { useEffect, useState } from "react";
 
@@ -59,7 +59,7 @@ export const FilterContent = () => {
                                 {f.icon}
                                 <Typography variant="subtitle1" gutterBottom sx={{fontWeight:'bold'}}>{f.label}</Typography>
                             </Box>
-                            <Stack direction="row" spacing={1}>
+                            <Grid container sx={{gap:'8px'}}>
                                 {
                                     filterButtons && (
                                         f.needPopup ?
@@ -86,7 +86,7 @@ export const FilterContent = () => {
                                         </Button>
                                     )
                                 }
-                            </Stack>
+                            </Grid>
                         </Box>
                     )
                 })
