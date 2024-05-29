@@ -1,6 +1,6 @@
 import React, { useRef, useContext, useState } from 'react';
 import { MapContext } from '../../../../contexts/MapContext';
-import Detail from '../../../../components/popup/Detail';
+import Detail from './Detail';
 import { MapMarker } from 'react-kakao-maps-sdk';
 import { MarkerClusterer } from 'react-kakao-maps-sdk';
 
