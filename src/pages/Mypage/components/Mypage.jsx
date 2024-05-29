@@ -84,7 +84,8 @@ const Mypage = () => {
                         borderRadius: 1, 
                         p: 2,
                         backgroundColor: 'white',
-                        position: 'relative'
+                        position: 'relative',
+                        marginBottom: 10
                     }}
                 >
                     <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
@@ -109,9 +110,9 @@ const Mypage = () => {
                                         <Typography>차량 제조사: {selectedCar.CARVENDER}</Typography>
                                         <Typography>연식: {selectedCar.CARYEAR}</Typography>
                                         <Typography>연료: {selectedCar.FUEL}</Typography>
+                                        <Typography>차량 이름: {selectedCar.CARNAME}</Typography>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <Typography>차량 이름: {selectedCar.CARNAME}</Typography>
                                         <Typography>가격: {selectedCar.PRICE}원</Typography>
                                         <Typography>충전 커넥션: {selectedCar.CONNECTION}</Typography>
                                         <Typography>충전 속도: {selectedCar.CHARGING_SPEED}</Typography>
