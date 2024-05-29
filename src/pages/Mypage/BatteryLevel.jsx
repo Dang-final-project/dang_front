@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import batteryImage from './battery.png';
+import batteryImage from './Mypage/battery.png';
 
 // 1. 배터 잔여량 가라 보여주는 랜덤 구현!!
 // 1-1. 마이페이지에 layout (common component)
@@ -24,12 +24,12 @@ function BatteryLevel() {
 
   return (
     <>
-    <Grid container sx={{display: "flex", flexDirection: "column", alignItems:'left', justifyContent: "center", position: 'relative' }}>
-    <Typography variant="h5" >배터리잔량</Typography>
+    <Grid container sx={{display: "flex", flexDirection: "column", alignItems:'center', justifyContent: "center", position: 'relative', width: '100%' }}>
+    <Typography variant="h5">배터리잔량</Typography>
     <Box sx={{display: 'flex'}}>
       <Box sx={{ display: 'flex', alignItems:'center', marginLeft:3}}>
-        <Box sx={{display: 'inline-block', width: 320, marginTop: 7, marginBottom: 5, backgroundColor: 'lightgrey'}}>
-        <Box sx={{width: `${batteryLevel}%`, height: 160,backgroundColor: barColor}}></Box>
+        <Box sx={{display: 'inline-block', width: 320, marginTop:7, marginBottom: 10, backgroundColor: 'lightgrey'}}>
+        <Box sx={{width: `${batteryLevel}%`, height: '15vh',backgroundColor: barColor}}></Box>
         </Box>
         <Box sx = {{display: 'inline-block', fontSize: 18, marginLeft: 10, color: textColor, position: 'relative', zIndex: 1}}> 
         <Typography>배터리 잔량이 {batteryLevel}% 남았습니다.</Typography>
@@ -40,12 +40,10 @@ function BatteryLevel() {
           component="img"
           src={batteryImage}
           sx={{
-            position: 'absolute',
-            width: '100%',
-            maxWidth: 400,
-            height: 'auto',
-            top: '50%', // 부모 요소의 상단에 맞추기
-            transform: 'translateY(-45%)',
+            position: 'fixed', // 절대 위치 지정
+            width: '400px',
+            height: '40vh',
+            top: '10vh', // 부모 요소의 상단에 맞추기
             zIndex: 0, // 이미지가 박스 뒤로 가도록 설정
           }}
         />
