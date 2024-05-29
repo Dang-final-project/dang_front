@@ -111,7 +111,7 @@ const CarType = () => {
                         variant="outlined"
                         sx={{
                             marginRight: "1vh",
-                            backgroundColor: selectedChargingTypes.includes(type) ? "lightblue" : "white",
+                            backgroundColor: selectedChargingTypes.includes(type) ? "lightgrey" : "white",
                         }}
                         onClick={() => handleChargingTypeClick(type)}
                     >
@@ -124,7 +124,10 @@ const CarType = () => {
 
             <Box sx={resultBoxStyle}>
                 <CarPhotoAPI 
-                    onCarClick={handleCarDetailClick} />
+                    onCarClick={handleCarDetailClick} 
+                    selectedCars={selectedCars}
+                    selectedChargingTypes={selectedChargingTypes}    
+                />
             </Box>
 
             <Modal open={open} onClose={() => setOpen(false)} onClick={() => setOpen(false)}>
