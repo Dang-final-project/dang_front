@@ -1,13 +1,10 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import batteryImage from './Mypage/battery.png';
 
-// 1. 배터 잔여량 가라 보여주는 랜덤 구현!!
-// 1-1. 마이페이지에 layout (common component)
-// 1-2. mypage random logic
-
 function BatteryLevel() {
   const [batteryLevel, setBatteryLevel] = useState(0);
+  const isMobile = useMediaQuery('(max-width:600px)');;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,33 +20,29 @@ function BatteryLevel() {
   const message = batteryLevel <= 20 ? '어서 빨리 충전하세요' : '';
 
   return (
-    <>
-    <Grid container sx={{display: "flex", flexDirection: "column", alignItems:'center', justifyContent: "center", position: 'relative', width: '100%' }}>
-    <Typography variant="h5">배터리잔량</Typography>
-    <Box sx={{display: 'flex'}}>
-      <Box sx={{ display: 'flex', alignItems:'center', marginLeft:3}}>
-        <Box sx={{display: 'inline-block', width: 320, marginTop:7, marginBottom: 10, backgroundColor: 'lightgrey'}}>
-        <Box sx={{width: `${batteryLevel}%`, height: '15vh',backgroundColor: barColor}}></Box>
-        </Box>
-        <Box sx = {{display: 'inline-block', fontSize: 18, marginLeft: 10, color: textColor, position: 'relative', zIndex: 1}}> 
-        <Typography>배터리 잔량이 {batteryLevel}% 남았습니다.</Typography>
-        <Typography sx={{ color: 'red' }}>{message}</Typography>
-        </Box>
-        </Box>
-        <Box
-          component="img"
-          src={batteryImage}
-          sx={{
-            position: 'fixed', // 절대 위치 지정
-            width: '400px',
-            height: '40vh',
-            top: '10vh', // 부모 요소의 상단에 맞추기
-            zIndex: 0, // 이미지가 박스 뒤로 가도록 설정
-          }}
-        />
-      </Box>
-    </Grid>
-    </>
+    <Box sx={{ p: { xs: 2, sm: 3, md: 4 }, textAlign: 'center' }}>
+      <Typography variant="h5" sx={{ mb: 2 }}>배터리 잔량</Typography>
+      <Grid container justifyContent="center" alignItems="center" spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Box sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Box sx={{ width: '100%', maxWidth: isMobile ? '200px' : '400px', height: 'auto', bgcolor: 'lightgrey', position: 'relative', overflow: 'hidden', borderRadius: '4px', border: '1px solid #000' }}>
+              <Box sx={{ width: `${batteryLevel}%`, height: '20px', bgcolor: barColor }} />
+            </Box>
+            <Typography sx={{ mt: 2, fontSize: isMobile ? 14 : 18, color: textColor }}>
+              {`배터리 잔량이 ${batteryLevel}% 남았습니다.`}
+            </Typography>
+            {batteryLevel <= 20 && <Typography sx={{ color: 'red' }}>{message}</Typography>}
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Box sx={{ textAlign: 'center', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Box sx={{ width: '100%', maxWidth: isMobile ? '100px' : '200px' }}>
+              <img src={batteryImage} alt="Battery Image" style={{ width: '100%', height: 'auto' }} />
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
 
