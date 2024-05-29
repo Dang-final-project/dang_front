@@ -71,7 +71,9 @@ const ModifyInfo = () => {
     return ( 
         <>
             <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit(modify)}
-                sx={{'& .MuiTextField-root': { m: 1, width: '25ch' }}}
+                sx={{width: "400px", padding: "40px", backgroundColor: "white", borderRadius: "8px", 
+                boxShadow:"0 0 12px rgba(0,0,0,0.271)", textAlign: "center", 
+                '& .MuiTextField-root': { marginTop: 1 }}}
             >
                 <TextField disabled variant="outlined" label="이메일" defaultValue={email}
                     sx={{ display: 'block' }} fullWidth
@@ -99,9 +101,7 @@ const ModifyInfo = () => {
                     })}
                 />
                 <TextField
-                    id="PasswordCheck"
                     fullWidth
-                    autoComplete="new-password"
                     error={errors.passwordCheck ? true : false}
                     helperText={errors.passwordCheck && errors.passwordCheck.message}
                     type='password'
@@ -114,16 +114,20 @@ const ModifyInfo = () => {
                 <Typography sx={{ m: 1 }}>권한: 사용자</Typography>
                 <Button type="submit" variant="contained" size="large" fullWidth>
                     수정하기
-                </Button>
-            </Box>
+                </Button> 
 
-            <Box sx={{ mt: 3 }}>
-                <Typography variant="h6">회원 탈퇴</Typography>
-                <Typography variant="subtitle1">탈퇴 약정</Typography>
-                <Button type="button" variant="contained" size="large" fullWidth onClick={deleteButton}>
-                    탈퇴하기
-                </Button>
+                <Box sx={{ mt: 3 }}>
+                    <Typography variant="h6">회원 탈퇴</Typography>
+                    <Typography variant="subtitle1">탈퇴 약정</Typography>
+                    <Button type="button" variant="contained" size="large" fullWidth onClick={deleteButton}>
+                        탈퇴하기
+                    </Button>
+                </Box>
+                
             </Box>
+            
+
+            
         </>
     );
 }
