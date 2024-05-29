@@ -20,15 +20,15 @@ const Station = ({station, tab, token }) => {
 
     //즐겨찾기 데이터 갱신
     const getFav = async () => {
-        try{
+        try {
             const fav = await stationApi.getFav(token);
             setFavList(fav.data.payload);
-        } catch(err){ 
-            if(err.response.data.code == 500) {
-                logout(()=>{
+        } catch (err) { 
+            if (err.response && err.response.data && err.response.data.code === 500) {
+                logout(() => {
                     console.error(err);
-                    navigate('/')
-                })
+                    navigate('/');
+                });
             }
         }
     };
