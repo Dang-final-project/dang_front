@@ -5,6 +5,7 @@ import Station from "./Station";
 import { MapContext } from "../../../../contexts/MapContext";
 import SearchBox from "./SearchBox";
 import axios from "axios";
+import { externalApi } from "../../../../api/services/external";
 
 export const StationField = () => {
     const { stations, setStations, favStation, favList } = useContext(MapContext);
@@ -44,13 +45,14 @@ export const StationField = () => {
     };
 
     const handleSearch = async () => {
-        const key = process.env.REACT_APP_STATION_API_KEY;
-        console.log(key);
+        // const key = process.env.REACT_APP_STATION_API_KEY;
+        // console.log(key);
         const pageIdx = 0;
         const count = 1580;
-        const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
+        // const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
         try {
-            const response = await axios.get(url);
+            
+            const response = await externalApi.getAllStation(count, pageIdx);
             const datas = response.data.items;
             console.log(datas);
             if (response.status === 200) {
