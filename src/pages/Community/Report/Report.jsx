@@ -3,8 +3,6 @@ import { Grid, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import ReportDriver from "./ReportDriver";
 import MyReport from "./MyReport";
-import axios from "axios";
-import { Cookies } from "react-cookie";
 import { useAuth } from "../../../hooks/useAuth";
 import { communityApi } from "../../../api/services/community";
 import { useNavigate } from "react-router-dom";
@@ -12,29 +10,30 @@ import { useNavigate } from "react-router-dom";
 const Report = () => {
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
-    const { loginUser, logout } = useAuth();
+    const { loginUser, logout, kakaoLogin } = useAuth();
     const navigate = useNavigate();
     const [reports, setReports] = useState([]);
-    const cookies = new Cookies();
-    const kakaoId = cookies.get("userId");
-    const kakaoToken = cookies.get("accessToken");
     const getReports = async () => {
         try {
-            const userId = loginUser?.id || kakaoId;
-            const token = loginUser?.token || kakaoToken;
+            const userId = loginUser?.id;
+            const token = localStorage.getItem("token");
+
             const res = await communityApi.getReport(userId, token);
             if (res.data.code === 200) {
                 setReports(res.data.payload);
             }
         } catch (err) {
-            if(err.response.data.code == 500) {
-                logout(()=>{
-                  console.error(err);
-                  navigate('/')
-                })
-              }
+            if (err.response.data.code === 500) {
+                logout(() => {
+                    console.error(err);
+                    navigate("/");
+                });
+            }
         }
     };
+    useEffect(() => {
+        kakaoLogin();
+    }, [loginUser]);
 
     useEffect(() => {
         getReports();
@@ -49,13 +48,7 @@ const Report = () => {
                 marginLeft: isDesktop ? "-40px" : 0,
             }}
         >
-            <ReportDriver
-                isDesktop={isDesktop}
-                theme={theme}
-                getReports={getReports}
-                loginUser={loginUser}
-                kakaoId={kakaoId}
-            />
+            <ReportDriver isDesktop={isDesktop} theme={theme} getReports={getReports} loginUser={loginUser} />
             <MyReport reports={reports} />
         </Grid>
     );
