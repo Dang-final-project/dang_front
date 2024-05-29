@@ -5,10 +5,13 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import { MapContext } from "../../../../contexts/MapContext";
 import { stationApi } from "../../../../api/services/station";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../hooks/useAuth";
 
 const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
     const { favList, setFavList, positionArr, setPositionArr, favStation } = useContext(MapContext);
-
+    const navigate = useNavigate();
+    const { logout } = useAuth();
     const addStation = async (e) => {
         //e.stopPropagation()
         if (clicked === false) {
@@ -27,7 +30,12 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
                     setClicked(true)
                 }
             } catch (err) {
-                console.error(err);
+                if(err.response.data.code == 500) {
+                    logout(()=>{
+                      console.error(err);
+                      navigate('/')
+                    })
+                  }
             }
         }
     };
@@ -51,7 +59,12 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
                     //tab === 'fav' ? setClicked(true): setClicked(!clicked);
                 }
             } catch (err) {
-                console.error(err);
+                if(err.response.data.code == 500) {
+                    logout(()=>{
+                      console.error(err);
+                      navigate('/')
+                    })
+                  }
             }
         }
     };

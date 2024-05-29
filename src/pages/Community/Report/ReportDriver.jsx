@@ -14,6 +14,7 @@ const ReportDriver = ({ isDesktop, theme, getReports, loginUser, kakaoId }) => {
         e.preventDefault();
         try {
             if (carNum && station && content) {
+                //토큰처리, 에러처리(로그아웃) 하기, 백엔드도 확인해 볼 것
                 const res = await communityApi.postReport({ carNum, station, content, UserId });
 
                 if (res.data.code === 200) {

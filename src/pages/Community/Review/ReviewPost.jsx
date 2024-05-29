@@ -2,7 +2,6 @@ import { useTheme } from "@emotion/react";
 import { Button, FormControl, Grid, TextField, Typography, useMediaQuery } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { useCallback, useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { useAuth } from "./../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -10,12 +9,13 @@ import SearchPopup from "./SearchPopup";
 import { reviewApi } from "../../../api/services/review";
 
 const ReviewPost = ({ open, handleClose }) => {
-    const { loginUser } = useAuth();
+    const { loginUser, logout } = useAuth();
     const [station, setStation] = useState("");
     const [starScore, setStarScore] = useState(0);
     const [content, setContent] = useState("");
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+    const token = localStorage.getItem('token');
 
     const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ const ReviewPost = ({ open, handleClose }) => {
                     content,
                     UserId,
                 }
-                const token = loginUser.token;
+                // const token = loginUser.token;
                 const res = await reviewApi.reviewPost(data, token);
                 console.log(res);
                 if (res.data.code === 200) {
@@ -53,7 +53,12 @@ const ReviewPost = ({ open, handleClose }) => {
                 });
             }
         } catch (err) {
-            console.error(err);
+            if(err.response.data.code == 500) {
+                logout(()=>{
+                  console.error(err);
+                  navigate('/')
+                })
+              }
         }
     };
     const writestarScore = useCallback((event, newValue) => {
@@ -74,7 +79,6 @@ const ReviewPost = ({ open, handleClose }) => {
                     container
                     direction="column"
                     justifyContent="flex-start" // 왼쪽 정렬 설정
-                    // alignItems="center"
                     sx={{ margin: "0 auto", width: "90%" }}
                 >
                     <FormControl sx={{ mb: 2 }}>
@@ -95,7 +99,6 @@ const ReviewPost = ({ open, handleClose }) => {
                             name="starscore"
                             value={starScore}
                             onChange={(e) => setStarScore(e.target.value)}
-                            //onChange={writestarScore}
                             sx={{ visibility: "hidden" }}
                         />
                     </FormControl>
