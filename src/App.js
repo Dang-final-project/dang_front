@@ -12,7 +12,6 @@ import MypageMain from "./pages/Mypage/MypageMain";
 import { LoginContext } from "./contexts/LoginContext";
 import { useProvideAuth } from "./hooks/useProvideAuth";
 import Layout from "./components/layouts/layout";
-import { Cookies } from "react-cookie";
 import ReviewPost from "./pages/Community/Review/ReviewPost";
 
 function App() {
@@ -30,9 +29,7 @@ function App() {
 
     console.log(theme);
     const auth = useProvideAuth();
-    const cookies = new Cookies();
     const isLoggedIn = auth.loginUser?.id;
-    const isKakaoLoggedIn = cookies.get("userId");
 
     return (
         <>
@@ -41,7 +38,7 @@ function App() {
                     <CssBaseline />
                     <Layout>
                         <Routes>
-                            {isLoggedIn || isKakaoLoggedIn ? (
+                            {isLoggedIn ? (
                                 <>
                                     <Route path="/admin" element={<Admin />} />
                                     <Route path="/community" element={<Community />} />

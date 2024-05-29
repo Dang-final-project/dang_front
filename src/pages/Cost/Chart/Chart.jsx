@@ -78,6 +78,8 @@ const Chart = () => {
                     height: chartWidth ? "60vh" : "40vh",
                     minHeight: "300px",
                     marginRight: chartWidth ? 5 : 0,
+                    display: "flex",
+                    justifyContent: "center",
                 }}
             >
                 <Bar data={data} options={options} sx={{ width: "100%", height: "100%" }} />
@@ -96,6 +98,8 @@ const Chart = () => {
         const rows = chargingData.map((data) =>
             createData(data.properties.순번, data.properties.기관명, data.properties.구분, data.properties.비회원가)
         );
+
+        console.log(rows);
 
         const theme = useTheme();
         const tableWidth = useMediaQuery(theme.breakpoints.up("md"));
@@ -118,7 +122,7 @@ const Chart = () => {
                     alignItems: "center",
                 }}
             >
-                <TableContainer component={Paper} sx={{ marginBottom: "20px", height: "100%", minHeight: "330px" }}>
+                <TableContainer component={Paper} sx={{ marginBottom: "20px", height: "100%", minHeight: "350px" }}>
                     <Table sx={{ height: "100%" }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -129,30 +133,45 @@ const Chart = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {currentData.map((row, index) => (
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row">
-                                        {row.No}
-                                    </TableCell>
-                                    <TableCell component="th" scope="row">
-                                        {row.기관명}
-                                    </TableCell>
-                                    <TableCell>{row.구분}</TableCell>
-                                    <TableCell>{row.요금}</TableCell>
-                                </TableRow>
-                            ))}
+                            {chartWidth
+                                ? currentData.map((row, index) => (
+                                      <TableRow key={index}>
+                                          <TableCell component="th" scope="row">
+                                              {row.No}
+                                          </TableCell>
+                                          <TableCell component="th" scope="row">
+                                              {row.기관명}
+                                          </TableCell>
+                                          <TableCell>{row.구분}</TableCell>
+                                          <TableCell>{row.요금}</TableCell>
+                                      </TableRow>
+                                  ))
+                                : rows.map((row, index) => (
+                                      <TableRow key={index}>
+                                          <TableCell component="th" scope="row">
+                                              {row.No}
+                                          </TableCell>
+                                          <TableCell component="th" scope="row">
+                                              {row.기관명}
+                                          </TableCell>
+                                          <TableCell>{row.구분}</TableCell>
+                                          <TableCell>{row.요금}</TableCell>
+                                      </TableRow>
+                                  ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Stack spacing={3}>
-                    <Pagination
-                        onChange={handleChangePage}
-                        count={Math.ceil(rows.length / rowsPerPage)}
-                        page={page}
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </Stack>
+                {chartWidth && (
+                    <Stack spacing={3}>
+                        <Pagination
+                            onChange={handleChangePage}
+                            count={Math.ceil(rows.length / rowsPerPage)}
+                            page={page}
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </Stack>
+                )}
             </Grid>
         );
     };

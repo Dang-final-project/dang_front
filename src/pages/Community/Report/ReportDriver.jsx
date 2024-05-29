@@ -1,21 +1,20 @@
 import { Button, FormControl, Grid, OutlinedInput, TextField, Typography } from "@mui/material";
-import axios from "axios";
 import { useCallback, useState } from "react";
 import Swal from "sweetalert2";
 import { communityApi } from "../../../api/services/community";
 
-const ReportDriver = ({ isDesktop, theme, getReports, loginUser, kakaoId }) => {
+const ReportDriver = ({ isDesktop, theme, getReports, loginUser }) => {
     const [carNum, setCarNum] = useState("");
     const [station, setStation] = useState("");
     const [content, setContent] = useState("");
 
     const handleSubmit = async (e) => {
-        const UserId = loginUser?.id || kakaoId;
+        const UserId = loginUser?.id;
+        const token = localStorage.getItem("token");
         e.preventDefault();
         try {
             if (carNum && station && content) {
-                const res = await communityApi.postReport({ carNum, station, content, UserId });
-
+                const res = await communityApi.postReport({ carNum, station, content, UserId }, token);
                 if (res.data.code === 200) {
                     Swal.fire({
                         title: `신고 되었습니다`,

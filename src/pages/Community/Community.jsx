@@ -12,14 +12,16 @@ const Community = () => {
 
     return (
         <Grid sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-            <PageHeader title="커뮤니티" desc="커뮤니티 페이지입니다" />
-            <Box
-                sx={{ marginBottom: "10px", display: "flex", width: isMobile ? "90vh" : "100%", marginBottom: "50px" }}
-            >
+            <PageHeader
+                title="커뮤니티"
+                desc="다른 유저들과 충전소 후기를 공유하고 비매너 차량을 신고할 수 있습니다."
+            />
+            <Box sx={{ marginBottom: "10px", display: "flex", width: "100%", marginBottom: "50px" }}>
                 <Button
                     variant="contained"
                     sx={{
                         width: "50%",
+                        height: "46px",
                         backgroundColor: activeButton === "review" ? "primary.main" : "grey.100",
                         color: activeButton === "review" ? "white" : "grey.500",
                         borderTopRightRadius: 0,
@@ -35,6 +37,7 @@ const Community = () => {
                     variant="contained"
                     sx={{
                         width: "50%",
+                        height: "46px",
                         backgroundColor: activeButton === "report" ? "primary.main" : "grey.100",
                         color: activeButton === "report" ? "white" : "grey.500",
                         borderTopLeftRadius: 0,

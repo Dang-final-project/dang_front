@@ -11,7 +11,11 @@ export function FilterButton({label, filterKey, filterValue}) {
     const [btnClicked, setBtnClicked] = useState(false);
     const getFilterVal = () => {
         if(btnClicked){
-            setFilterList({...filterList,[filterKey] : filterValue.none});
+            setFilterList(prev => {
+                const flist = Object.assign({}, prev);
+                delete flist[filterKey]
+                return flist
+            });
             setBtnClicked(false);
         }else{
             setFilterList({...filterList,[filterKey] : filterValue.active}); 

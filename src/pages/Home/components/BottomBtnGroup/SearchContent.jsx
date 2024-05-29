@@ -4,10 +4,10 @@ import { MapContext } from "../../../../contexts/MapContext";
 // import { TabPanel } from "@mui/lab";
 import Station from "../StationField/Station";
 import { Grid, Typography } from "@mui/material";
-import axios from "axios";
+import { externalApi } from "../../../../api/services/external";
 
 export const SearchContent = () => {
-    const { stations, setStations, favStation, favList } = useContext(MapContext);
+    const { stations, setStations, filterList } = useContext(MapContext);
     const [searchWord, setSearchWord] = useState("");
 
     const getToken = () => {
@@ -35,12 +35,10 @@ export const SearchContent = () => {
     };
 
     const handleSearch = async () => {
-        const key = process.env.REACT_APP_STATION_API_KEY;
         const pageIdx = 0;
-        const count = 10;
-        const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
+        const count = 1580;
         try {
-            const response = await axios.get(url);
+            const response = await externalApi.getAllStation(count, pageIdx, filterList);
             const datas = response.data.items;
             if (response.status === 200) {
                 const filteredStations = datas.filter((station) => station.chrstnNm.includes(searchWord.toUpperCase()));
@@ -54,7 +52,7 @@ export const SearchContent = () => {
     return (
         <>
             <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
-            <Grid sx={{ width: "480px", height: "500px", marginTop: 3, padding: 3 }}>
+            <Grid sx={{ minWidth: "420px", height: "500px", marginTop: 3, padding: 2 }}>
                 <Grid value="1" sx={{ height: "100%", overflow: "scroll" }}>
                     {stations ? (
                         stations.map((station, idx) => {

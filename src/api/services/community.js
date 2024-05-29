@@ -7,5 +7,10 @@ export const communityApi = {
                 Authorization: token,
             },
         }),
-    postReport: (data) => api.post("/community/report", data),
+    postReport: (data, token) =>
+        api.post("/community/report", data, {
+            headers: {
+                Authorization: token,
+            },
+        }),
 };

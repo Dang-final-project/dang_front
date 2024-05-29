@@ -23,7 +23,6 @@ const LocateList = () => {
 
     const token = localStorage.getItem("token");
 
-
     const [value, setValue] = useState("1");
 
     const handleChange = (event, newValue) => {
@@ -46,9 +45,10 @@ const LocateList = () => {
         try {
             const response = await axios.get(url);
             const datas = response.data.items;
+            console.log(datas);
 
             if (response.status === 200) {
-                const filteredStations = datas.filter((station) =>
+                const filteredStations = datas?.filter((station) =>
                     station.chrstnNm.includes(searchWord.toUpperCase().replace(/\s+/g, ""))
                 );
                 searchWord
@@ -67,89 +67,82 @@ const LocateList = () => {
 
     const getFav = async () => {
         const urll = `${process.env.REACT_APP_SERVER_URL}/stations/list`;
-        const fav = await axios.get(urll, { 
-            headers : {
-                'authorization' : `${token}`
-            }
-         });
+        const fav = await axios.get(urll, {
+            headers: {
+                authorization: `${token}`,
+            },
+        });
         // console.log(fav.data.payload);
         setFavList(fav.data.payload);
     };
 
-
-    useEffect(()=>{
+    useEffect(() => {
         getFav();
-    },[])
+    }, []);
 
     return (
         <>
-        <Box
-            sx={{
-                width: "40%",
-                display: "flex",
-                flexDirection: "column",
-                gap: "16px",
-                p: 3,
-                position: "absolute",
-                top: "130px",
-                zIndex: 10,
-                height: "calc(100vh - 64px - 52.5px)",
-            }}
-        >
-            <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
-            <Paper sx={{ p: 2, maxWidth: "460px", flexGrow: 1, overflow: "hidden" }}>
-                {
-                    stations ?
-                    <>
-                        <Typography>
-                            주변 충전소 : <span>{stations.length}</span>개
-                        </Typography>
-                        <TabContext value={value}>
-                            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                                <TabList onChange={handleChange} aria-label="충전소리스트">
-                                    <Tab label="충전소 리스트" value="1" sx={{ width: "50%" }} />
-                                    <Tab label="MY충전소" value="2" sx={{ width: "50%" }} />
-                                </TabList>
-                            </Box>
-                            <TabPanel value="1" sx={{ height: "100%", overflow: "scroll" }}>
-                                {stations ? (
-                                    stations.map((station, idx) => {
-                                        return (
-                                            <Station
-                                                key={idx}
-                                                station={station}
-                                                favList={favList}
-                                                getFav={getFav}
-                                            />
-                                        );
-                                    })
-                                ) : (
-                                    <Typography>데이터 로딩중</Typography>
-                                )}
-                            </TabPanel>
-                            <TabPanel value="2" sx={{ height: "100%", overflow: "scroll" }}>
-                                {favStation.length !== 0 && favList.length !== 0  ? (
-                                    favStation.map((fav, idx) => {
-                                        return (
-                                            <Station
-                                                key={idx}
-                                                station={fav}
-                                                favList={favList}
-                                                getFav={getFav}
-                                            />
-                                        );
-                                    })
-                                ) : (
-                                    <Typography>즐겨찾기가 존재하지 않습니다.</Typography>
-                                )}
-                            </TabPanel>
-                        </TabContext>
-                    </>
-                    :
-                    <p>리스트 가져오는 중..</p>
-                }
-            </Paper>
-        </Box>
+            <Box
+                sx={{
+                    width: "40%",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    p: 3,
+                    position: "absolute",
+                    top: "130px",
+                    zIndex: 10,
+                    height: "calc(100vh - 64px - 52.5px)",
+                }}
+            >
+                <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
+                <Paper sx={{ p: 2, maxWidth: "460px", flexGrow: 1, overflow: "hidden" }}>
+                    {stations ? (
+                        <>
+                            <Typography>
+                                주변 충전소 : <span>{stations.length}</span>개
+                            </Typography>
+                            <TabContext value={value}>
+                                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                    <TabList onChange={handleChange} aria-label="충전소리스트">
+                                        <Tab label="충전소 리스트" value="1" sx={{ width: "50%" }} />
+                                        <Tab label="MY충전소" value="2" sx={{ width: "50%" }} />
+                                    </TabList>
+                                </Box>
+                                <TabPanel value="1" sx={{ height: "100%", overflow: "scroll" }}>
+                                    {stations ? (
+                                        stations.map((station, idx) => {
+                                            return (
+                                                <Station
+                                                    key={idx}
+                                                    station={station}
+                                                    favList={favList}
+                                                    getFav={getFav}
+                                                />
+                                            );
+                                        })
+                                    ) : (
+                                        <Typography>데이터 로딩중</Typography>
+                                    )}
+                                </TabPanel>
+                                <TabPanel value="2" sx={{ height: "100%", overflow: "scroll" }}>
+                                    {favStation.length !== 0 && favList.length !== 0 ? (
+                                        favStation.map((fav, idx) => {
+                                            return (
+                                                <Station key={idx} station={fav} favList={favList} getFav={getFav} />
+                                            );
+                                        })
+                                    ) : (
+                                        <Typography>즐겨찾기가 존재하지 않습니다.</Typography>
+                                    )}
+                                </TabPanel>
+                            </TabContext>
+                        </>
+                    ) : (
+                        <p>리스트 가져오는 중..</p>
+                    )}
+                </Paper>
+            </Box>
         </>
     );
 };
