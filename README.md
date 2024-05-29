@@ -2,6 +2,9 @@
 
 당충전 프로젝트 프론트
 
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/>
+
+
 ### 오류해결
 - 리포지토리를 찾을 수 없다는 문구가 뜰 때는 아래의 방법을 실행해보세요
   ```
