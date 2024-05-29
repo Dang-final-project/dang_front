@@ -16,12 +16,12 @@ const ReviewList = ({ reviews, searchQuery, page, reviewsPerPage }) => {
     review.station.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const currentData = filteredReviews.slice((page - 1) * reviewsPerPage, page * reviewsPerPage);
+  // const currentData = filteredReviews.slice((page - 1) * reviewsPerPage, page * reviewsPerPage);
 
   return (
     <List sx={{ width: '100%', margin: '0 auto' }}>
-      {currentData.length > 0 ? (
-        currentData.map((review, index) => (
+      {reviews.length > 0 ? (
+        reviews.map((review, index) => (
           <DemoPaper key={index} elevation={5}>
             <Box
               sx={{

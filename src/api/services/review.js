@@ -7,10 +7,20 @@ export const reviewApi = {
                 Authorization: token,
             },
         }),
-    getAll: (token) =>
-        api.get("/community/review", {
-            headers: {
-                Authorization: token,
-            },
-        }), 
+    getAll: (token, data=null) => {
+        if (data) {
+            return api.get("/community/review", {
+                params: data,
+                headers: {
+                    Authorization: token,
+                },
+            })
+        } else {
+            return api.get("/community/review", {
+                headers: {
+                    Authorization: token,
+                },
+            })
+        }
+    }
 };
