@@ -16,7 +16,10 @@ const RedOutlinedInput = styled(OutlinedInput)(({ theme, error }) => ({
     borderColor: error ? "red" : "inherit",
     "& fieldset": {
         borderColor: error ? "red" : "inherit",
-    }
+    },
+    "& input": {
+        padding: "16px 14px",
+    },
 }));
 
 const Login = () => {
@@ -30,6 +33,7 @@ const Login = () => {
         if (!data.email || !data.password) {
             return;
         }
+
         try {
             await login((response) => {
                 if (response.data.code === 200) {
@@ -60,7 +64,7 @@ const Login = () => {
                     padding: "40px",
                     backgroundColor: "white",
                     borderRadius: "8px",
-                    boxShadow: "0 0 12px rgba(0, 0, 0, 0.271)",
+                    boxShadow: "0 0 12px rgba(0, 0, 0, 0.341)",
                     textAlign: "center"
                 }}
             >
