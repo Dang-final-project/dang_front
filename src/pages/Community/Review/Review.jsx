@@ -21,11 +21,6 @@ const Review = () => {
   const theme = useTheme();
   const tabletWidth = useMediaQuery(theme.breakpoints.up("md"));
 
-  // 모바일 일때, 데스크탑일때
-  // 모바일 - 무한 스크롤 (3개 ㅅ크롤 내리면 +3)
-  // 데스크탑 - 페이지네이션 (3개씩 보여주기)
-  
-
   const getReviews = async () => {
     try {
       const res = await reviewApi.getAll(token);
