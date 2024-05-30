@@ -52,7 +52,7 @@ export const SearchContent = () => {
     return (
         <>
             <SearchBox onClick={handleSearch} handleSearchChange={handleSearchChange} />
-            <Grid sx={{ width: "480px", height: "500px", marginTop: 3, padding: 3 }}>
+            <Grid sx={{ minWidth: "420px", height: "500px", marginTop: 3, padding: 2 }}>
                 <Grid value="1" sx={{ height: "100%", overflow: "scroll" }}>
                     {stations ? (
                         stations.map((station, idx) => {
