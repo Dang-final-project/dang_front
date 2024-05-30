@@ -28,8 +28,6 @@ const ClusterMarker = () => {
       setOpen(false);
   };
 
-  //console.log(positionArr);
-
   return (
     <MarkerClusterer
       averageCenter={true}

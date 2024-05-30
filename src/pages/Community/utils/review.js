@@ -1,13 +1,9 @@
-import axios from 'axios';
+import { reviewApi } from '../../../api/services/review';
 
-async function getReview(pageIndex = 0, pageSize = 5) {
-  const { data } = await axios.get('/quizzes', {
-    params: {
-      pageIndex,
-      pageSize,
-    },
-  });
-  
+async function getReview(pageIndex = 0, pageSize = 3) {
+  const token = localStorage.getItem('token');
+  const res = await reviewApi.getAll(token, {pageIndex, pageSize});
+  const data = res.data.payload;
   const startIndex = pageIndex * pageSize;
 
   return {

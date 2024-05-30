@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { List, Typography, Box } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
@@ -10,18 +10,20 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     backgroundColor: "#eeeeee",
   }));
+ 
+const ReviewList = ({ isDesktop, searchQuery, reviews, page, reviewsPerPage=3 }) => {
+  const [currentReviews, setCurrentReviews] = useState([])
 
-const ReviewList = ({ reviews, searchQuery, page, reviewsPerPage }) => {
-  const filteredReviews = reviews.filter((review) =>
-    review.station.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const currentData = filteredReviews.slice((page - 1) * reviewsPerPage, page * reviewsPerPage);
+  useEffect(() => {
+    console.log(page);
+    const cr = isDesktop ? reviews?.slice((page - 1) * reviewsPerPage, page * reviewsPerPage) : reviews?.slice(0, page * reviewsPerPage)
+    setCurrentReviews(cr);
+  }, [page]);
 
   return (
     <List sx={{ width: '100%', margin: '0 auto' }}>
-      {currentData.length > 0 ? (
-        currentData.map((review, index) => (
+      {currentReviews?.length > 0 ? (
+        currentReviews.map((review, index) => (
           <DemoPaper key={index} elevation={5}>
             <Box
               sx={{
