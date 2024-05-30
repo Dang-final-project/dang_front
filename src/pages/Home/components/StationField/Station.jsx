@@ -24,7 +24,7 @@ const Station = ({station, tab, token }) => {
             const fav = await stationApi.getFav(token);
             setFavList(fav.data.payload);
         } catch (err) { 
-            if (err.response && err.response.data && err.response.data.code === 500) {
+            if (err.response === 500) {
                 logout(() => {
                     console.error(err);
                     navigate('/');
