@@ -4,6 +4,8 @@ import RateReviewIcon from '@mui/icons-material/RateReview';
 import { Box, Typography, Button, IconButton, TextField } from "@mui/material";
 import { MapContext } from "../../../../contexts/MapContext";
 import { stationApi } from "../../../../api/services/station";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../hooks/useAuth";
 
 const MemoButton = ({ token, station, clicked }) => {
 
@@ -11,6 +13,9 @@ const MemoButton = ({ token, station, clicked }) => {
     const [write, setWrite] = useState(false);
     const [complete, setComplete] = useState(false);
     const [text, setText] = useState('');
+
+    const navigate = useNavigate();
+    const { logout } = useAuth();
 
     const handleMemoBtnClick = () => {
         setWrite(true);
@@ -25,19 +30,25 @@ const MemoButton = ({ token, station, clicked }) => {
     const postMemo = async()=>{
         const data = { chrstn_id : station.chrstn_id, memo:text }
         try{
-            stationApi.postMemo(data)
+            stationApi.postMemo(data,token)
             .then(() => {
                 if (text === '' && text !== null) {
                     setWrite(false);
                     setComplete(false);
-                }else {
+                    console.log(text);
+                } else {
                     setWrite(false);
                     setComplete(true);
                 }
             });
 
         }catch(err){
-            console.error(err);
+            if (err.response === 500) {
+                logout(() => {
+                    console.error(err);
+                    navigate('/');
+                });
+            }
         }
     }
 
@@ -48,6 +59,8 @@ const MemoButton = ({ token, station, clicked }) => {
                     if(f.memo !== null && f.memo !== ''){
                         setComplete(true);
                         setText(f.memo);
+                    }else{
+                        setComplete(false);
                     }
                 }
             })
@@ -57,6 +70,11 @@ const MemoButton = ({ token, station, clicked }) => {
     useEffect(() => {
         getMeMmo();
     }, [favList]);
+
+    //즐겨찾기 해제 시 초기화
+    useEffect(() => {
+        getMeMmo();
+    },[clicked]);
 
     return ( 
         <>
