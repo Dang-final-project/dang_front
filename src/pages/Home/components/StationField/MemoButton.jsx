@@ -53,7 +53,6 @@ const MemoButton = ({ token, station, clicked }) => {
     }
 
     const getMeMmo = () => {
-        console.log(123);
         if(favList){
             favList.forEach(f => {
                 if(f.chrstn_id === station.chrstn_id){
