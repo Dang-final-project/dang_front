@@ -12,7 +12,7 @@ import { useMediaQuery, useTheme } from "@mui/material";
 const Review = () => {
   const [reviews, setReviews] = useState();
   const [page, setPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); //검색
   const reviewsPerPage = 3;
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -54,7 +54,7 @@ const Review = () => {
 
   useEffect(() => {
     getReviews();
-  }, [])
+  }, [searchQuery]); // 검색어가 변경될 때마다 검색을 수행
 
   return (
     <>
