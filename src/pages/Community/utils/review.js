@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { reviewApi } from '../../../api/services/review';
 
 async function getReview(pageIndex = 0, pageSize = 3) {

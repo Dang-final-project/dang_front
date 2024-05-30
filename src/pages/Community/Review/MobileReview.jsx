@@ -1,44 +1,43 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useIntersectionObserver from './../../../hooks/useIntersectionObserver';
-import reviewService from '../utils/review';
+import ReviewList from './ReviewList';
+import PostButton from './PostButton';
+import { Box, Container, ListItem, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
-const MobileReview = () => {
+const MobileReview = ({handleWriteButtonClick, reviews, reviewsPerPage}) => {
     const intersectionRef = useRef(null);
     const intersectionObserver = useIntersectionObserver({ ref: intersectionRef, options: {} });
 
-    const [reviews, setReviews] = useState([]);
     const [page, setPage] = useState(1);
-    const [pageIndex, setPageIndex] = useState(0);
-    const [isMobile, setIsMobile] = useState(false);
-
-    const hasNextPage = useMemo(() => page.pageIndex === undefined || page.totalPageCount > page.pageIndex + 1, [page]);
-
-    const fetchReviews = useCallback(async () => {
-        const fetchReviews = await reviewService.getReview(pageIndex);
-        console.log(fetchReviews);
-        setReviews((prevReviews) => prevReviews.concat(fetchReviews.data));
-        setPage(fetchReviews.page);
-      }, [pageIndex]);
+    const maxPage = Math.ceil(reviews?.length / reviewsPerPage);
     
-      useEffect(() => {
-        if (hasNextPage && intersectionObserver?.isIntersecting) {
-          setPageIndex((prevPageIndex) => (prevPageIndex += 1));
-        }
-      }, [intersectionObserver, hasNextPage]);
-
-      useEffect(() => {
-        if (hasNextPage) {
-          fetchReviews(pageIndex);
-        }
-      }, [pageIndex, hasNextPage]);
-
-      const filteredReviews = reviews.filter((review) =>
-        review.station.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+    useEffect(() => {
+      console.log(intersectionObserver?.isIntersecting);
+      if (intersectionObserver?.isIntersecting) {
+        setPage((prevPage) => (prevPage += 1));
+      }
+    }, [intersectionObserver]);
 
     return ( 
-        <>
-        </>
+      <Container maxWidth="sm" sx={{ p: 12 }} >
+        <Box>
+          <Link href="main" underline="always" variant="body2"></Link>
+        </Box>
+        <PostButton handleWriteButtonClick={handleWriteButtonClick} />
+        <ReviewList
+          reviews={reviews}
+          page={page}
+          reviewsPerPage={reviewsPerPage}
+        >          
+        </ReviewList>
+        {(page >= maxPage) && (
+            <ListItem alignItems="flex-start" sx={{ flexDirection: 'column', py: 12 }}>
+              <Typography>✔️ 모든 목록을 다 읽었어요.</Typography>
+            </ListItem>
+          )}
+        <div ref={intersectionRef}></div>
+      </Container>
      );
 }
  
