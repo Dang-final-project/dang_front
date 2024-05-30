@@ -16,7 +16,7 @@ const getHomepageURL = (manufacturer) => {
             return "https://www.kia.com";
         case "BMW":
             return "https://www.bmw.co.kr";
-        case "벤치":
+        case "벤츠":
             return "https://www.mercedes-benz.co.kr/";
         case "테슬라":
             return "https://www.tesla.com/ko_kr";
