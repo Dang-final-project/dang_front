@@ -41,7 +41,7 @@ const Mypage = () => {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 5, width: '100%' }}>
             <BatteryLevel />
-            <Typography variant="h4" sx={{ width: '100%', mb: 1, fontWeight: 'bold', marginTop: 5, marginBottom: 0}}>
+            <Typography variant="h4" sx={{ width: '100%', mb: 1, fontWeight: 'bold', marginY: 2 }}>
                 내 차 정보
             </Typography>
             <Box 
@@ -53,12 +53,11 @@ const Mypage = () => {
                     p: 1, 
                     mb: 3,
                     width: '100%',
-                    maxWidth: '1000px',
-                    marginTop: 5,
+                    marginTop: 3
                 }}
             >
                 <Typography sx={{ flexGrow: 1, ml: 2 }}>
-                    차량 번호 <span style={{ color: 'blue', fontWeight: 'bold' }}>7자리 혹은 8자리</span>를 입력해주세요.
+                    차량 번호 <span style={{ color: 'blue', fontWeight: 'bold', fontWeight:'bolder' }}>7자리 혹은 8자리</span>를 입력해주세요.
                 </Typography>
                 <TextField
                     variant="outlined"
@@ -97,17 +96,16 @@ const Mypage = () => {
                         display: 'flex', 
                         alignItems: 'center', 
                         width: '100%', 
-                        maxWidth: '1000px', 
                         border: '1px solid #ccc', 
                         borderRadius: 1, 
                         p: 2,
                         backgroundColor: 'white',
                         position: 'relative',
                         mb: 3,
-                        marginBottom: 8
+                        marginBottom: 10
                     }}
                 >
-                    <Grid container spacing={2} alignItems="center">
+                    <Grid container spacing={2} alignItems="center" >
                         <Grid item xs={12} md={4} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <Box 
                                 component="img"
@@ -145,7 +143,7 @@ const Mypage = () => {
                 </Box>
             ) : (
                 notFound && (
-                    <Typography variant="h6" color="error" sx={{ mt: 3 }}>
+                    <Typography variant="h6" color="error" sx={{ mt: 3, marginBottom: 10 }}>
                         일치하는 차량 번호가 없습니다.
                     </Typography>
                 )
