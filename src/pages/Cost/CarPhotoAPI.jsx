@@ -4,9 +4,8 @@ import { Box, Grid, Typography } from "@mui/material";
 
 const imageStyle = {
     border: "1px solid #ccc",
-    width: 300,
+    width: '100%',
     height: 220,
-
 };
 
 export const CarPhotoAPI = ({onCarClick}) => {
@@ -76,8 +75,8 @@ export const CarPhotoAPI = ({onCarClick}) => {
         border: "1px solid #ccc",
         padding: "3vh",
         marginTop: -1,
-        width: 300,
-        height: 180,
+        width: '100%',
+        height: 200,
         alignItems: "center",
     };
     return (

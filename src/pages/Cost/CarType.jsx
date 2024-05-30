@@ -3,10 +3,6 @@ import { Grid, Box, Button, Typography, Modal, useMediaQuery } from "@mui/materi
 import CarPhotoAPI from "./CarPhotoAPI";
 import SearchInput from "./../../components/input/SearchInput";
 
-const resultBoxStyle = {
-    marginTop: "2vh",
-    width: "80%",
-};
 
 const getHomepageURL = (manufacturer) => {
     switch (manufacturer) {
@@ -70,11 +66,6 @@ const CarType = () => {
     };
 
     return (
-        // <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit(modify)}
-        //         sx={{width: "400px", padding: "40px", backgroundColor: "white", borderRadius: "8px", 
-        //         boxShadow:"0 0 12px rgba(0,0,0,0.271)", textAlign: "center", 
-        //         '& .MuiTextField-root': { marginTop: 1 }}}
-        //     ></Box>
         <Grid
             sx={{
                 display: "flex",
@@ -83,6 +74,7 @@ const CarType = () => {
                 width: "100%",
                 padding: isMobile ? "1vh" : "2vh",
                 boxSizing: "border-box",
+                margin: isMobile ? "0 10px" : "0 20px"
             }}
         >
             <Box sx={{
@@ -132,13 +124,16 @@ const CarType = () => {
                 <SearchInput />
             </Box>
 
-            <Box sx={resultBoxStyle}>
-                <CarPhotoAPI 
-                    onCarClick={handleCarDetailClick} 
-                    selectedCars={selectedCars}
-                    selectedChargingTypes={selectedChargingTypes}    
-                />
+            <Box sx={{ marginTop: "2vh", width: "100%", maxWidth: "1000px" }}>
+                <Grid container>
+                    <CarPhotoAPI 
+                        onCarClick={handleCarDetailClick} 
+                        selectedCars={selectedCars}
+                        selectedChargingTypes={selectedChargingTypes}    
+                    />
+                </Grid>
             </Box>
+
 
             <Modal open={open} onClose={() => setOpen(false)} onClick={() => setOpen(false)}>
                 <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4, width: isMobile ? "90%" : "50%"}}>
