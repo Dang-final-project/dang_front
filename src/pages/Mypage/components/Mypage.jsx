@@ -19,7 +19,7 @@ const Mypage = () => {
                 const data = await response.json();
                 setCarData(data);
                 const defaultCar = data.find((item) => item.REGINUMBER === '23사5678');
-                setSelectedCar(defaultCar ? defaultCar.data : null);
+                setSelectedCar(defaultCar ? { ...defaultCar.data, REGINUMBER: defaultCar.REGINUMBER } : null);
             } catch (error) {
                 console.error(error);
             }
@@ -34,35 +34,54 @@ const Mypage = () => {
 
     const handleSearch = () => {
         const car = carData.find((item) => item.REGINUMBER === regiNumber);
-        setSelectedCar(car ? car.data : null);
+        setSelectedCar(car ? { ...car.data, REGINUMBER: car.REGINUMBER } : null);
         setNotFound(!car);
     };
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 5, width: '100%' }}>
             <BatteryLevel />
+            <Typography variant="h4" sx={{ width: '100%', mb: 1, fontWeight: 'bold', marginTop: 5, marginBottom: 0}}>
+                내 차 정보
+            </Typography>
             <Box 
                 sx={{ 
                     display: 'flex', 
                     alignItems: 'center', 
-                    backgroundColor: '#f0f0f0', 
+                    backgroundColor: '#f5f5f5', 
                     borderRadius: 1, 
                     p: 1, 
                     mb: 3,
                     width: '100%',
                     maxWidth: '1000px',
-                    marginTop: 5
+                    marginTop: 5,
                 }}
             >
                 <Typography sx={{ flexGrow: 1, ml: 2 }}>
-                    차량 번호 <span style={{ color: 'blue', fontWeight: "bol" }}>7자리 혹은 8자리</span>를 입력해주세요.
+                    차량 번호 <span style={{ color: 'blue', fontWeight: 'bold' }}>7자리 혹은 8자리</span>를 입력해주세요.
                 </Typography>
                 <TextField
                     variant="outlined"
                     placeholder="차량 번호를 입력하세요"
                     value={regiNumber}
                     onChange={handleInputChange}
-                    sx={{ flexGrow: 1, mr: 1, margin: 1, backgroundColor: '#fff' }}
+                    sx={{ 
+                        flexGrow: 1, 
+                        mr: 1, 
+                        margin: 1, 
+                        backgroundColor: '#ffffff', 
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': {
+                                borderColor: '#ccc',
+                            },
+                            '&:hover fieldset': {
+                                borderColor: '#ccc',
+                            },
+                            '&.Mui-focused fieldset': {
+                                borderColor: '#ccc',
+                            },
+                        },
+                    }}
                 />
                 <Button 
                     variant="contained" 
@@ -76,7 +95,6 @@ const Mypage = () => {
                 <Box 
                     sx={{ 
                         display: 'flex', 
-                        flexDirection: 'column', 
                         alignItems: 'center', 
                         width: '100%', 
                         maxWidth: '1000px', 
@@ -85,49 +103,45 @@ const Mypage = () => {
                         p: 2,
                         backgroundColor: 'white',
                         position: 'relative',
-                        marginBottom: 10
+                        mb: 3,
+                        marginBottom: 8
                     }}
                 >
-                    <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
-                        {regiNumber}
-                    </Typography>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} md={4}>
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item xs={12} md={4} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <Box 
                                 component="img"
                                 src={selectedCar.CARURL}
                                 alt={selectedCar.CARNAME}
-                                sx={{ width: '100%', borderRadius: 1 }}
+                                sx={{ 
+                                    width: '100%', 
+                                    maxWidth: '300px', 
+                                    borderRadius: 1,
+                                    objectFit: 'contain'
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12} md={8}>
-                            <Box sx={{ p: 2 }}>
-                                <Typography variant="h6" gutterBottom>
-                                    차량 정보 {regiNumber}
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2 }}>
+                                    {selectedCar.REGINUMBER}
                                 </Typography>
-                                <Grid container spacing={2}>
+                                <Grid container spacing={1}>
                                     <Grid item xs={6}>
                                         <Typography>차량 제조사: {selectedCar.CARVENDER}</Typography>
                                         <Typography>연식: {selectedCar.CARYEAR}</Typography>
-                                        <Typography>연료: {selectedCar.FUEL}</Typography>
-                                        <Typography>차량 이름: {selectedCar.CARNAME}</Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
                                         <Typography>가격: {selectedCar.PRICE}원</Typography>
                                         <Typography>충전 커넥션: {selectedCar.CONNECTION}</Typography>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Typography>차량 이름: {selectedCar.CARNAME}</Typography>
+                                        <Typography>연료: {selectedCar.FUEL}</Typography>
                                         <Typography>충전 속도: {selectedCar.CHARGING_SPEED}</Typography>
                                     </Grid>
                                 </Grid>
                             </Box>
                         </Grid>
                     </Grid>
-                    <Button 
-                        variant="contained" 
-                        color="secondary"
-                        sx={{ position: 'absolute', bottom: 16, right: 16, backgroundColor: '#6c757d' }}
-                    >
-                        삭제
-                    </Button>
                 </Box>
             ) : (
                 notFound && (
