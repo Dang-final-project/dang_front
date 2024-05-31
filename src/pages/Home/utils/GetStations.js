@@ -30,8 +30,9 @@ export const GetStations = async (filterList, setPositionArr, setStations) => {
                 });
                 const arr = [];
                 results.forEach((r) => {
-                    //console.log(r)
-                    const p = { title: r.chrstnNm, latlng: { lat: r.latitude, lng: r.longitude } };
+                    // console.log(r)
+                    const p = { title: r.chrstnNm, latlng: { lat: r.latitude, lng: r.longitude }, available: r.tot_count > r.avail_count };
+                    // console.log(p);
                     arr.push(p);
                 });
                 setPositionArr(arr);
