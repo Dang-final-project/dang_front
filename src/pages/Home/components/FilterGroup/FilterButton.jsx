@@ -5,7 +5,7 @@ import { MapContext } from "../../../../contexts/MapContext";
 
 export function FilterButton({label, filterKey, filterValue}) {
 
-    const { filterList, setFilterList} = React.useContext(MapContext);
+    const { filterList, setFilterList, setStationIdx} = React.useContext(MapContext);
 
     //필터 데이터 전송
     const [btnClicked, setBtnClicked] = useState(false);
@@ -21,6 +21,7 @@ export function FilterButton({label, filterKey, filterValue}) {
             setFilterList({...filterList,[filterKey] : filterValue.active}); 
             setBtnClicked(true);
         }
+        setStationIdx(0);
     }
 
     return (
