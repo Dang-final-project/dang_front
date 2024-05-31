@@ -4,26 +4,23 @@ import { useEffect, useRef, useState } from "react";
 
 const MyReport = ({ reports, isDesktop }) => {
     const [page, setPage] = useState(1);
+    const [infinitePage, setInfinitePage] = useState(1);
     const [visibleReports, setVisibleReports] = useState([]);
     const observer = useRef();
     const target = useRef();
     const reportsPerPage = 5;
 
     useEffect(() => {
-        if (isDesktop) {
-            const startIndex = (page - 1) * reportsPerPage;
-            const endIndex = startIndex + reportsPerPage;
-            setVisibleReports(reports.slice(startIndex, endIndex));
-        } else {
-            setVisibleReports(reports.slice(0, reportsPerPage));
-        }
-    }, [reports, page, isDesktop]);
+        setVisibleReports(reports.slice(0, reportsPerPage));
+    }, [reports]);
 
     const loadMoreReports = () => {
-        const startIndex = visibleReports.length;
+        const newPage = infinitePage + 1;
+        const startIndex = infinitePage * reportsPerPage;
         const endIndex = startIndex + reportsPerPage;
         const newReports = reports.slice(startIndex, endIndex);
         setVisibleReports((prevReports) => [...prevReports, ...newReports]);
+        setInfinitePage(newPage);
     };
 
     const handleObserver = (entries) => {
@@ -34,19 +31,20 @@ const MyReport = ({ reports, isDesktop }) => {
     };
 
     useEffect(() => {
-        if (!isDesktop) {
-            if (observer.current) observer.current.disconnect();
-            observer.current = new IntersectionObserver(handleObserver);
-            if (observer.current) {
-                observer.current.observe(target.current);
-            }
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver(handleObserver);
+        if (observer.current && !isDesktop) {
+            observer.current.observe(target.current);
         }
+
         return () => observer.current && observer.current.disconnect();
-    }, [visibleReports, isDesktop]);
+    }, [infinitePage, isDesktop]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
+
+    const currentPage = reports.slice((page - 1) * reportsPerPage, page * reportsPerPage);
 
     return (
         <>
@@ -64,7 +62,7 @@ const MyReport = ({ reports, isDesktop }) => {
                 >
                     {isDesktop ? (
                         reports.length > 0 ? (
-                            visibleReports.map((report, index) => (
+                            currentPage.map((report, index) => (
                                 <Box sx={{ marginBottom: 2, borderBottom: "1px solid lightgray" }} key={index}>
                                     <Grid sx={{ display: "flex" }}>
                                         <Typography sx={{ marginRight: 3 }}>{report.carNum}</Typography>
