@@ -4,12 +4,11 @@ import { Box, Grid, Typography } from "@mui/material";
 
 const imageStyle = {
     border: "1px solid #ccc",
-    width: 300,
+    width: '100%',
     height: 220,
-
 };
 
-export const CarPhotoAPI = ({onCarClick}) => {
+export const CarPhotoAPI = ({onCarClick, selectedCars, selectedChargingTypes, searchQuery}) => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -76,30 +75,38 @@ export const CarPhotoAPI = ({onCarClick}) => {
         border: "1px solid #ccc",
         padding: "3vh",
         marginTop: -1,
-        width: 300,
-        height: 180,
+        width: '100%',
+        height: 200,
         alignItems: "center",
     };
+
+    const filteredData = data.filter(car => { 
+        const manufacturerMatch = selectedCars.length === 0 || selectedCars.includes(car.제조사); 
+        const chargingTypeMatch = selectedChargingTypes.length === 0 || selectedChargingTypes.includes(car.급속충전방식) || selectedChargingTypes.includes(car.완속충전방식); 
+        const searchQueryMatch = car.모델명.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                car.제조사.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                car.급속충전방식.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                car.완속충전방식.toLowerCase().includes(searchQuery.toLowerCase());
+        return manufacturerMatch && chargingTypeMatch && searchQueryMatch; });
+
     return (
-        <Grid container spacing={2}>
-            {images.map((image, idx) => (
-                <Grid item xs={12} sm={6} md={4} key={idx} >
-                    <Box sx={{cursor: 'pointer'}} onClick={() => onCarClick({ ...data[idx], image: image.urls.raw })}>
-                    <img src={`${image.urls.raw}&w=300&fit=crop`} style={imageStyle} alt="car" />
+        <Grid container spacing={2}> 
+            {filteredData.map((car, idx) => ( 
+                <Grid item xs={12} sm={6} md={4} key={idx}>
+                    <Box sx={{ cursor: 'pointer' }} onClick={() => onCarClick({ ...car, image: images[idx] ? images[idx].urls.raw : '' })}> {images[idx] && ( 
+                        <img src={`${images[idx].urls.raw}&w=300&fit=crop`} style={imageStyle} alt="car" /> )} 
                         <Box sx={boxStyle}>
-                            <Typography variant="h6" component="strong">
-                                모델명: {data[idx].모델명}
-                            </Typography>
-                            <Typography variant="body1">제조사: {data[idx].제조사}</Typography>
-                            <Typography variant="body1">급속충전방식: {data[idx].급속충전방식}</Typography>
-                            <Typography variant="body1">완속충전방식: {data[idx].완속충전방식}</Typography>
-                            {/* <Typography variant="body1">배터리용량: {data[idx].배터리용량}</Typography>
-                            <Typography variant="body1">출시일: {data[idx].출시일}</Typography> */}
-                        </Box> 
-                    </Box>
-                </Grid>
-            ))}
-        </Grid>
+                            <Typography variant="h6" component="strong"> 모델명: {car.모델명} 
+                            </Typography><Typography variant="body1">제조사: {car.제조사}</Typography>
+                            <Typography variant="body1">급속충전방식: {car.급속충전방식}</Typography>
+                            <Typography variant="body1">완속충전방식: {car.완속충전방식}</Typography>
+                            </Box></Box></Grid> ))} </Grid>
+
+
+
+
+
+
     );
 };
 
