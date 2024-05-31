@@ -1,9 +1,10 @@
 import { externalApi } from "../../../api/services/external";
 
-export const GetStations = async (filterList, setPositionArr, setStations) => {
+export const GetStations = async (filterList, setPositionArr, setStations, idx = 0) => {
+    console.log(idx);
     try {
-        const pageIdx = 0;
-        const count = 30;
+        const pageIdx = idx;
+        const count = 10;
         const response = await externalApi.getAllStation(count, pageIdx, filterList)
         if (response.status === 200) {
             const results = [];
@@ -35,7 +36,12 @@ export const GetStations = async (filterList, setPositionArr, setStations) => {
                     arr.push(p);
                 });
                 setPositionArr(arr);
-                setStations(results);
+                // 현재 filterList를 이전 filterList로 업데이트
+                if(idx == 0){
+                    setStations(results)
+                }else {
+                    setStations((prev) => prev.concat(results));
+                }
             }
         }
     } catch (err) {
