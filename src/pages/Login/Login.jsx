@@ -34,18 +34,14 @@ const Login = () => {
             return;
         }
 
-        try {
-            await login((response) => {
-                if (response.data.code === 200) {
-                    setLoginError("");
-                    navigate("/");
-                } else {
-                    setLoginError("아이디 또는 비밀번호가 잘못되었습니다.");
-                }
-            }, data);
-        } catch (error) {
-            console.error(error);
-        }
+        await login(
+            data,
+            () => {
+                setLoginError("");
+                navigate("/");
+            },
+            () => setLoginError("아이디 또는 비밀번호가 잘못되었습니다.")
+        );
         reset();
     };
 
