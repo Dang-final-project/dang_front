@@ -16,7 +16,6 @@ const ClusterMarker = () => {
       const level = map.getLevel() - 1;
       map.setLevel(level, { anchor: cluster.getCenter() });
     }
-    
   };
 
   const handleClickOpen = (index) => {
@@ -41,12 +40,18 @@ const ClusterMarker = () => {
           position={position.latlng}
           onClick={() => handleClickOpen(index)}
 
-          image={position.fav === true ?
+          image={
+            position.fav === true ?
             {
-              src:'/즐겨찾기.png',
-              size: { width: 64, height: 69 }, 
-              options: {offset: { x: 27, y: 69 }},
-            }: null
+              src:'/즐겨찾기.png', size: { width: 64, height: 69 },  options: {offset: { x: 27, y: 69 }},
+            }
+            : 
+            position.available === false ?
+            {
+              src: '/not_using.png',  size: { width: 60, height: 69 },  options: { offset: { x: 27, y: 69 } }, 
+            }
+            :
+            null
           }
         />
       ))}
