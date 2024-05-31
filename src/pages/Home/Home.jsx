@@ -11,11 +11,11 @@ import { StationField } from "./components/StationField";
 import KakaoMap from "../Home/components/Map/KakaoMap";
 
 const Home = () => {
-    const { favStation, stations, setStations, setFavStation, favList, positionArr, setPositionArr, filterList } = useContext(MapContext);
+    const { favStation, stations, setStations, setFavStation, favList, positionArr, setPositionArr, filterList, stationIdx } = useContext(MapContext);
 
     useEffect(() => {
-        GetStations(filterList, setPositionArr, setStations);
-    }, [filterList]);
+        GetStations(filterList, setPositionArr, setStations, stationIdx);
+    }, [filterList,stationIdx]);
 
     useEffect(() => {
         GetFavStations(favList, setFavStation);
