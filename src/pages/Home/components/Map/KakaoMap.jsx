@@ -9,7 +9,7 @@ import { FilterGroup } from '../FilterGroup';
 import { Box } from '@mui/material';
 
 const KakaoMap = () => {
-  const { positionArr, stations, mapPos, setMapPos } = useContext(MapContext);
+  const { mapPos } = useContext(MapContext);
   
   //console.log(stations);
 
@@ -47,7 +47,6 @@ const onCenterChanged = (map) => {
   useEffect(() => {
       setCenter(mapPos);
   }, [mapPos]);
-
 
   return (
     <Box component="section" sx={{position:"relative", width: "100%", height: "calc(100vh - 64px)"}}>

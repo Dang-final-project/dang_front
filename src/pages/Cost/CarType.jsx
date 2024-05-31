@@ -1,25 +1,8 @@
 import React, { useState } from "react";
-import { Grid, Box, Button, Typography, Modal } from "@mui/material";
+import { Grid, Box, Button, Typography, Modal, useMediaQuery, TextField } from "@mui/material";
 import CarPhotoAPI from "./CarPhotoAPI";
 import SearchInput from "./../../components/input/SearchInput";
 
-const gridStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    width: "80%",
-    marginTop: "1vh",
-};
-const searchBoxStyle = {
-    width: "100%",
-    border: "1px solid black",
-    padding: "3vh",
-    marginBottom: "2vh",
-};
-const resultBoxStyle = {
-    marginTop: "2vh",
-    width: "100%",
-};
 
 const getHomepageURL = (manufacturer) => {
     switch (manufacturer) {
@@ -29,7 +12,7 @@ const getHomepageURL = (manufacturer) => {
             return "https://www.kia.com";
         case "BMW":
             return "https://www.bmw.co.kr";
-        case "벤치":
+        case "벤츠":
             return "https://www.mercedes-benz.co.kr/";
         case "테슬라":
             return "https://www.tesla.com/ko_kr";
@@ -58,6 +41,9 @@ const CarType = () => {
     const [selectedChargingTypes, setSelectedChargingTypes] = useState([]);
     const [selectedCar, setSelectedCar] = useState(null);
     const [open, setOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [appliedSearchQuery, setAppliedSearchQuery] = useState("");
+    const isMobile = useMediaQuery("(max-width:600px)");
 
     const handleCarClick = (manufacturer) => {
         if (selectedCars.includes(manufacturer)) {
@@ -80,17 +66,35 @@ const CarType = () => {
         setOpen(true);
     };
 
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const handleSearchClick = () => {
+        setAppliedSearchQuery(searchQuery);
+    };
+
     return (
-        // <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit(modify)}
-        //         sx={{width: "400px", padding: "40px", backgroundColor: "white", borderRadius: "8px", 
-        //         boxShadow:"0 0 12px rgba(0,0,0,0.271)", textAlign: "center", 
-        //         '& .MuiTextField-root': { marginTop: 1 }}}
-        //     ></Box>
-        <Grid sx={gridStyle}>
-            <Box sx={{width: "900px", padding: "40px", backgroundColor: "white", borderRadius: "8px", 
+        <Grid
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: "100%",
+                padding: isMobile ? "1vh" : "2vh",
+                boxSizing: "border-box",
+                margin: isMobile ? "0 10px" : "0 20px"
+            }}
+        >
+            <Box sx={{
+                width: isMobile ? "100%" : "900px", 
+                padding: isMobile ? "20px" : "40px",
+                backgroundColor: "white", 
+                borderRadius: "8px", 
                 boxShadow:"0 0 12px rgba(0,0,0,0.271)"}}>
 
                 <Typography>제조사별</Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
                 {["현대", "기아", "테슬라", "BMW", "벤츠", "르노삼성", "닛산", "한국GM"].map((manufacturer) => (
                     <Button
                         key={manufacturer}
@@ -98,40 +102,50 @@ const CarType = () => {
                         sx={{
                             marginRight: "1vh",
                             backgroundColor: selectedCars.includes(manufacturer) ? "lightgrey" : "white",
+                            flexGrow: isMobile ? 1 : 0,
+                            flexBasis: isMobile ? '45%' : 'auto'
                         }}
                         onClick={() => handleCarClick(manufacturer)}
                     >
                         {manufacturer}
                     </Button>
                 ))}
+                </Box>
                 <Typography sx={{ marginTop: "2vh" }}>충전방식</Typography>
-                {["DC콤보 (급속)", "AC완속 (5핀)", "AC완속 (7핀)"].map((type) => (
+                <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+                {["DC콤보(급속)", "AC완속(5핀)", "AC완속(7핀)"].map((type) => (
                     <Button
                         key={type}
                         variant="outlined"
                         sx={{
                             marginRight: "1vh",
                             backgroundColor: selectedChargingTypes.includes(type) ? "lightgrey" : "white",
+                            flexGrow: isMobile ? 1 : 0,
+                            flexBasis: isMobile ? '45%' : 'auto'
                         }}
                         onClick={() => handleChargingTypeClick(type)}
                     >
                         {type}
                     </Button>
                 ))}
+                </Box>
                 <Typography sx={{ marginTop: "2vh" }}>차량검색</Typography>
-                <SearchInput />
-            </Box>
-
-            <Box sx={resultBoxStyle}>
-                <CarPhotoAPI 
-                    onCarClick={handleCarDetailClick} 
-                    selectedCars={selectedCars}
-                    selectedChargingTypes={selectedChargingTypes}    
-                />
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: '1vh' }}>
+                    <TextField fullWidth variant="outlined" placeholder="검색어를 입력하세요" value={searchQuery} onChange={handleSearchChange} />
+                    <Button variant="contained" onClick={handleSearchClick} > 검색 </Button></Box>
+                </Box>
+                <Box sx={{ marginTop: "2vh", width: "100%", maxWidth: "1000px" }}>
+                    <Grid container>
+                        <CarPhotoAPI 
+                        onCarClick={handleCarDetailClick} 
+                        selectedCars={selectedCars} 
+                        selectedChargingTypes={selectedChargingTypes} 
+                        searchQuery={appliedSearchQuery} />
+                </Grid>
             </Box>
 
             <Modal open={open} onClose={() => setOpen(false)} onClick={() => setOpen(false)}>
-                <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4}}>
+                <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4, width: isMobile ? "60%" : "400px", maxHeight: "90vh", overflow: "auto"}}>
                     {selectedCar && 
                     <>
                     <img src={`${selectedCar.image}&w=200&h=200&fit=crop`} style={{ width: '100%', marginBottom: 20 }} alt="car" />

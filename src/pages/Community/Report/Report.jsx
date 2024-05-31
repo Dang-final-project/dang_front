@@ -49,7 +49,7 @@ const Report = () => {
             }}
         >
             <ReportDriver isDesktop={isDesktop} theme={theme} getReports={getReports} loginUser={loginUser} />
-            <MyReport reports={reports} />
+            <MyReport isDesktop={isDesktop} reports={reports} />
         </Grid>
     );
 };

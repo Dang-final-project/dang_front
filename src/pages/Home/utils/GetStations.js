@@ -42,6 +42,7 @@ export const GetStations = async (filterList, setPositionArr, setStations, idx =
                     title: r.chrstnNm,
                     latlng: { lat: r.latitude, lng: r.longitude }
                 }));
+
                 setPositionArr(arr);
 
                 if (idx === 0) {
