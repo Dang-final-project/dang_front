@@ -60,7 +60,7 @@ export const useProvideAuth = () => {
         cookies.remove("accessToken");
     };
 
-    const login = async (callback, data) => {
+    const login = async (data, successCallback, failCallback) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, data);
             if (response.data.code === 200) {
@@ -78,10 +78,11 @@ export const useProvideAuth = () => {
                     nickname: decodedToken.nickname,
                     email: decodedToken.email,
                 });
+                successCallback();
             }
-            callback(response);
         } catch (error) {
             console.error(error);
+            failCallback();
         }
     };
 
