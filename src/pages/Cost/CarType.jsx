@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Box, Button, Typography, Modal, useMediaQuery } from "@mui/material";
+import { Grid, Box, Button, Typography, Modal, useMediaQuery, TextField } from "@mui/material";
 import CarPhotoAPI from "./CarPhotoAPI";
 import SearchInput from "./../../components/input/SearchInput";
 
@@ -41,7 +41,8 @@ const CarType = () => {
     const [selectedChargingTypes, setSelectedChargingTypes] = useState([]);
     const [selectedCar, setSelectedCar] = useState(null);
     const [open, setOpen] = useState(false);
-
+    const [searchQuery, setSearchQuery] = useState("");
+    const [appliedSearchQuery, setAppliedSearchQuery] = useState("");
     const isMobile = useMediaQuery("(max-width:600px)");
 
     const handleCarClick = (manufacturer) => {
@@ -63,6 +64,14 @@ const CarType = () => {
     const handleCarDetailClick = (car) => {
         setSelectedCar(car);
         setOpen(true);
+    };
+
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const handleSearchClick = () => {
+        setAppliedSearchQuery(searchQuery);
     };
 
     return (
@@ -121,22 +130,22 @@ const CarType = () => {
                 ))}
                 </Box>
                 <Typography sx={{ marginTop: "2vh" }}>차량검색</Typography>
-                <SearchInput />
-            </Box>
-
-            <Box sx={{ marginTop: "2vh", width: "100%", maxWidth: "1000px" }}>
-                <Grid container>
-                    <CarPhotoAPI 
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: '1vh' }}>
+                    <TextField fullWidth variant="outlined" placeholder="검색어를 입력하세요" value={searchQuery} onChange={handleSearchChange} />
+                    <Button variant="contained" onClick={handleSearchClick} > 검색 </Button></Box>
+                </Box>
+                <Box sx={{ marginTop: "2vh", width: "100%", maxWidth: "1000px" }}>
+                    <Grid container>
+                        <CarPhotoAPI 
                         onCarClick={handleCarDetailClick} 
-                        selectedCars={selectedCars}
-                        selectedChargingTypes={selectedChargingTypes}    
-                    />
+                        selectedCars={selectedCars} 
+                        selectedChargingTypes={selectedChargingTypes} 
+                        searchQuery={appliedSearchQuery} />
                 </Grid>
             </Box>
 
-
             <Modal open={open} onClose={() => setOpen(false)} onClick={() => setOpen(false)}>
-                <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4, width: isMobile ? "90%" : "50%"}}>
+                <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4, width: isMobile ? "60%" : "400px", maxHeight: "90vh", overflow: "auto"}}>
                     {selectedCar && 
                     <>
                     <img src={`${selectedCar.image}&w=200&h=200&fit=crop`} style={{ width: '100%', marginBottom: 20 }} alt="car" />

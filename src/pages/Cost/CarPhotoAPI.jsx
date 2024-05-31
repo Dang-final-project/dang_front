@@ -8,7 +8,7 @@ const imageStyle = {
     height: 220,
 };
 
-export const CarPhotoAPI = ({onCarClick, selectedCars, selectedChargingTypes}) => {
+export const CarPhotoAPI = ({onCarClick, selectedCars, selectedChargingTypes, searchQuery}) => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -83,7 +83,11 @@ export const CarPhotoAPI = ({onCarClick, selectedCars, selectedChargingTypes}) =
     const filteredData = data.filter(car => { 
         const manufacturerMatch = selectedCars.length === 0 || selectedCars.includes(car.제조사); 
         const chargingTypeMatch = selectedChargingTypes.length === 0 || selectedChargingTypes.includes(car.급속충전방식) || selectedChargingTypes.includes(car.완속충전방식); 
-        return manufacturerMatch && chargingTypeMatch; });
+        const searchQueryMatch = car.모델명.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                car.제조사.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                car.급속충전방식.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                car.완속충전방식.toLowerCase().includes(searchQuery.toLowerCase());
+        return manufacturerMatch && chargingTypeMatch && searchQueryMatch; });
 
     return (
         <Grid container spacing={2}> 
