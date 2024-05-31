@@ -26,7 +26,12 @@ const Login = () => {
     const authData = useAuth();
     const navigate = useNavigate();
     const { login } = authData;
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm();
     const [loginError, setLoginError] = useState("");
 
     const onSubmit = async (data) => {
@@ -61,7 +66,7 @@ const Login = () => {
                     backgroundColor: "white",
                     borderRadius: "8px",
                     boxShadow: "0 0 12px rgba(0, 0, 0, 0.341)",
-                    textAlign: "center"
+                    textAlign: "center",
                 }}
             >
                 <img src={logo} alt="Logo" style={{ width: "80px", marginBottom: "24px" }} />
@@ -105,7 +110,10 @@ const Login = () => {
                     </Link>
                 </form>
                 <Typography sx={{ marginTop: "16px" }}>
-                    당충전 회원이 아니신가요? <Link to="/join" style={{ fontWeight: "bold" }}>회원가입</Link>
+                    당충전 회원이 아니신가요?{" "}
+                    <Link to="/join" style={{ fontWeight: "bold" }}>
+                        회원가입
+                    </Link>
                 </Typography>
             </Box>
         </Box>
