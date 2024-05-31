@@ -104,7 +104,7 @@ const CarType = () => {
                 </Box>
                 <Typography sx={{ marginTop: "2vh" }}>충전방식</Typography>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                {["DC콤보 (급속)", "AC완속 (5핀)", "AC완속 (7핀)"].map((type) => (
+                {["DC콤보(급속)", "AC완속(5핀)", "AC완속(7핀)"].map((type) => (
                     <Button
                         key={type}
                         variant="outlined"
