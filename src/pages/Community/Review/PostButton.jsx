@@ -7,6 +7,7 @@ const ReviewButton = ({ handleWriteButtonClick }) => {
     <Button
       variant="outlined"
       onClick={handleWriteButtonClick} 
+      sx={{ marginTop: '-20px', marginLeft: '70vw' }}
       size='small'
     >
       <EditIcon />작성하기

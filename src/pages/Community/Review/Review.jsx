@@ -12,7 +12,7 @@ import { useMediaQuery, useTheme } from "@mui/material";
 const Review = () => {
   const [reviews, setReviews] = useState();
   const [page, setPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState(""); //검색
+  const [searchQuery, setSearchQuery] = useState("");
   const reviewsPerPage = 3;
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -20,6 +20,11 @@ const Review = () => {
 
   const theme = useTheme();
   const tabletWidth = useMediaQuery(theme.breakpoints.up("md"));
+
+  // 모바일 일때, 데스크탑일때
+  // 모바일 - 무한 스크롤 (3개 ㅅ크롤 내리면 +3)
+  // 데스크탑 - 페이지네이션 (3개씩 보여주기)
+  
 
   const getReviews = async () => {
     try {
@@ -54,7 +59,7 @@ const Review = () => {
 
   useEffect(() => {
     getReviews();
-  }, [searchQuery]); // 검색어가 변경될 때마다 검색을 수행
+  }, [])
 
   return (
     <>

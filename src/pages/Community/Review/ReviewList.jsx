@@ -11,13 +11,14 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: "#eeeeee",
   }));
  
-const ReviewList = ({ isDesktop, reviews, page, reviewsPerPage=3 }) => {
+const ReviewList = ({ isDesktop, searchQuery, reviews, page, reviewsPerPage=3 }) => {
   const [currentReviews, setCurrentReviews] = useState([])
 
   useEffect(() => {
+    console.log(page);
     const cr = isDesktop ? reviews?.slice((page - 1) * reviewsPerPage, page * reviewsPerPage) : reviews?.slice(0, page * reviewsPerPage)
     setCurrentReviews(cr);
-  }, [page, reviews, isDesktop]);
+  }, [page]);
 
   return (
     <List sx={{ width: '100%', margin: '0 auto' }}>

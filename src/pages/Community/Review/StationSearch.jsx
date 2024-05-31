@@ -15,7 +15,6 @@ const StationSearch = ({ onSearch }) => {
     return (
         <SearchInput
             width="60%"
-            value={searchQuery} // 입력한 검색어를 input 엘리먼트에 표시
             handleSearchChange={handleSearchChange}
             onClick={handleSearch}
         />
