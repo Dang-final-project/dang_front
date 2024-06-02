@@ -55,6 +55,7 @@ const CarType = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [appliedSearchQuery, setAppliedSearchQuery] = useState("");
     const isMobile = useMediaQuery("(max-width:600px)");
+    const isTablet = useMediaQuery("(max-width:900px)");
 
     const handleCarClick = (manufacturer) => {
         if (selectedCars.includes(manufacturer)) {
@@ -159,7 +160,13 @@ const CarType = () => {
                 </Grid>
             </Box>
             {selectedCar && ( 
-                <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+                <BootstrapDialog 
+                    onClose={handleClose} 
+                    aria-labelledby="customized-dialog-title" 
+                    open={open}
+                    fullWidth={true}
+                    maxWidth="xs"
+                >
                     <DialogTitle sx={{ m: 0, p: 2, fontWeight: 600 }} id="customized-dialog-title">
                         차량 상세 정보
                         <IconButton
@@ -175,21 +182,17 @@ const CarType = () => {
                             <CloseIcon />
                         </IconButton>
                     </DialogTitle>
-                    <DialogContent sx={{ width: 500, height: 500, dividers: true }}>
-                        <Grid container spacing={1}>
-                            <Grid item xs={12} style={{ textAlign: 'center' }}>
-                                <img src={`${selectedCar.image}&w=300&h=300&fit=crop`} style={{ width: '100%', marginBottom: 20 }} alt="car" />
-                                <Typography variant="h6" component="strong" sx={{ marginBottom: 2 }}> 모델명: {selectedCar.모델명} </Typography>
-                                <Typography variant="body1">제조사: {selectedCar.제조사}</Typography>
-                                <Typography variant="body1">급속충전방식: {selectedCar.급속충전방식}</Typography>
-                                <Typography variant="body1">완속충전방식: {selectedCar.완속충전방식}</Typography>
-                                <Typography variant="body1">배터리용량: {selectedCar.배터리용량}</Typography>
-                                <Typography variant="body1">출시일: {selectedCar.출시일}</Typography>
-                            </Grid>
-                            <Grid item xs={12} style={{ textAlign: 'center' }}>
-                                <Button variant="outlined" sx={{ height: 40, marginTop: 4 }} onClick={() => handleHomepageRedirect(selectedCar.제조사)}> 홈페이지로 이동 </Button>
-                            </Grid>
-                        </Grid>
+                    <DialogContent sx={{ padding: '10px', textAlign: 'center' }}>
+                        <img src={`${selectedCar.image}&w=200&h=200&fit=crop`} style={{ width: '100%', maxWidth: '300px', marginBottom: 20 }} alt="car" />
+                        <Box sx={{ textAlign: 'left',}}>
+                            <Typography variant="h6" component="strong" sx={{ marginBottom: 2 }}> 모델명: {selectedCar.모델명} </Typography>
+                            <Typography variant="body1">제조사: {selectedCar.제조사}</Typography>
+                            <Typography variant="body1">급속충전방식: {selectedCar.급속충전방식}</Typography>
+                            <Typography variant="body1">완속충전방식: {selectedCar.완속충전방식}</Typography>
+                            <Typography variant="body1">배터리용량: {selectedCar.배터리용량}</Typography>
+                            <Typography variant="body1">출시일: {selectedCar.출시일}</Typography>
+                        </Box>
+                        <Button variant="outlined" sx={{ height: 40, marginTop: 4 }} onClick={() => handleHomepageRedirect(selectedCar.제조사)}> 홈페이지로 이동 </Button>
                     </DialogContent>
                 </BootstrapDialog>
             )}
