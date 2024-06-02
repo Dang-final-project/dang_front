@@ -184,7 +184,7 @@ const CarType = () => {
                     </DialogTitle>
                     <DialogContent sx={{ padding: '10px', textAlign: 'center' }}>
                         <img src={`${selectedCar.image}&w=200&h=200&fit=crop`} style={{ width: '100%', maxWidth: '300px', marginBottom: 20 }} alt="car" />
-                        <Box sx={{ textAlign: 'left',}}>
+                        <Box sx={{ textAlign: 'center',}}>
                             <Typography variant="h6" component="strong" sx={{ marginBottom: 2 }}> 모델명: {selectedCar.모델명} </Typography>
                             <Typography variant="body1">제조사: {selectedCar.제조사}</Typography>
                             <Typography variant="body1">급속충전방식: {selectedCar.급속충전방식}</Typography>
