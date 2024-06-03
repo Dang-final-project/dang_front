@@ -9,7 +9,7 @@ const SearchInput = ({ width, onClick, handleSearchChange }) => {
                 size="small"
                 onChange={handleSearchChange}
             />
-            <Button variant="contained" color="primary" onClick={onClick}>
+            <Button variant="contained" color="primary" type="submit" onClick={onClick}>
                 검색
             </Button>
         </Box>

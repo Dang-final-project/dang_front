@@ -43,12 +43,12 @@ const ClusterMarker = () => {
           image={
             position.fav === true ?
             {
-              src:'/즐겨찾기.png', size: { width: 64, height: 69 },  options: {offset: { x: 27, y: 69 }},
+              src:'./즐겨찾기1.png', size: { width: 29, height: 42 },
             }
             : 
             position.available === false ?
             {
-              src: '/not_using.png',  size: { width: 60, height: 69 },  options: { offset: { x: 27, y: 69 } }, 
+              src: '/not_using1.png',  size: { width: 29, height: 42 },
             }
             :
             null
