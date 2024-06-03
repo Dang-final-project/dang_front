@@ -2,10 +2,6 @@ import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import batteryImage from './battery.png';
 
-// 1. 배터 잔여량 가라 보여주는 랜덤 구현!!
-// 1-1. 마이페이지에 layout (common component)
-// 1-2. mypage random logic
-
 function BatteryLevel() {
   const [batteryLevel, setBatteryLevel] = useState(0);
   const isMobile = useMediaQuery('(max-width:1000px)');
@@ -25,12 +21,12 @@ function BatteryLevel() {
 
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', position: 'relative', width: '100%' }}>
-      <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: 2 }}>배터리잔량</Typography>
-      <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: 600, flexDirection: 'row', flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
-        <Box sx={{ position: 'relative', width: isMobile ? '50%' : '100%', marginRight: isMobile ? 0 : 2, aspectRatio: '2 / 1', display: 'flex', justifyContent: 'center' }}>
+      <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: 1 }}>배터리잔량</Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: 600, flexDirection: isMobile ? 'row' : 'row', flexWrap: 'nowrap' }}>
+        <Box sx={{ position: 'relative', width: '50%', marginRight: isMobile ? 0 : 2, aspectRatio: '2 / 1', display: 'flex', justifyContent: 'center' }}>
           <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
-            <Box sx={{ position: 'absolute', top: '20%', left: '5%', width: '81%', height: '70%', backgroundColor: 'lightgrey', zIndex: 1 }}>
-              <Box sx={{ width: `${batteryLevel}%`, height: '100%', backgroundColor: barColor }}></Box>
+            <Box sx={{ position: 'absolute', top: '20%', left: '5%', width: '81%', height: '70%', backgroundColor: 'lightgrey', zIndex: 1,}}>
+              <Box sx={{ width: `${batteryLevel}%`, height: '100%', backgroundColor: barColor, minWidth: '10%'}}></Box>
             </Box>
             <Box
               component="img"
@@ -46,8 +42,13 @@ function BatteryLevel() {
             />
           </Box>
         </Box>
-        <Box sx={{width: isMobile ? '50%' : 'auto', color: textColor, textAlign: 'left', paddingLeft: isMobile ? 1 : 2, paddingTop: isMobile ? 0 : 2 }}>
-          <Typography>배터리 잔량이 {batteryLevel}% 남았습니다. {message}</Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', width: isMobile ? '50%' : 'auto', color: textColor, textAlign: 'left', paddingLeft: 2, paddingTop: isMobile ? 0 : 2 }}>
+
+
+
+
+
+<Typography>배터리 잔량이 {batteryLevel}% 남았습니다. <br />{message}</Typography>
         </Box>
       </Box>
     </Grid>

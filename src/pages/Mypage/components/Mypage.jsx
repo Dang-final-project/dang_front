@@ -40,8 +40,8 @@ const Mypage = () => {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 5, width: '100%' }}>
-            <BatteryLevel />
-            <Typography variant="h4" sx={{ width: '100%', mb: 1, fontWeight: 'bold', marginY: 2 }}>
+            <BatteryLevel/>
+            <Typography variant="h4" sx={{ width: '100%', mb: 1, fontWeight: 'bold', marginY: 2 , marginTop: 10}}>
                 내 차 정보
             </Typography>
             <Box 
