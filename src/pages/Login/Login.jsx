@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
 import { useAuth } from "../../hooks/useAuth";
 import Button from "@mui/material/Button";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -56,7 +55,8 @@ const Login = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: "100vh",
+                height: "calc(100vh - 70px)",
+                marginTop: "-70px", 
             }}
         >
             <Box
