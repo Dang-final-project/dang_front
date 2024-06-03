@@ -75,7 +75,7 @@ const ModifyInfo = () => {
         <>
             <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit(modify)}
                 sx={{width: "400px", padding: "40px", backgroundColor: "white", borderRadius: "8px", 
-                boxShadow:"0 0 12px rgba(0,0,0,0.271)", textAlign: "center", 
+                boxShadow:"0 0 12px rgba(0,0,0,0.271)", textAlign: "center", marginBottom: 3,
                 '& .MuiTextField-root': { marginTop: 1 }}}
             >
                 <TextField disabled variant="outlined" label="이메일" defaultValue={email}
@@ -114,10 +114,9 @@ const ModifyInfo = () => {
                         validate: value => value === getValues("password") || "비밀번호가 일치하지 않습니다."
                     })}
                 />
-                {/*<Typography sx={{ m: 1 }}>권한: 사용자</Typography>
-                <Button type="submit" variant="contained" size="large" fullWidth>
+                <Button type="submit" variant="contained" size="large" sx={{ marginTop: 1 }} fullWidth>
                     수정하기
-                </Button> */}
+                </Button>
 
                 <Box sx={{ mt: 3 }}>
                     <Typography variant="h6">회원 탈퇴</Typography>
@@ -126,7 +125,6 @@ const ModifyInfo = () => {
                         탈퇴하기
                     </Button>
                 </Box>
-                
             </Box>
             
 
