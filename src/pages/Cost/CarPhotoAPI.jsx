@@ -8,12 +8,14 @@ const imageStyle = {
     height: 220,
 };
 
+// CarPhotoAPI 컴포넌트 정의
 export const CarPhotoAPI = ({onCarClick, selectedCars, selectedChargingTypes, searchQuery}) => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [data, setData] = useState(null);
 
+    // Unsplash에서 랜덤 이미지를 가져오는 함수
     useEffect(() => {
         const fetchRandomImage = async () => {
             try {
@@ -39,6 +41,7 @@ export const CarPhotoAPI = ({onCarClick, selectedCars, selectedChargingTypes, se
         fetchRandomImage();
     }, []);
 
+    // 차량 데이터를 가져오는 함수
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -63,10 +66,12 @@ export const CarPhotoAPI = ({onCarClick, selectedCars, selectedChargingTypes, se
         fetchData();
     }, []);
 
+    // 로딩중일때 표시할내용
     if (loading) {
         return <div>Loading...</div>;
     }
 
+    // 에러발생시 표시할내용
     if (error) {
         return <div>{error}</div>;
     }
@@ -80,6 +85,7 @@ export const CarPhotoAPI = ({onCarClick, selectedCars, selectedChargingTypes, se
         alignItems: "center",
     };
 
+    // 선택된 조건에 따라 데이터 필터링
     const filteredData = data.filter(car => { 
         const manufacturerMatch = selectedCars.length === 0 || selectedCars.includes(car.제조사); 
         const chargingTypeMatch = selectedChargingTypes.length === 0 || selectedChargingTypes.includes(car.급속충전방식) || selectedChargingTypes.includes(car.완속충전방식); 

@@ -6,6 +6,7 @@ import ContentsPopup from './../../components/popup/ContentsPopup';
 import CloseIcon from "@mui/icons-material/Close";
 import { styled } from "@mui/material/styles";
 
+// Dialog 스타일 정의
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
         padding: theme.spacing(2),
@@ -15,6 +16,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
+// 제조사별 홈페이지 URL 반환 함수
 const getHomepageURL = (manufacturer) => {
     switch (manufacturer) {
         case "현대":
@@ -38,6 +40,7 @@ const getHomepageURL = (manufacturer) => {
     }
 };
 
+// 홈페이지로 리디렉션하는 함수
 const handleHomepageRedirect = (manufacturer) => {
     const homepageURL = getHomepageURL(manufacturer);
     if (homepageURL) {
@@ -47,7 +50,9 @@ const handleHomepageRedirect = (manufacturer) => {
     }
 };
 
+// CarType 컴포넌트 정의
 const CarType = () => {
+    // 상태 정의
     const [selectedCars, setSelectedCars] = useState([]);
     const [selectedChargingTypes, setSelectedChargingTypes] = useState([]);
     const [selectedCar, setSelectedCar] = useState(null);
@@ -57,6 +62,7 @@ const CarType = () => {
     const isMobile = useMediaQuery("(max-width:600px)");
     const isTablet = useMediaQuery("(max-width:900px)");
 
+    // 제조사 클릭 핸들러
     const handleCarClick = (manufacturer) => {
         if (selectedCars.includes(manufacturer)) {
             setSelectedCars(selectedCars.filter((car) => car !== manufacturer));
@@ -65,6 +71,7 @@ const CarType = () => {
         }
     };
 
+    // 충전 방식 클릭 핸들러
     const handleChargingTypeClick = (chargingType) => {
         if (selectedChargingTypes.includes(chargingType)) {
             setSelectedChargingTypes(selectedChargingTypes.filter((type) => type !== chargingType));
@@ -73,19 +80,23 @@ const CarType = () => {
         }
     };
 
+    // 차량 상세 정보 클릭 핸들러
     const handleCarDetailClick = (car) => {
         setSelectedCar(car);
         setOpen(true);
     };
 
+    // 검색 입력 변경 핸들러
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
 
+    // 검색 버튼 클릭 핸들러
     const handleSearchClick = () => {
         setAppliedSearchQuery(searchQuery);
     };
 
+    // 팝업창 닫기
     const handleClose = () => {
         setOpen(false);
     };
@@ -103,11 +114,12 @@ const CarType = () => {
             }}
         >
             <Box sx={{
-                width: isMobile ? "100%" : "900px", 
+                width: isMobile ? "100%" : isTablet ? "80%" : "70%", 
                 padding: isMobile ? "20px" : "40px",
                 backgroundColor: "white", 
                 borderRadius: "8px", 
-                boxShadow:"0 0 12px rgba(0,0,0,0.271)"}}>
+                boxShadow:"0 0 12px rgba(0,0,0,0.271)",
+                }}>
 
                 <Typography>제조사별</Typography>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -117,9 +129,14 @@ const CarType = () => {
                         variant="outlined"
                         sx={{
                             marginRight: "1vh",
-                            backgroundColor: selectedCars.includes(manufacturer) ? "lightgrey" : "white",
+                            marginBottom: "1vh",
+                            backgroundColor: selectedCars.includes(manufacturer) ? "#336DFF" : "white",
+                            color: selectedCars.includes(manufacturer) ? "white" : "#336DFF",
                             flexGrow: isMobile ? 1 : 0,
-                            flexBasis: isMobile ? '45%' : 'auto'
+                            flexBasis: isMobile ? '45%' : 'auto',
+                            '&:hover': { backgroundColor: selectedCars.includes(manufacturer) ? "#336DFF" : "white",
+                                        color: selectedCars.includes(manufacturer) ? "white" : "#336DFF"
+                            },
                         }}
                         onClick={() => handleCarClick(manufacturer)}
                     >
@@ -135,9 +152,14 @@ const CarType = () => {
                         variant="outlined"
                         sx={{
                             marginRight: "1vh",
-                            backgroundColor: selectedChargingTypes.includes(type) ? "lightgrey" : "white",
+                            marginBottom: "1vh",
+                            backgroundColor: selectedChargingTypes.includes(type) ? "#336DFF" : "white",
+                            color: selectedChargingTypes.includes(type) ? "white" : "#336DFF",
                             flexGrow: isMobile ? 1 : 0,
-                            flexBasis: isMobile ? '45%' : 'auto'
+                            flexBasis: isMobile ? '45%' : 'auto',
+                            '&:hover': { backgroundColor: selectedChargingTypes.includes(type) ? "#336DFF" : "#white",
+                                        color: selectedChargingTypes.includes(type) ? "white" : "#336DFF"
+                            },
                         }}
                         onClick={() => handleChargingTypeClick(type)}
                     >
