@@ -1,8 +1,19 @@
 import React, { useState } from "react";
-import { Grid, Box, Button, Typography, Modal, useMediaQuery, TextField } from "@mui/material";
+import { Grid, Box, Button, Typography, useMediaQuery, TextField, Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
 import CarPhotoAPI from "./CarPhotoAPI";
 import SearchInput from "./../../components/input/SearchInput";
+import ContentsPopup from './../../components/popup/ContentsPopup';
+import CloseIcon from "@mui/icons-material/Close";
+import { styled } from "@mui/material/styles";
 
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    "& .MuiDialogContent-root": {
+        padding: theme.spacing(2),
+    },
+    "& .MuiDialogActions-root": {
+        padding: theme.spacing(1),
+    },
+}));
 
 const getHomepageURL = (manufacturer) => {
     switch (manufacturer) {
@@ -44,6 +55,7 @@ const CarType = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [appliedSearchQuery, setAppliedSearchQuery] = useState("");
     const isMobile = useMediaQuery("(max-width:600px)");
+    const isTablet = useMediaQuery("(max-width:900px)");
 
     const handleCarClick = (manufacturer) => {
         if (selectedCars.includes(manufacturer)) {
@@ -72,6 +84,10 @@ const CarType = () => {
 
     const handleSearchClick = () => {
         setAppliedSearchQuery(searchQuery);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
     };
 
     return (
@@ -143,28 +159,43 @@ const CarType = () => {
                         searchQuery={appliedSearchQuery} />
                 </Grid>
             </Box>
-
-            <Modal open={open} onClose={() => setOpen(false)} onClick={() => setOpen(false)}>
-                <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4, width: isMobile ? "60%" : "400px", maxHeight: "90vh", overflow: "auto"}}>
-                    {selectedCar && 
-                    <>
-                    <img src={`${selectedCar.image}&w=200&h=200&fit=crop`} style={{ width: '100%', marginBottom: 20 }} alt="car" />
-                    <Typography variant="h6" component="strong">
-                        모델명: {selectedCar.모델명}
-                    </Typography>
-                    <Typography variant="body1">제조사: {selectedCar.제조사}</Typography>
-                    <Typography variant="body1">급속충전방식: {selectedCar.급속충전방식}</Typography>
-                    <Typography variant="body1">완속충전방식: {selectedCar.완속충전방식}</Typography>
-                    <Typography variant="body1">배터리용량: {selectedCar.배터리용량}</Typography>
-                    <Typography variant="body1">출시일: {selectedCar.출시일}</Typography>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 'auto' }}>
-                    <Button variant="outlined" sx={{height: 40, marginTop:4}} onClick={() => handleHomepageRedirect(selectedCar.제조사)}>
-                    홈페이지로 이동
-                    </Button>
-                    </Box>
-                    </>}
-                </Box>
-            </Modal>
+            {selectedCar && ( 
+                <BootstrapDialog 
+                    onClose={handleClose} 
+                    aria-labelledby="customized-dialog-title" 
+                    open={open}
+                    fullWidth={true}
+                    maxWidth="xs"
+                >
+                    <DialogTitle sx={{ m: 0, p: 2, fontWeight: 600 }} id="customized-dialog-title">
+                        차량 상세 정보
+                        <IconButton
+                            aria-label="close"
+                            onClick={handleClose}
+                            sx={{
+                                position: "absolute",
+                                right: 8,
+                                top: 8,
+                                color: (theme) => theme.palette.grey[500],
+                            }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </DialogTitle>
+                    <DialogContent sx={{ padding: '10px', textAlign: 'center' }}>
+                        <img src={`${selectedCar.image}&w=200&h=200&fit=crop`} style={{ width: '100%', maxWidth: '300px', marginBottom: 20 }} alt="car" />
+                        <Box sx={{ textAlign: 'center',}}>
+                            <Typography variant="h6" component="strong" sx={{ marginBottom: 2 }}> 모델명: {selectedCar.모델명} </Typography>
+                            <Typography variant="body1">제조사: {selectedCar.제조사}</Typography>
+                            <Typography variant="body1">급속충전방식: {selectedCar.급속충전방식}</Typography>
+                            <Typography variant="body1">완속충전방식: {selectedCar.완속충전방식}</Typography>
+                            <Typography variant="body1">배터리용량: {selectedCar.배터리용량}</Typography>
+                            <Typography variant="body1">출시일: {selectedCar.출시일}</Typography>
+                        </Box>
+                        <Button variant="outlined" sx={{ height: 40, marginTop: 4 }} onClick={() => handleHomepageRedirect(selectedCar.제조사)}> 홈페이지로 이동 </Button>
+                    </DialogContent>
+                </BootstrapDialog>
+            )}
         </Grid>
     );
 };
