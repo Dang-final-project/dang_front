@@ -1,7 +1,8 @@
 import { Button, FormControl, Grid, OutlinedInput, TextField, Typography } from "@mui/material";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { communityApi } from "../../../api/services/community";
+import SearchPopup from "../Review/SearchPopup";
 
 const ReportDriver = ({ isDesktop, theme, getReports, loginUser }) => {
     const [carNum, setCarNum] = useState("");
@@ -92,12 +93,15 @@ const ReportDriver = ({ isDesktop, theme, getReports, loginUser }) => {
                             }}
                         >
                             <Typography sx={{ marginRight: 2 }}>충전소 {isDesktop && ":"}</Typography>
-                            <OutlinedInput
-                                name="station"
-                                value={station}
-                                onChange={handleStationChange}
-                                sx={{ minWidth: "350px" }}
-                            />
+
+                            <Grid sx={{ minWidth: "350px" }}>
+                                <SearchPopup
+                                    station={station}
+                                    setStation={setStation}
+                                    buttonWidth="100%"
+                                    buttonHeight="56px"
+                                />
+                            </Grid>
                         </FormControl>
                         <FormControl
                             sx={{
