@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Cookies } from "react-cookie";
-// import KakaoMap from "./../components/map/KakaoMap";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";  // 기본 내보내기가 아닌 이름 있는 내보내기로 변경
 
 export const useProvideAuth = () => {
     const [loginUser, setLoginUser] = useState({
@@ -10,6 +9,7 @@ export const useProvideAuth = () => {
         token: localStorage.getItem("token"),
         nickname: "",
         email: "",
+        loginType: localStorage.getItem("loginType") || "local", // 기본값은 "local"
     });
 
     useEffect(() => {
@@ -29,6 +29,7 @@ export const useProvideAuth = () => {
     }, []);
 
     useEffect(() => {
+        const cookies = new Cookies();
         const kakaoToken = cookies.get("accessToken");
         if (kakaoToken) {
             try {
@@ -36,7 +37,9 @@ export const useProvideAuth = () => {
                 setLoginUser((prevUser) => ({
                     ...prevUser,
                     nickname: decodedKakaoToken.nickname,
+                    loginType: 'kakao' // 로그인 유형을 "kakao"로 설정
                 }));
+                localStorage.setItem("loginType", "kakao");
             } catch (err) {
                 console.error(err);
             }
@@ -49,11 +52,13 @@ export const useProvideAuth = () => {
         if (cookies.get("accessToken") && cookies.get("userId")) {
             localStorage.setItem("userId", cookies.get("userId"));
             localStorage.setItem("token", cookies.get("accessToken"));
+            localStorage.setItem("loginType", "kakao");
 
             setLoginUser({
                 id: cookies.get("userId"),
                 token: cookies.get("accessToken"),
                 nickname: "",
+                loginType: "kakao", // 로그인 유형을 "kakao"로 설정
             });
         }
         cookies.remove("userId");
@@ -69,6 +74,7 @@ export const useProvideAuth = () => {
 
                 localStorage.setItem("userId", id);
                 localStorage.setItem("token", token);
+                localStorage.setItem("loginType", "local"); // 로그인 유형을 "local"로 설정
 
                 const decodedToken = jwtDecode(token);
 
@@ -77,6 +83,7 @@ export const useProvideAuth = () => {
                     token,
                     nickname: decodedToken.nickname,
                     email: decodedToken.email,
+                    loginType: "local" // 로그인 유형을 "local"로 설정
                 });
                 successCallback();
             }
@@ -91,15 +98,16 @@ export const useProvideAuth = () => {
             ...prevUser,
             token: newToken
         }));
-    }
+    };
+
     const cookies = new Cookies();
     const logout = (callback) => {
         localStorage.removeItem("userId");
         localStorage.removeItem("token");
+        localStorage.removeItem("loginType");
         cookies.remove("userId");
         cookies.remove("accessToken");
         setLoginUser(null);
-        // 리프레시 토큰 삭제
         callback();
     };
 
