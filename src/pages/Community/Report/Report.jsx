@@ -43,9 +43,11 @@ const Report = () => {
         <Grid
             sx={{
                 display: "flex",
+                justifyContent: "space-between",
+                alignItems: isDesktop ? "none" : "center",
                 flexDirection: isDesktop ? "row" : "column",
-                marginTop: "50px",
-                marginLeft: isDesktop ? "-40px" : 0,
+                width: "100%",
+                minHeight: "750px",
             }}
         >
             <ReportDriver isDesktop={isDesktop} theme={theme} getReports={getReports} loginUser={loginUser} />

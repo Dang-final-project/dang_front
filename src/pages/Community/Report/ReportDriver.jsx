@@ -1,4 +1,4 @@
-import { Button, FormControl, Grid, OutlinedInput, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, Grid, OutlinedInput, Paper, TextField, Typography } from "@mui/material";
 import { useCallback, useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { communityApi } from "../../../api/services/community";
@@ -55,88 +55,80 @@ const ReportDriver = ({ isDesktop, theme, getReports, loginUser }) => {
 
     return (
         <>
-            <Grid sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Typography variant="h5" sx={{ marginBottom: "20px" }}>
+            <Grid
+                sx={{
+                    width: isDesktop ? "40%" : "100%",
+                    minWidth: "400px",
+                    marginRight: isDesktop ? "20px" : 0,
+                    marginBottom: isDesktop ? 0 : "20px",
+                }}
+            >
+                <Typography variant="h5" sx={{ marginBottom: "20px", fontWeight: "bold" }}>
                     비매너 차량 신고
                 </Typography>
-                <form onSubmit={handleSubmit}>
-                    <Grid
-                        sx={{
-                            display: "flex",
-                            flexDirection: isDesktop ? "column" : "column",
-                            alignItems: isDesktop ? "flex-end" : "center",
-                            marginRight: isDesktop ? "30px" : "0",
-                        }}
-                    >
-                        <FormControl
+                <Paper elevation="6" sx={{ paddingTop: 2, height: "660px" }}>
+                    <form onSubmit={handleSubmit}>
+                        <Grid
                             sx={{
-                                mb: 2,
                                 display: "flex",
-                                flexDirection: isDesktop ? "row" : "column",
-                                alignItems: isDesktop ? "center" : "left",
+                                flexDirection: "column",
+                                alignItems: "center",
                             }}
                         >
-                            <Typography sx={{ marginRight: 2 }}>차번호 {isDesktop && ":"}</Typography>
-                            <OutlinedInput
-                                name="carNum"
-                                value={carNum}
-                                onChange={handleCarNumChange}
-                                sx={{ minWidth: "350px" }}
-                            />
-                        </FormControl>
-                        <FormControl
-                            sx={{
-                                mb: 2,
-                                display: "flex",
-                                flexDirection: isDesktop ? "row" : "column",
-                                alignItems: isDesktop ? "center" : "left",
-                            }}
-                        >
-                            <Typography sx={{ marginRight: 2 }}>충전소 {isDesktop && ":"}</Typography>
+                            <FormControl
+                                sx={{
+                                    mb: 2,
+                                    width: isDesktop ? "350px" : "80%",
+                                }}
+                            >
+                                <Typography sx={{ mb: 1 }}>차 번호</Typography>
+                                <OutlinedInput name="carNum" value={carNum} onChange={handleCarNumChange} />
+                            </FormControl>
+                            <FormControl
+                                sx={{
+                                    mb: 2,
+                                    width: isDesktop ? "350px" : "80%",
+                                }}
+                            >
+                                <Typography sx={{ mb: 1 }}>충전소</Typography>
 
-                            <Grid sx={{ minWidth: "350px" }}>
-                                <SearchPopup
-                                    station={station}
-                                    setStation={setStation}
-                                    buttonWidth="100%"
-                                    buttonHeight="56px"
+                                <Grid>
+                                    <SearchPopup
+                                        station={station}
+                                        setStation={setStation}
+                                        buttonWidth="100%"
+                                        buttonHeight="56px"
+                                    />
+                                </Grid>
+                            </FormControl>
+                            <FormControl
+                                sx={{
+                                    mb: 2,
+                                    width: isDesktop ? "350px" : "80%",
+                                }}
+                            >
+                                <Typography sx={{ mb: 1, whiteSpace: "nowrap" }}>신고 내용</Typography>
+                                <TextField
+                                    name="content"
+                                    value={content}
+                                    onChange={handleContentChange}
+                                    multiline
+                                    rows={13}
                                 />
-                            </Grid>
-                        </FormControl>
-                        <FormControl
-                            sx={{
-                                mb: 2,
-                                display: "flex",
-                                flexDirection: isDesktop ? "row" : "column",
-                                alignItems: isDesktop ? "center" : "left",
-                            }}
-                        >
-                            <Typography sx={{ marginRight: 2, whiteSpace: "nowrap" }}>
-                                신고 내용 {isDesktop && ":"}
-                            </Typography>
-                            <TextField
-                                name="content"
-                                value={content}
-                                onChange={handleContentChange}
-                                multiline
-                                rows={13}
-                                sx={{ minWidth: "350px" }}
-                            />
-                        </FormControl>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            sx={{
-                                width: isDesktop ? "280px" : "200px",
-                                height: "40px",
-                                marginRight: isDesktop ? "45px" : "0",
-                                marginBottom: "20px",
-                            }}
-                        >
-                            신고
-                        </Button>
-                    </Grid>
-                </form>
+                            </FormControl>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{
+                                    width: "75%",
+                                    height: "40px",
+                                }}
+                            >
+                                신고
+                            </Button>
+                        </Grid>
+                    </form>
+                </Paper>
             </Grid>
         </>
     );
