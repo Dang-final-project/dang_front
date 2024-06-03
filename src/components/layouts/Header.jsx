@@ -75,14 +75,14 @@ const Header = () => {
                 elevation={3}
                 sx={{
                     width: "200px",
-                    height: "150px",
+                    height: "120px",
                     position: "absolute",
                     top: "140%",
                     right: "0",
                     backgroundColor: "white",
                     zIndex: 1,
                     borderRadius: 1,
-                    padding: 1,
+                    padding: 2,
                 }}
             >
                 <Box sx={{ padding: "10px" }}>
@@ -125,7 +125,7 @@ const Header = () => {
             <AppBar color="secondary" elevation={ELEVATION}>
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Box
-                        sx={{ display: "flex" }}
+                        sx={{ display: "flex", cursor: "pointer" }}
                         onClick={() => {
                             window.location.href = "/";
                         }}
@@ -217,15 +217,28 @@ const Header = () => {
             <ListItem key={text.nav} disablePadding>
                 <Link to={text.link}>
                     <ListItemButton>
-                        <ListItemText
-                            onClick={() => {
-                                text.nav === "로그아웃" &&
-                                    logout(() => {
-                                        setUserStatus("guest");
-                                    });
-                            }}
-                            primary={text.nav}
-                        />
+                        {text.nav !== "로그아웃" && location.pathname === text.link ? (
+                            <ActiveNav
+                                onClick={() => {
+                                    text.nav === "로그아웃" &&
+                                        logout(() => {
+                                            setUserStatus("guest");
+                                        });
+                                }}
+                            >
+                                {text.nav}
+                            </ActiveNav>
+                        ) : (
+                            <ListItemText
+                                onClick={() => {
+                                    text.nav === "로그아웃" &&
+                                        logout(() => {
+                                            setUserStatus("guest");
+                                        });
+                                }}
+                                primary={text.nav}
+                            />
+                        )}
                     </ListItemButton>
                 </Link>
             </ListItem>
@@ -238,12 +251,22 @@ const Header = () => {
                 <ListItem disablePadding>
                     <Link to="/">
                         <ListItemButton sx={{ width: "88px" }}>
-                            <ListItemText
-                                onClick={() => {
-                                    window.location.href = "/";
-                                }}
-                                primary="홈"
-                            />
+                            {location.pathname === "/" ? (
+                                <ActiveNav
+                                    onClick={() => {
+                                        window.location.href = "/";
+                                    }}
+                                >
+                                    홈
+                                </ActiveNav>
+                            ) : (
+                                <ListItemText
+                                    onClick={() => {
+                                        window.location.href = "/";
+                                    }}
+                                    primary="홈"
+                                />
+                            )}
                         </ListItemButton>
                     </Link>
                 </ListItem>
@@ -258,10 +281,7 @@ const Header = () => {
         return (
             <AppBar color="secondary" elevation={ELEVATION} sx={{ minHeight: "64px" }}>
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <MenuIcon
-                        sx={{ fontSize: "30px", backgroundColor: "#fff", borderRadius: "2px" }}
-                        onClick={toggleDrawer(true)}
-                    />
+                    <MenuIcon sx={{ fontSize: "32px", borderRadius: "2px" }} onClick={toggleDrawer(true)} />
                     <Drawer open={open} onClose={toggleDrawer(false)}>
                         {DrawerList}
                     </Drawer>

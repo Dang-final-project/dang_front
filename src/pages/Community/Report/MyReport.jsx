@@ -110,9 +110,7 @@ const MyReport = ({ reports, isDesktop }) => {
                             handleChangePage={handleChangePage}
                         />
                     ) : (
-                        <Box ref={target} sx={{ height: "10px", marginBottom: "30px" }}>
-                            마지막 신고 내역입니다
-                        </Box>
+                        <Box ref={target} sx={{ height: "10px", marginBottom: "30px" }}></Box>
                     )}
                 </Grid>
             </Grid>

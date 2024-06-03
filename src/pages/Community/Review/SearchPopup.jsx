@@ -27,7 +27,15 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-export default function SearchPopup({ title, width = 500, height = 500, station, setStation }) {
+export default function SearchPopup({
+    title,
+    width = 500,
+    height = 500,
+    station,
+    setStation,
+    buttonWidth,
+    buttonHeight,
+}) {
     const { setStations } = useContext(MapContext);
     const [open, setOpen] = useState(false);
     const [searchWord, setSearchWord] = useState("");
@@ -83,7 +91,7 @@ export default function SearchPopup({ title, width = 500, height = 500, station,
 
     return (
         <React.Fragment>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            <Button variant="outlined" onClick={handleClickOpen} sx={{ width: buttonWidth, height: buttonHeight }}>
                 {station || "찾아보기"}
             </Button>
             <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>

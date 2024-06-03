@@ -51,7 +51,7 @@ const BottomBtns = () => {
                     {/* <Mobile /> */}
                 </Box>
             </Paper>
-            <FilterPopup open={true}/>
+            <FilterPopup open={true} />
         </>
     );
 };
