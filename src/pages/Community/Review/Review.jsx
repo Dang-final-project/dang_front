@@ -10,7 +10,7 @@ import MobileReview from "./MobileReview";
 import { useMediaQuery, useTheme } from "@mui/material";
 
 const Review = () => {
-    const [reviews, setReviews] = useState();
+    const [reviews, setReviews] = useState([]);
     const [page, setPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState(""); //검색
     const reviewsPerPage = 3;
@@ -39,9 +39,8 @@ const Review = () => {
         }
     };
 
-    const handleChangePage = (e) => {
-        const a = e.target.textContent;
-        setPage(a);
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
     };
 
     const handleSearch = (query) => {
