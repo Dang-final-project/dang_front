@@ -114,10 +114,10 @@ const ModifyInfo = () => {
                         validate: value => value === getValues("password") || "비밀번호가 일치하지 않습니다."
                     })}
                 />
-                <Typography sx={{ m: 1 }}>권한: 사용자</Typography>
+                {/*<Typography sx={{ m: 1 }}>권한: 사용자</Typography>
                 <Button type="submit" variant="contained" size="large" fullWidth>
                     수정하기
-                </Button> 
+                </Button> */}
 
                 <Box sx={{ mt: 3 }}>
                     <Typography variant="h6">회원 탈퇴</Typography>
