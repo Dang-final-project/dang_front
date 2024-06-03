@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import PageCount from "../utils/PageCount";
 import { useEffect, useRef, useState } from "react";
 
@@ -51,19 +51,54 @@ const MyReport = ({ reports, isDesktop }) => {
     return (
         <>
             <Grid
-                sx={{ width: "390px", height: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}
+                sx={{
+                    width: isDesktop ? "55%" : "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    marginBottom: isDesktop ? 0 : "30px",
+                }}
             >
-                <Typography variant="h5" sx={{ marginBottom: "20px" }}>
+                <Typography variant="h5" sx={{ marginBottom: "20px", fontWeight: "bold" }}>
                     나의 신고
                 </Typography>
-                <Grid
+
+                <Box
                     sx={{
                         width: "100%",
-                        height: "100%",
                     }}
                 >
-                    {isDesktop ? (
-                        reports.length > 0 ? (
+                    <Paper elevation="6" sx={{ padding: 6, height: isDesktop ? "660px" : "100%" }}>
+                        {isDesktop ? (
+                            reports.length > 0 ? (
+                                visibleReports.map((report, index) => (
+                                    <Box sx={{ marginBottom: 2, borderBottom: "1px solid lightgray" }} key={index}>
+                                        <Grid sx={{ display: "flex" }}>
+                                            <Typography sx={{ marginRight: 3 }}>{report.carNum}</Typography>
+                                            <Typography>{report.station}</Typography>
+                                        </Grid>
+                                        <Typography
+                                            sx={{ fontSize: "20px", fontWeight: 600, marginTop: 1, marginBottom: 1 }}
+                                        >
+                                            {report.content}
+                                        </Typography>
+                                        <Typography>{new Date(report.createdAt).toLocaleString("ko-KR")}</Typography>
+                                    </Box>
+                                ))
+                            ) : (
+                                <Grid
+                                    sx={{
+                                        height: "100%",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <Box component="img" src="/noreport.png" sx={{ width: "150px", mb: 2 }} />
+                                    <Typography sx={{ fontSize: "24px" }}>신고 내역이 없습니다.</Typography>
+                                </Grid>
+                            )
+                        ) : visibleReports.length > 0 ? (
                             visibleReports.map((report, index) => (
                                 <Box sx={{ marginBottom: 2, borderBottom: "1px solid lightgray" }} key={index}>
                                     <Grid sx={{ display: "flex" }}>
@@ -79,40 +114,32 @@ const MyReport = ({ reports, isDesktop }) => {
                                 </Box>
                             ))
                         ) : (
-                            <Typography
-                                sx={{ width: "100%", padding: "10px", marginBottom: "10px", marginLeft: "25%" }}
+                            <Grid
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
                             >
-                                신고 내역이 없습니다.
-                            </Typography>
-                        )
-                    ) : visibleReports.length > 0 ? (
-                        visibleReports.map((report, index) => (
-                            <Box sx={{ marginBottom: 2, borderBottom: "1px solid lightgray" }} key={index}>
-                                <Grid sx={{ display: "flex" }}>
-                                    <Typography sx={{ marginRight: 3 }}>{report.carNum}</Typography>
-                                    <Typography>{report.station}</Typography>
-                                </Grid>
-                                <Typography sx={{ fontSize: "20px", fontWeight: 600, marginTop: 1, marginBottom: 1 }}>
-                                    {report.content}
+                                <Box component="img" src="/noreport.png" sx={{ width: "150px", mb: 2 }} />
+                                <Typography sx={{ marginBottom: "10px", fontSize: "24px" }}>
+                                    신고 내역이 없습니다.
                                 </Typography>
-                                <Typography>{new Date(report.createdAt).toLocaleString("ko-KR")}</Typography>
-                            </Box>
-                        ))
-                    ) : (
-                        <Typography sx={{ width: "100%", padding: "10px", marginBottom: "10px", marginLeft: "25%" }}>
-                            신고 내역이 없습니다.
-                        </Typography>
-                    )}
-                    {isDesktop ? (
-                        <PageCount
-                            page={page}
-                            count={Math.ceil(reports.length / reportsPerPage)}
-                            handleChangePage={handleChangePage}
-                        />
-                    ) : (
-                        <Box ref={target} sx={{ height: "10px", marginBottom: "30px" }}></Box>
-                    )}
-                </Grid>
+                            </Grid>
+                        )}
+
+                        {isDesktop ? (
+                            <PageCount
+                                page={page}
+                                count={Math.ceil(reports.length / reportsPerPage)}
+                                handleChangePage={handleChangePage}
+                            />
+                        ) : (
+                            <Box ref={target} sx={{ height: "10px" }}></Box>
+                        )}
+                    </Paper>
+                </Box>
             </Grid>
         </>
     );
