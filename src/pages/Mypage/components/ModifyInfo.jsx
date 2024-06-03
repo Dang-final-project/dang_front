@@ -7,7 +7,8 @@ import { useAuth } from './../../../hooks/useAuth';
 
 const ModifyInfo = () => {
     const { loginUser, logout } = useAuth();
-    const email = loginUser.email; // 고정된 이메일 값
+    const email = loginUser.email;
+    const isKakaoLogin = loginUser.loginType === 'kakao'; // 카카오 로그인인지 확인
     const {
         register,
         handleSubmit,
@@ -18,27 +19,23 @@ const ModifyInfo = () => {
     const token = localStorage.getItem('token');
 
     const modify = async(e) => {
-        // e.preventDefault();
         try {
-            const data = {username: e.username, password: e.password};
-            // const token = loginUser.token;
+            const data = { username: e.username, password: e.password };
             const res = await authApi.authPut(data, token);
-            
             if (res.data.code === 200) {
                 Swal.fire({
                     title: "축하합니다!",
                     text: "수정이 완료되었습니다.",
                     icon: "success"
                 });
-                console.log(res);
                 navigate('/');
             } 
         } catch (err) {
-            if(err.response.data.code == 500) {
-                logout(()=>{
+            if(err.response.data.code === 500) {
+                logout(() => {
                     console.error(err);
-                    navigate('/')
-                })
+                    navigate('/');
+                });
             }
 
             Swal.fire({
@@ -47,35 +44,31 @@ const ModifyInfo = () => {
                 icon: "error"
             });
         }
-    }
+    };
 
-    const deleteButton = async(e) => {
-        // const token = loginUser.token;
+    const deleteButton = async() => {
         const res = await authApi.authDel(token);
-        try{
-            if(res.data.code === 200){
-                logout(
-                    () =>{
-                        Swal.fire({
-                            title: "삭제되었습니다.",
-                            text: "삭제되었습니다.",
-                            icon: "success"
-                        })
-                        navigate('/');
-                    }
-                )
-               
+        try {
+            if(res.data.code === 200) {
+                logout(() => {
+                    Swal.fire({
+                        title: "삭제되었습니다.",
+                        text: "삭제되었습니다.",
+                        icon: "success"
+                    });
+                    navigate('/');
+                });
             }
-        } catch(err){
+        } catch(err) {
             console.error(err);
         }
-    }
-    
+    };
+
     return ( 
         <>
             <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit(modify)}
-                sx={{width: "400px", padding: "40px", backgroundColor: "white", borderRadius: "8px", 
-                boxShadow:"0 0 12px rgba(0,0,0,0.271)", textAlign: "center", marginBottom: 3,
+                sx={{ width: "400px", padding: "40px", backgroundColor: "white", borderRadius: "8px", 
+                boxShadow: "0 0 12px rgba(0,0,0,0.271)", textAlign: "center", marginBottom: 3,
                 '& .MuiTextField-root': { marginTop: 1 }}}
             >
                 <TextField disabled variant="outlined" label="이메일" defaultValue={email}
@@ -86,6 +79,7 @@ const ModifyInfo = () => {
                     helperText={errors.username && errors.username.message}
                     sx={{ display: 'block' }} fullWidth 
                     {...register("username", { value: loginUser.nickname, required: "이름을 입력해주세요." })}
+                    disabled={isKakaoLogin} // 카카오 로그인 시 비활성화
                 />
                 <TextField variant="outlined" label="비밀번호" type="password"
                     error={errors.password ? true : false}
@@ -102,6 +96,7 @@ const ModifyInfo = () => {
                             message: "비밀번호는 하나의 영어 알파벳과 숫자를 포함해야 합니다."
                         }
                     })}
+                    disabled={isKakaoLogin} // 카카오 로그인 시 비활성화
                 />
                 <TextField
                     fullWidth
@@ -113,8 +108,9 @@ const ModifyInfo = () => {
                         required: "비밀번호 확인을 입력해주세요.",
                         validate: value => value === getValues("password") || "비밀번호가 일치하지 않습니다."
                     })}
+                    disabled={isKakaoLogin} // 카카오 로그인 시 비활성화
                 />
-                <Button type="submit" variant="contained" size="large" sx={{ marginTop: 1 }} fullWidth>
+                <Button type="submit" variant="contained" size="large" sx={{ marginTop: 1 }} fullWidth disabled={isKakaoLogin}>
                     수정하기
                 </Button>
 
@@ -126,9 +122,6 @@ const ModifyInfo = () => {
                     </Button>
                 </Box>
             </Box>
-            
-
-            
         </>
     );
 }
