@@ -1,15 +1,20 @@
 import { Box, Paper, Tab, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import Station from "./Station";
 import { MapContext } from "../../../../contexts/MapContext";
 import SearchBox from "./SearchBox";
 import axios from "axios";
 import { externalApi } from "../../../../api/services/external";
+import useIntersectionObserver from "../../../../hooks/useIntersectionObserver";
 
 export const StationField = () => {
-    const { stations, setStations, favStation, favList } = useContext(MapContext);
-    const [count, setCount] = useState(0);
+
+    const { stations, setStations, favStation, favList, setStationIdx, filterList } = useContext(MapContext);
+
+    // 무한 스크롤
+    const intersectionRef = useRef(null);
+    const intersectionObserver = useIntersectionObserver({ ref: intersectionRef, options: {} });
 
     const token = localStorage.getItem("token");
 
@@ -19,12 +24,11 @@ export const StationField = () => {
         setValue(newValue);
     };
 
+    //검색
     const [searchWord, setSearchWord] = useState("");
-
     const handleSearchChange = (event) => {
         setSearchWord(event.target.value);
     };
-
     const handleSearch = async () => {
         // const key = process.env.REACT_APP_STATION_API_KEY;
         // console.log(key);
@@ -45,6 +49,22 @@ export const StationField = () => {
         }
     };
 
+    //스크롤 이동
+    const scrollRef = useRef();
+
+    useEffect(() => {
+        scrollRef.current.scrollTo({
+            top: 0,
+            behavior: 'auto'
+        });
+    },[filterList])
+
+    useEffect(() => {
+        if (intersectionObserver?.isIntersecting) {
+            setStationIdx((prevPageIndex) => (prevPageIndex += 1));
+          }
+      }, [intersectionObserver]);
+
     const containerStyle = {
         width: "100%",
         maxWidth: "460px",
@@ -53,10 +73,6 @@ export const StationField = () => {
         display: "flex",
         flexDirection: "column",
     };
-
-    useEffect(() => {
-        setCount(stations.length);
-    }, []);
 
     return (
         <Paper sx={containerStyle} square>
@@ -76,6 +92,7 @@ export const StationField = () => {
                             <TabPanel
                                 value="1"
                                 sx={{ height: "calc(100% - 40px)", overflowY: "scroll", bgcolor: "grey.100" }}
+                                ref={scrollRef}
                             >
                                 {stations ? (
                                     stations.map((station, idx) => {
@@ -84,6 +101,7 @@ export const StationField = () => {
                                 ) : (
                                     <Typography>데이터 로딩중</Typography>
                                 )}
+                                <div ref={intersectionRef} />
                             </TabPanel>
                             <TabPanel
                                 value="2"

@@ -8,7 +8,7 @@ export function FilterPopupButton({label, filterKey, filterValue, Separator}) {
 
     const [open, setOpen] = React.useState(false);
 
-    const { filterList, setFilterList} = React.useContext(MapContext);
+    const { filterList, setFilterList, setStationIdx} = React.useContext(MapContext);
     const [activeButtons, setActiveButtons] = React.useState([]);
     const [currentFilter, setCurrentFilter] = React.useState("");
     const [btnClicked, setBtnClicked] = useState(false);
@@ -63,6 +63,7 @@ export function FilterPopupButton({label, filterKey, filterValue, Separator}) {
 
         setOpen(false);
         changeStyle();
+        setStationIdx(0);
     }
 
     return(

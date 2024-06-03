@@ -9,6 +9,7 @@ export const MapProvider = ({ children }) => {
     const [positionArr, setPositionArr] = useState();
     const [filterList, setFilterList] = useState({});
     const [mapPos, setMapPos] = useState({lat:37.261911, lng:127.030736});
+    const [stationIdx, setStationIdx] = useState(0);
 
     useEffect(() => {
       navigator.geolocation.getCurrentPosition(pos => {
@@ -25,6 +26,7 @@ export const MapProvider = ({ children }) => {
             positionArr, setPositionArr,
             filterList, setFilterList,
             mapPos, setMapPos,
+            stationIdx, setStationIdx
         }}
     >
       {children}
