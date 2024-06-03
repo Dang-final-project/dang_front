@@ -8,6 +8,7 @@ import StationSearch from "./StationSearch";
 import PageCount from "../utils/PageCount";
 import MobileReview from "./MobileReview";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { useForm } from "react-hook-form";
 
 const Review = () => {
     const [reviews, setReviews] = useState([]);
@@ -15,6 +16,7 @@ const Review = () => {
     const [searchQuery, setSearchQuery] = useState(""); //검색
     const reviewsPerPage = 3;
     const navigate = useNavigate();
+    const { handleSubmit } = useForm();
     const token = localStorage.getItem("token");
     const { logout } = useAuth();
 
