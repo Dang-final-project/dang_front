@@ -1,6 +1,7 @@
 import { Box, Stack, Typography, Button } from "@mui/material";
 import Swal from "sweetalert2";
 import React, { useEffect, useState } from 'react';
+import '../../../../App.css';
 
 const ReserveBox = ({chrstnNm, avail_count, tot_count}) => {
 
@@ -21,28 +22,29 @@ const ReserveBox = ({chrstnNm, avail_count, tot_count}) => {
     const currentTime = getDateTime();
 
     const reserve = () => {
-        Swal.fire({
-            title: "예약하시겠습니까?",
-            html : `
-                <p>${currentTime}</p>
-                <h4 style="font-size: 20px;">${chrstnNm}</h4>
-            `,
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "예약하기",
-            cancelButtonText:"취소"
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire({
-                title: "예약 성공",
-                text: "예약이 완료되었습니다.",
-                icon: "success"
-              });
-            }
-          });
-    }
+        const popup = Swal.fire({
+          title: "예약하시겠습니까?",
+          html: `
+            <p>${currentTime}</p>
+            <h4 style="font-size: 20px;">${chrstnNm}</h4>
+          `,
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "예약하기",
+          cancelButtonText: "취소",
+        });
+        popup.then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: "예약 성공",
+              text: "예약이 완료되었습니다.",
+              icon: "success"
+            });
+          }
+        });
+      };
 
     return ( 
         <Box sx={{bgcolor:'grey.100',p:1, mt:1, display:'flex', display:'flex',justifyContent:'space-between',alignItems:'center'}}>

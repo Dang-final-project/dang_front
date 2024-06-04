@@ -2,7 +2,7 @@ import { Stack, Typography, Box, Button, Grid } from "@mui/material";
 import { FilterValue } from "../FilterGroup/FilterValue";
 import { useEffect, useState } from "react";
 
-export const FilterContent = () => {
+export const FilterContent = ({setOpen}) => {
 
     const [filterButtons, setFilterButtons] = useState(); //모든 버튼의 정보들을 객체배열로 저장
     const [queryList, setQueryList] = useState();
@@ -91,7 +91,7 @@ export const FilterContent = () => {
                     )
                 })
             }
-            <Button variant="contained">적용</Button>
+            <Button variant="contained" onClick={()=>setOpen(false)}>적용</Button>
         </Stack>
      );
 }

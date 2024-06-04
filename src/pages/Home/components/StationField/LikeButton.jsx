@@ -13,7 +13,7 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
     const navigate = useNavigate();
     const { logout } = useAuth();
     const addStation = async (e) => {
-        //e.stopPropagation()
+        e.stopPropagation()
         if (clicked === false) {
             try {
                 const data = { chrstn_id: station.chrstn_id };
@@ -41,7 +41,7 @@ const LikeButton = ({ token, station, getFav, tab, clicked, setClicked }) => {
     };
 
     const deleteStation = async (e) => {
-        //e.stopPropagation()
+        e.stopPropagation()
         if (clicked === true) {
             try {
                 const data = { chrstn_id: station.chrstn_id };

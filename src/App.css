@@ -21,3 +21,7 @@ li {
     height: 39px;
     padding: 0;
 }
+
+.swal2-container {
+    z-index: 10000 !important;
+}
