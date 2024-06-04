@@ -1,9 +1,9 @@
 import { externalApi } from "../../../api/services/external";
 
-export const GetStations = async (filterList, setPositionArr, setStations) => {
+export const GetStations = async (filterList, setPositionArr, setStations, stationIdx) => {
     try {
-        const pageIdx = 0;
-        const count = 30;
+        const pageIdx = stationIdx;
+        const count = 60;
         const response = await externalApi.getAllStation(count, pageIdx, filterList)
         if (response.status === 200) {
             const results = [];
