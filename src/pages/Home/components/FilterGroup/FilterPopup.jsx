@@ -37,6 +37,7 @@ export default function FilterPopup({title, children, open, setOpen}){
     React.useEffect(() => {
         const contBoxElement = contentRef.current;
         const handleScroll = () => {
+            console.log(contBoxElement.scrollTop);
             contBoxElement.scrollTop > 0 ? setIsScroll(true) : setIsScroll(false);
         };
 

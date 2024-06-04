@@ -17,17 +17,20 @@ const MemoButton = ({ token, station, clicked }) => {
     const navigate = useNavigate();
     const { logout } = useAuth();
 
-    const handleMemoBtnClick = () => {
+    const handleMemoBtnClick = (e) => {
+        e.stopPropagation();
         setWrite(true);
         setComplete(false);
     };
 
-    const handleTextEdit = () => {
+    const handleTextEdit = (e) => {
+        e.stopPropagation();
         setWrite(true);
         setComplete(false);
     };
 
-    const postMemo = async()=>{
+    const postMemo = async(e)=>{
+        e.stopPropagation();
         const data = { chrstn_id : station.chrstn_id, memo:text }
         try{
             stationApi.postMemo(data,token)
@@ -85,7 +88,7 @@ const MemoButton = ({ token, station, clicked }) => {
                         aria-label="memo" 
                         size="small" 
                         sx={{color:'primary.main',bgcolor:'#E9EFFF'}}
-                        onClick={handleMemoBtnClick}
+                        onClick={(e) => handleMemoBtnClick(e)}
                     >
                         <Typography sx={{fontSize:"14px",marginRight:"2px"}}>메모추가</Typography>
                         <RateReviewIcon fontSize="small"/>
@@ -99,15 +102,16 @@ const MemoButton = ({ token, station, clicked }) => {
                                 e.preventDefault();
                                 setText(e.target.value);
                             }}
+                            onClick={(e) => {e.stopPropagation()}}
                             value={text}
                         />
-                        <Button onClick={()=>{postMemo()}}>완료</Button>
+                        <Button onClick={(e)=>{postMemo(e)}}>완료</Button>
                     </Box> 
                 )}
                 {complete && !write && (
                     <Box sx={{display:'flex',gap:'4px',alignItems:"center"}}>
                         <Typography color="primary" sx={{fontWeight:'bold'}}>{text}</Typography>
-                        <IconButton color="primary" onClick={handleTextEdit}>
+                        <IconButton color="primary" onClick={(e) => handleTextEdit(e)}>
                             <RateReviewIcon color="primary" fontSize="small"/>
                         </IconButton>
                     </Box>

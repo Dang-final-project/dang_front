@@ -47,12 +47,12 @@ const Station = ({station, tab, token, setOpen }) => {
    }
 
     return ( 
-        <Paper elevation={4} sx={{p:2, mb: 2, cursor:'pointer'}} onClick={changeStationLocation}>
+        <Paper elevation={4} sx={{p:2, mb: 2, cursor:'pointer'}} onClick={(e) => handlePopup(e)}>
             { token && 
                 <MemoButton token={token} station={station} getFav={getFav} clicked={clicked} /> 
             }
             <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                <Typography variant="h5" onClick={(e) => handlePopup(e)}>{station.chrstnNm}</Typography>
+                <Typography variant="h5">{station.chrstnNm}</Typography>
                 { token && 
                     <LikeButton token={token} station={station} getFav={getFav} tab={tab} clicked={clicked} setClicked={setClicked} /> 
                 }
