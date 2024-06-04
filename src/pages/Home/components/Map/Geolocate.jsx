@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
+// 현재 위치로 돌아오게 하는 버튼과 지도확대/축소 할 수 있는 컨트롤러 컴포넌트
+import React, { useRef, useEffect } from 'react';
 import { Map as KakaoMapComponent, ZoomControl, MapMarker } from 'react-kakao-maps-sdk';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import IconButton from '@mui/material/IconButton';
@@ -7,21 +8,12 @@ const Geolocate = ({ center, setCenter, position, handleClickOpen }) => {
   const mapRef = useRef();
 
   useEffect(() => {
-    // mapRef가 정상적으로 설정되는지 확인
     console.log(mapRef.current);
   }, []);
 
-  
   const comeBackHome = () => {
     setCenter(position);
   };
-
-  // useEffect(() => {
-  //   const map = mapRef.current;
-  //   if (map) {
-  //     map.setCenter(center);
-  //   }
-  // }, [center]);
 
   return (
     <>

@@ -1,3 +1,4 @@
+//후기를 검색하는 컴포넌트
 import React, { useState } from "react";
 import SearchInput from "../../../components/input/SearchInput";
 

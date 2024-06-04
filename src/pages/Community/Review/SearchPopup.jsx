@@ -1,8 +1,7 @@
+//후기 작성시 작성하고자 하는 충전소를 검색하는 팝업
 import React, { useContext, useState } from "react";
-import axios from "axios";
 import { styled } from "@mui/material/styles";
 import {
-    useTheme,
     Button,
     Dialog,
     DialogTitle,
@@ -54,10 +53,8 @@ export default function SearchPopup({
     };
 
     const handleSearch = async () => {
-        // const key = process.env.REACT_APP_STATION_API_KEY;
         const pageIdx = 1;
         const count = 1580;
-        // const url = `https://apis.data.go.kr/3740000/suwonEvChrstn/getdatalist?serviceKey=${key}&type=json&numOfRows=${count}&pageNo=${pageIdx}`;
 
         try {
             const response = await externalApi.getAllStation(count, pageIdx);

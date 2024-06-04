@@ -1,3 +1,4 @@
+//클러스터 마커, 커스텀 마커 지도에 표시하는 컴포넌트
 import React, { useRef, useContext, useState } from 'react';
 import { MapContext } from '../../../../contexts/MapContext';
 import Detail from './Detail';
@@ -28,12 +29,14 @@ const ClusterMarker = () => {
   };
 
   return (
+    //클러스터 마커
     <MarkerClusterer
       averageCenter={true}
       minLevel={6}
       disableClickZoom={false}
       onClick={() => onClusterclick()}
     >
+      {/*positionArr 기준으로 조건에 맞게 커스텀 마커 사용하기*/}
       {positionArr?.map((position, index) => (
         <MapMarker
           key={`${position.title}-${index}`}

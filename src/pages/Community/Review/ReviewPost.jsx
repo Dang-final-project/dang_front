@@ -1,3 +1,4 @@
+//작성하기 버튼을 클릭할 시 리뷰를 작성할 수 있는 화면 컴포넌트
 import { useTheme } from "@emotion/react";
 import { Button, FormControl, Grid, TextField, Typography, useMediaQuery } from "@mui/material";
 import Rating from "@mui/material/Rating";
@@ -61,6 +62,8 @@ const ReviewPost = ({ open, handleClose }) => {
               }
         }
     };
+
+    //별점
     const writestarScore = useCallback((event, newValue) => {
         setStarScore(newValue);
     }, []);
@@ -78,10 +81,11 @@ const ReviewPost = ({ open, handleClose }) => {
                 <Grid
                     container
                     direction="column"
-                    justifyContent="flex-start" // 왼쪽 정렬 설정
+                    justifyContent="flex-start" 
                     sx={{ margin: "0 auto", width: "90%" }}
                 >
                     <FormControl sx={{ mb: 2 }}>
+                        {/*이용 충전소를 검색하여 선택하는 부분*/}
                         <Typography>충전소:</Typography>
                         <SearchPopup open={open} handleClose={handleClose} station={station} setStation={setStation} />
                     </FormControl>
