@@ -1,3 +1,4 @@
+// 마커 클릭 시 위치에 맞는 충전소의 상세정보를 담고 있는 팝업창
 import React, { useContext } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -19,8 +20,6 @@ import ElectricalServicesIcon from "@mui/icons-material/ElectricalServices";
 
 const Detail = ({ open, handleClose, detailIndex }) => {
     const { stations } = useContext(MapContext);
-    //console.log(stations, detailIndex);
-    // 첫 번째 충전소 정보를 사용합니다.
     const stationInfo = stations.length > 0 ? stations[detailIndex] : null;
 
     const dialogContentProps = {

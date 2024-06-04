@@ -1,3 +1,4 @@
+//후기 화면의 main 컴포넌트
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
@@ -8,7 +9,6 @@ import StationSearch from "./StationSearch";
 import PageCount from "../utils/PageCount";
 import MobileReview from "./MobileReview";
 import { useMediaQuery, useTheme } from "@mui/material";
-import { useForm } from "react-hook-form";
 
 const Review = () => {
     const [reviews, setReviews] = useState([]);
@@ -16,7 +16,6 @@ const Review = () => {
     const [searchQuery, setSearchQuery] = useState(""); //검색
     const reviewsPerPage = 3;
     const navigate = useNavigate();
-    const { handleSubmit } = useForm();
     const token = localStorage.getItem("token");
     const { logout } = useAuth();
 
@@ -24,10 +23,12 @@ const Review = () => {
     const tabletWidth = useMediaQuery(theme.breakpoints.up("md"));
 
     const getReviews = async () => {
+        //로그인 관련 토큰 처리
         try {
             const res = await reviewApi.getAll(token);
             if (res.data.code === 200) {
                 const r = res.data.payload;
+                //리뷰 검색 관련 
                 const fr = r.filter((review) => review.station.toLowerCase().includes(searchQuery.toLowerCase()));
                 setReviews(fr || []);
             }
@@ -41,14 +42,17 @@ const Review = () => {
         }
     };
 
+    //페이지 네이션 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
+    //리뷰 검색
     const handleSearch = (query) => {
         setSearchQuery(query);
     };
 
+    //작성하기 버튼
     const handleWriteButtonClick = () => {
         navigate("/community/posting");
     };

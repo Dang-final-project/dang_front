@@ -1,3 +1,4 @@
+//Review.jsx에서 작성된 후기를 보여주는 리스트
 import React, { useEffect, useState } from "react";
 import { List, Typography, Box } from "@mui/material";
 import Paper from "@mui/material/Paper";
@@ -35,7 +36,8 @@ const ReviewList = ({ isDesktop, reviews, page, reviewsPerPage = 3 }) => {
                         >
                             <Typography variant="h6">{review.station}</Typography>
                             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                                <Typography variant="body2">
+                                <Typography variant="body2"> 
+                                    {/*회원 탈퇴를 한 사람이 작성한 후기는 작성자를 알 수 없음으로 나타냄*/}
                                     작성자: {review.User ? review.User.username : "알 수 없음"}
                                 </Typography>
                                 <Typography variant="body2">

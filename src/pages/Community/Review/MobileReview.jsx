@@ -1,3 +1,4 @@
+//모바일일 때 리스트 무한 스크롤로 보여주기
 import { useEffect, useRef, useState } from "react";
 import useIntersectionObserver from "./../../../hooks/useIntersectionObserver";
 import ReviewList from "./ReviewList";
@@ -23,6 +24,7 @@ const MobileReview = ({ handleWriteButtonClick, reviews, reviewsPerPage }) => {
     };
 
     return (
+        //한 번의 스크롤로 모여지는 리스트 개수
         <Container maxWidth="sm" sx={{ p: 3 }}>
             <PostButton handleWriteButtonClick={handleWriteButtonClick} />
             <ReviewList reviews={reviews} page={page} reviewsPerPage={reviewsPerPage} />
@@ -32,6 +34,7 @@ const MobileReview = ({ handleWriteButtonClick, reviews, reviewsPerPage }) => {
                 </ListItem>
             )}
             <div ref={intersectionRef}></div>
+            {/*무한 스크롤 중 제일 처음 화면으로 이동할 수 있도록 하는 버튼*/}
             <ScrollToTopButton onClick={scrollToTop} />
         </Container>
     );
