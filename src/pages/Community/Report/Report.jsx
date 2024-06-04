@@ -13,6 +13,7 @@ const Report = () => {
     const { loginUser, logout, kakaoLogin } = useAuth();
     const navigate = useNavigate();
     const [reports, setReports] = useState([]);
+
     const getReports = async () => {
         try {
             const userId = loginUser?.id;
@@ -31,6 +32,7 @@ const Report = () => {
             }
         }
     };
+
     useEffect(() => {
         kakaoLogin();
     }, [loginUser]);
