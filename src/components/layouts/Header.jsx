@@ -40,18 +40,6 @@ const Header = () => {
         }
     }, [loginUser]);
 
-    // const focusModal = () => {
-    //     if (!dropdownOpen) {
-    //         document.addEventListener("mousedown", () => {
-    //             setDropdownOpen(false);
-    //         });
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     focusModal();
-    // }, []);
-
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
     };
@@ -69,6 +57,7 @@ const Header = () => {
         fontWeight: "bold",
     });
 
+    //유저 카드
     const MessageBox = () => {
         return (
             <Paper
@@ -120,6 +109,8 @@ const Header = () => {
     ];
 
     const ELEVATION = location.pathname === "/" ? 0 : 4;
+
+    // 데스크탑 헤더
     const DeskTopHeader = () => {
         return (
             <AppBar color="secondary" elevation={ELEVATION}>
@@ -132,6 +123,8 @@ const Header = () => {
                     >
                         <Box component="img" src="/danglogo.svg" alt="logo" sx={{ width: "90px", height: "auto" }} />
                     </Box>
+
+                    {/* 로그인 하지 않은 경우 */}
                     {userStatus && userStatus === "guest" && (
                         <Grid sx={{ display: "flex" }}>
                             {guest.map((text, index) => (
@@ -145,6 +138,7 @@ const Header = () => {
                             ))}
                         </Grid>
                     )}
+                    {/* 일반 유저 로그인 한 경우 */}
                     {userStatus && userStatus === "user" && (
                         <Grid sx={{ display: "flex", alignItems: "center" }}>
                             <Grid>
@@ -194,6 +188,8 @@ const Header = () => {
                             ))}
                         </Grid>
                     )}
+
+                    {/* 관리자일 경우 */}
                     {userStatus && userStatus === "admin" && (
                         <Grid sx={{ display: "flex" }}>
                             {admin.map((text, index) => (
@@ -212,6 +208,7 @@ const Header = () => {
         );
     };
 
+    // 모바일 헤더 아이템들
     const DrawerItem = (text) => {
         return (
             <ListItem key={text.nav} disablePadding>
@@ -245,6 +242,7 @@ const Header = () => {
         );
     };
 
+    // 모바일 헤더 리스트들
     const DrawerList = (
         <Box sx={{ width: "250px" }} role="presentation" onClick={toggleDrawer(false)}>
             <List>
@@ -277,6 +275,7 @@ const Header = () => {
         </Box>
     );
 
+    // 모바일 헤더
     const MobileHeader = () => {
         return (
             <AppBar color="secondary" elevation={ELEVATION} sx={{ minHeight: "64px" }}>

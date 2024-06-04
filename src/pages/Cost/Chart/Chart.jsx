@@ -28,6 +28,7 @@ import { useState } from "react";
 import { Stack } from "@mui/system";
 ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, Title, Tooltip, Legend);
 
+// 브랜드별 요금 현황 차트
 const Chart = () => {
     const brandData = [
         "KEVIT",
@@ -87,6 +88,7 @@ const Chart = () => {
         );
     };
 
+    // 기관별 요금표
     const BasicTable = () => {
         const [page, setPage] = useState(1);
         const [chargingData, setCharginData] = useState(data.features);
@@ -98,8 +100,6 @@ const Chart = () => {
         const rows = chargingData.map((data) =>
             createData(data.properties.순번, data.properties.기관명, data.properties.구분, data.properties.비회원가)
         );
-
-        console.log(rows);
 
         const theme = useTheme();
         const tableWidth = useMediaQuery(theme.breakpoints.up("md"));
