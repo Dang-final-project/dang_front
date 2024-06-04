@@ -9,7 +9,7 @@ import { stationApi } from "../../../../api/services/station";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../hooks/useAuth";
 
-const Station = ({station, tab, token }) => {
+const Station = ({station, tab, token, setOpen }) => {
     const {setMapPos} = useContext(MapContext);
 
     const [clicked, setClicked] = useState(false);
@@ -38,13 +38,21 @@ const Station = ({station, tab, token }) => {
     setMapPos({lat: station.latitude, lng: station.longitude})
    }
 
+   const handlePopup = (e) => {
+        e.stopPropagation();
+        changeStationLocation();
+        if (setOpen) {
+            setOpen(false); // setOpen이 주어진 경우에만 setOpen(false)를 호출
+        }
+   }
+
     return ( 
-        <Paper elevation={4} sx={{p:2, mb: 2}} onClick={changeStationLocation}>
+        <Paper elevation={4} sx={{p:2, mb: 2, cursor:'pointer'}} onClick={changeStationLocation}>
             { token && 
-                <MemoButton token={token} station={station} getFav={getFav} clicked={clicked}/> 
+                <MemoButton token={token} station={station} getFav={getFav} clicked={clicked} /> 
             }
             <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                <Typography variant="h5">{station.chrstnNm}</Typography>
+                <Typography variant="h5" onClick={(e) => handlePopup(e)}>{station.chrstnNm}</Typography>
                 { token && 
                     <LikeButton token={token} station={station} getFav={getFav} tab={tab} clicked={clicked} setClicked={setClicked} /> 
                 }

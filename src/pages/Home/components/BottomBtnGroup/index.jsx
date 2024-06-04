@@ -66,7 +66,7 @@ export const BottomBtnGroup = () => {
             {activeButtons.map((bool, idx) => {
                 if (bool === true) {
                     return (
-                        <FilterPopup key={idx} title={buttonValue[idx].label} open={open} setOpen={setOpen}>
+                        <FilterPopup key={idx} title={buttonValue[idx].label} open={open} setOpen={setOpen} >
                             {buttonValue[idx].content}
                         </FilterPopup>
                     );

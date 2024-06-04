@@ -3,26 +3,11 @@ import Station from "../StationField/Station";
 import { MapContext } from "../../../../contexts/MapContext";
 import React, { useContext, useEffect, useState } from "react";
 
-const FavContent = () => {
+const FavContent = ({setOpen}) => {
 
     const { favStation, favList } = useContext(MapContext)
 
-    //로컬,카카오 토큰 가져오기
-    const getToken = () => {
-        const cookieToken = () => {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; accessToken=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null; // 쿠키가 없을 경우 null 반환
-        }
-    
-        const localToken = localStorage.getItem('token');
-        const token = cookieToken() || localToken;
-    
-        return token;
-    }
-
-    let token = getToken();
+    const token = localStorage.getItem("token");
 
     return ( 
         <>
@@ -35,6 +20,7 @@ const FavContent = () => {
                             station={fav}
                             tab={'fav'}
                             token={token}
+                            setOpen={setOpen}
                         />
                     );
                 })
