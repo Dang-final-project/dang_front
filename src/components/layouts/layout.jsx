@@ -1,8 +1,8 @@
 import { BrowserRouter } from "react-router-dom";
-import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
 import { MapProvider } from "../../contexts/MapContext";
+import Header from "./Header/Header";
 
 const Layout = ({ children }) => {
     return (
