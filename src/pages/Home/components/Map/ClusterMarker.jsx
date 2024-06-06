@@ -11,6 +11,7 @@ const ClusterMarker = () => {
   const [detailIndex, setDetailIndex] = useState(null);
   const mapRef = useRef();
 
+  //클러스터 마커 클릭시 확대 확대 되는 부분
   const onClusterclick = (_target, cluster) => {
     const map = mapRef.current;
     if (map) {
