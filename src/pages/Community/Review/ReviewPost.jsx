@@ -54,12 +54,12 @@ const ReviewPost = ({ open, handleClose }) => {
                 });
             }
         } catch (err) {
-            if(err.response.data.code == 500) {
-                logout(()=>{
-                  console.error(err);
-                  navigate('/')
-                })
-              }
+            Swal.fire({
+                title: `빈칸을 모두 채워 주세여`,
+                icon: "warning",
+                confirmButtonText: "확인",
+                confirmButtonColor: theme.palette.error.main,
+            });
         }
     };
 

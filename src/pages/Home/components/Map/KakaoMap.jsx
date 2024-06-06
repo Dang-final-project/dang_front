@@ -28,6 +28,8 @@ const KakaoMap = () => {
   //반응형분기점
   const theme = useTheme();
   const tabletWidth = useMediaQuery(theme.breakpoints.up("md"));
+  
+  //현재 위치 가져오는 함수
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(pos => {
         setCenter({lat:pos.coords.latitude, lng:pos.coords.longitude});
