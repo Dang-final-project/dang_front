@@ -55,7 +55,7 @@ const ReviewPost = ({ open, handleClose }) => {
             }
         } catch (err) {
             Swal.fire({
-                title: `빈칸을 모두 채워 주세여`,
+                title: `빈칸을 모두 채워 주세요`,
                 icon: "warning",
                 confirmButtonText: "확인",
                 confirmButtonColor: theme.palette.error.main,
