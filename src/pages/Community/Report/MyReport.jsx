@@ -68,37 +68,8 @@ const MyReport = ({ reports, isDesktop }) => {
                     }}
                 >
                     <Paper elevation="6" sx={{ padding: 6, height: isDesktop ? "660px" : "100%" }}>
-                        {isDesktop ? (
-                            reports.length > 0 ? (
-                                visibleReports.map((report, index) => (
-                                    <Box sx={{ marginBottom: 2, borderBottom: "1px solid lightgray" }} key={index}>
-                                        <Grid sx={{ display: "flex" }}>
-                                            <Typography sx={{ marginRight: 3 }}>{report.carNum}</Typography>
-                                            <Typography>{report.station}</Typography>
-                                        </Grid>
-                                        <Typography
-                                            sx={{ fontSize: "20px", fontWeight: 600, marginTop: 1, marginBottom: 1 }}
-                                        >
-                                            {report.content}
-                                        </Typography>
-                                        <Typography>{new Date(report.createdAt).toLocaleString("ko-KR")}</Typography>
-                                    </Box>
-                                ))
-                            ) : (
-                                <Grid
-                                    sx={{
-                                        height: "100%",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <Box component="img" src="/noreport.png" sx={{ width: "150px", mb: 2 }} />
-                                    <Typography sx={{ fontSize: "24px" }}>신고 내역이 없습니다.</Typography>
-                                </Grid>
-                            )
-                        ) : visibleReports.length > 0 ? (
+                        {visibleReports.length > 0 ? (
+                            // 신고 내역이 있을 경우
                             visibleReports.map((report, index) => (
                                 <Box sx={{ marginBottom: 2, borderBottom: "1px solid lightgray" }} key={index}>
                                     <Grid sx={{ display: "flex" }}>
@@ -114,8 +85,10 @@ const MyReport = ({ reports, isDesktop }) => {
                                 </Box>
                             ))
                         ) : (
+                            // 신고 내역이 없을 경우
                             <Grid
                                 sx={{
+                                    height: "100%",
                                     display: "flex",
                                     flexDirection: "column",
                                     alignItems: "center",
@@ -123,19 +96,19 @@ const MyReport = ({ reports, isDesktop }) => {
                                 }}
                             >
                                 <Box component="img" src="/noreport.png" sx={{ width: "150px", mb: 2 }} />
-                                <Typography sx={{ marginBottom: "10px", fontSize: "24px" }}>
-                                    신고 내역이 없습니다.
-                                </Typography>
+                                <Typography sx={{ fontSize: "24px" }}>신고 내역이 없습니다.</Typography>
                             </Grid>
                         )}
 
                         {isDesktop ? (
+                            // 데스크탑일 경우 페이지 네이션
                             <PageCount
                                 page={page}
                                 count={Math.ceil(reports.length / reportsPerPage)}
                                 handleChangePage={handleChangePage}
                             />
                         ) : (
+                            // 모바일일 경우 무한스크롤
                             <Box ref={target} sx={{ height: "10px" }}></Box>
                         )}
                     </Paper>

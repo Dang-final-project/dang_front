@@ -1,5 +1,5 @@
-import { Box, Button, FormControl, Grid, OutlinedInput, Paper, TextField, Typography } from "@mui/material";
-import { useCallback, useContext, useState } from "react";
+import { Button, FormControl, Grid, OutlinedInput, Paper, TextField, Typography } from "@mui/material";
+import { useCallback, useState } from "react";
 import Swal from "sweetalert2";
 import { communityApi } from "../../../api/services/community";
 import SearchPopup from "../Review/SearchPopup";
@@ -43,10 +43,6 @@ const ReportDriver = ({ isDesktop, theme, getReports, loginUser }) => {
 
     const handleCarNumChange = useCallback((e) => {
         setCarNum(e.target.value);
-    }, []);
-
-    const handleStationChange = useCallback((e) => {
-        setStation(e.target.value);
     }, []);
 
     const handleContentChange = useCallback((e) => {

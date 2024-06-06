@@ -4,10 +4,10 @@ export const GetStations = async (filterList, setPositionArr, setStations) => {
     try {
         const pageIdx = 0;
         const count = 30;
-        const response = await externalApi.getAllStation(count, pageIdx, filterList)
+        const response = await externalApi.getAllStation(count, pageIdx, filterList);
         if (response.status === 200) {
             const results = [];
-            if (typeof(response.data) === 'object') {
+            if (typeof response.data === "object") {
                 response.data.items.forEach((item) => {
                     const cur_lat = item.latitude;
                     const cur_lng = item.longtitude;
@@ -30,7 +30,11 @@ export const GetStations = async (filterList, setPositionArr, setStations) => {
                 });
                 const arr = [];
                 results.forEach((r) => {
-                    const p = { title: r.chrstnNm, latlng: { lat: r.latitude, lng: r.longitude }, available: r.tot_count > r.avail_count };
+                    const p = {
+                        title: r.chrstnNm,
+                        latlng: { lat: r.latitude, lng: r.longitude },
+                        available: r.tot_count > r.avail_count,
+                    };
                     arr.push(p);
                 });
                 setPositionArr(arr);

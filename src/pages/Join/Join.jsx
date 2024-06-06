@@ -76,7 +76,7 @@ const Join = () => {
     return ( 
         <Box component="section" sx={contStyle}>
             <Box sx={boxStyle}>
-                <Typography variant="h4" my={3}>회원가입</Typography>
+                <Typography variant="h4" my={3} sx={{fontWeight:'bold'}}>회원가입</Typography>
                 <Box
                     component="form"
                     noValidate

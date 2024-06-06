@@ -45,7 +45,6 @@ const LocateList = () => {
         try {
             const response = await axios.get(url);
             const datas = response.data.items;
-            console.log(datas);
 
             if (response.status === 200) {
                 const filteredStations = datas?.filter((station) =>
