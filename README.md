@@ -5,6 +5,7 @@
 
 ## 2.주요 기능
 
+
 ## 3.팀원 소개
 | 이은수 | 노효민 | 박유진 | 손예림 | 호경화 |
 | :--: | :--: | :--: | :--: | :--: |
@@ -18,7 +19,9 @@
 ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
 ![Mui](https://img.shields.io/badge/Mui-007FFF?style=for-the-badge&logo=mui&logoColor=white)
 
-### 5.구조
+## 5.역할분담
+
+### 6.구조
 
 ```
 root/
@@ -28,7 +31,9 @@ root/
   │  ├─ components/
   │  ├─ contexts/
   │  ├─ hooks/
-  │  ├─ pages/
+  │  ├─ pages/  ├─ pages/
+  │  |          ├─ pages/
+  │  |          ├─ pages/
   │  ├─ App.css
   │  ├─ App.js
   │  ├─ index.js
@@ -37,3 +42,10 @@ root/
   ├─ package.json
   └─ README.md
 ```
+
+
+### 7.트러블 슈팅
+
+### 8.회고
+
+### 9.개선 사항 
