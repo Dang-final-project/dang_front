@@ -31,9 +31,7 @@ root/
   │  ├─ components/
   │  ├─ contexts/
   │  ├─ hooks/
-  │  ├─ pages/  ├─ pages/
-  │  |          ├─ pages/
-  │  |          ├─ pages/
+  │  ├─ pages/
   │  ├─ App.css
   │  ├─ App.js
   │  ├─ index.js
