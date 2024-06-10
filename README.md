@@ -31,10 +31,6 @@
 | <img src='https://user-images.githubusercontent.com/108520997/210527733-58ea7338-b990-4746-a4d9-d23fd8c8921f.png' height=220 width=180> | <img src='https://user-images.githubusercontent.com/108520997/210526486-7331abc2-ee97-4336-b904-b63e95e1ea37.png' height=220 width=180> | <img src='https://user-images.githubusercontent.com/108520997/210526602-d3b97e07-b0de-4140-8fb3-84892722b162.png' height=220 width=180> | <img src='https://user-images.githubusercontent.com/70703716/210733297-a80952a7-9dd3-4ea6-8c86-3bd41fdcad32.PNG' height=220 width=180> | <img src='https://user-images.githubusercontent.com/70703716/210733297-a80952a7-9dd3-4ea6-8c86-3bd41fdcad32.PNG' height=220 width=180> 
 | 팀장, FE, BE | FE, BE | FE, BE | FE, BE | FE |   
 
-
-
-
-
 ## 4.개발 환경
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
@@ -43,6 +39,10 @@
 ![Mui](https://img.shields.io/badge/Mui-007FFF?style=for-the-badge&logo=mui&logoColor=white)
 
 ## 5.역할분담
+#### 이은수
+```
+- 로그인 기능 구현
+```
 
 ## 6.구조
 
