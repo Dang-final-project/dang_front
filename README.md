@@ -28,7 +28,7 @@
 ## 3.팀원 소개
 |**이은수**|**노효민**|**박유진**|**손예림**|**호경화**|
 | :--: | :--: | :--: | :--: | :--: |
-| <img src="https://i.ibb.co/Hd9Pz5B/image.jpg" height=220 width=180> | <img src='https://user-images.githubusercontent.com/108520997/210526486-7331abc2-ee97-4336-b904-b63e95e1ea37.png' height=220 width=180> | <img src='https://user-images.githubusercontent.com/108520997/210526602-d3b97e07-b0de-4140-8fb3-84892722b162.png' height=220 width=180> | <img src='https://user-images.githubusercontent.com/70703716/210733297-a80952a7-9dd3-4ea6-8c86-3bd41fdcad32.PNG' height=220 width=180> | <img src='https://user-images.githubusercontent.com/70703716/210733297-a80952a7-9dd3-4ea6-8c86-3bd41fdcad32.PNG' height=220 width=180> 
+| <img src="https://i.ibb.co/Hd9Pz5B/image.jpg" height=220 width=180> | <img src="https://i.ibb.co/Hd9Pz5B/image.jpg" height=220 width=180> | <img src='https://user-images.githubusercontent.com/108520997/210526602-d3b97e07-b0de-4140-8fb3-84892722b162.png' height=220 width=180> | <img src='https://user-images.githubusercontent.com/70703716/210733297-a80952a7-9dd3-4ea6-8c86-3bd41fdcad32.PNG' height=220 width=180> | <img src='https://user-images.githubusercontent.com/70703716/210733297-a80952a7-9dd3-4ea6-8c86-3bd41fdcad32.PNG' height=220 width=180> 
 | 팀장, FE, BE | FE, BE | FE, BE | FE, BE | FE |   
 
 ## 4.개발 환경
@@ -50,6 +50,26 @@
 - 마이페이지 개인정보 수정 제작
 - 후기 페이지, 후기 작성페이지
 - 지도 마커, 컨트롤 바, 현재 위치 이동
+```
+#### 박유진
+```
+- 회원가입
+- 충전소 리스트 조회
+- 필터 검색, 즐겨 찾기, 메모 작성
+```
+#### 손예림
+```
+- 헤더, 서브헤더
+- 정보마당 요금표
+- 신고하기
+- 홈 화면 내 검색 기능
+```
+#### 호경화
+```
+- 로딩페이지
+- 에러페이지
+- 마이페이지 내 배터리 잔량 알림
+- 전기차 종류 조회
 ```
 
 ## 6.구조
