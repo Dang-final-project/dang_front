@@ -27,7 +27,7 @@
 ## 3.팀원 소개
 |**이은수**|**노효민**|**박유진**|**손예림**|**호경화**|
 | :--: | :--: | :--: | :--: | :--: |
-| <img src="https://i.ibb.co/Hd9Pz5B/image.jpg" height=220 width=180> | <img src="https://i.ibb.co/Hd9Pz5B/image.jpg" height=220 width=180> | <img src='https://user-images.githubusercontent.com/108520997/210526602-d3b97e07-b0de-4140-8fb3-84892722b162.png' height=220 width=180> | <img src='https://user-images.githubusercontent.com/70703716/210733297-a80952a7-9dd3-4ea6-8c86-3bd41fdcad32.PNG' height=220 width=180> | <img src='https://user-images.githubusercontent.com/70703716/210733297-a80952a7-9dd3-4ea6-8c86-3bd41fdcad32.PNG' height=220 width=180> 
+| <img src="https://i.ibb.co/Hd9Pz5B/image.jpg" height=220 width=180> | <img src="https://i.ibb.co/Hd9Pz5B/image.jpg" height=220 width=180> | <img src='https://user-images.githubusercontent.com/108520997/210526602-d3b97e07-b0de-4140-8fb3-84892722b162.png' height=220 width=180> | <img src="https://i.ibb.co/DpmsYD3/image.png" height=220 width=180> | <img src='https://user-images.githubusercontent.com/70703716/210733297-a80952a7-9dd3-4ea6-8c86-3bd41fdcad32.PNG' height=220 width=180> 
 | 팀장, FE, BE | FE, BE | FE, BE | FE, BE | FE |   
 
 ## 4.개발 환경
