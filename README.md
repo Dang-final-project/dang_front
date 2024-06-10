@@ -27,7 +27,7 @@
 ## 3.팀원 소개
 |**이은수**|**노효민**|**박유진**|**손예림**|**호경화**|
 | :--: | :--: | :--: | :--: | :--: |
-| <img src="https://i.ibb.co/YDdXZ3c/image.png"  height=220 width=180> | <img src="https://i.ibb.co/Hd9Pz5B/image.jpg" height=220 width=180> | <img src="https://i.ibb.co/dmpjVPY/image.png" height=220 width=180> | <img src="https://i.ibb.co/DpmsYD3/image.png" height=220 width=180> | <img src="https://i.ibb.co/NKCnMMj/image.png" height=220 width=180> 
+| <img src="https://i.ibb.co/YDdXZ3c/image.png"  height=220 width=180> | <img src="https://i.ibb.co/Hd9Pz5B/image.jpg" height=220 width=180> | <img src="https://i.ibb.co/dmpjVPY/image.png" height=220 width=180> | <img src="https://i.ibb.co/DpmsYD3/image.png" height=220 width=180> | <img src="https://i.ibb.co/F33Jpn5/image.png" height=220 width=180> 
 | 팀장, FE, BE | FE, BE | FE, BE | FE, BE | FE |   
 
 ## 4.개발 환경
@@ -93,6 +93,12 @@ root/
 
 
 ## 7.트러블 슈팅
+1. 로그인
+### - 문제
+ㅇㅇㅇㅇ
+### - 원인
+ㅇㅇㅇㅇ
+
 
 
 ## 8.개선 사항
