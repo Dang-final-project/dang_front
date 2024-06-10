@@ -42,6 +42,10 @@
 #### 이은수
 ```
 - 로그인 기능 구현
+- 로그인 / 토큰 back 
+     환경구성
+![image](https://github.com/Dang-final-project/dang_front/assets/77332407/7a72b62d-e767-44f8-a425-92c5b0614e74)
+
 ```
 
 ## 6.구조
