@@ -89,7 +89,6 @@ root/
   │  ├─ App.css
   │  ├─ App.js
   │  ├─ index.js
-  ├─ .env
   ├─ .gitigore  
   ├─ package.json
   └─ README.md
