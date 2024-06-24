@@ -3,6 +3,7 @@
 ## 1.프로젝트 설명
 전기 차는 다른 차량들에 비해 주유를 할 수 있는 충전소가 보편화 되지 않아 방문하려면 많은 시간이 걸린다거나 이미 충전 중인 차량 때문에 헛걸음하게 된다는 단점이 있습니다.
 저희 프로젝트는 충전소를 찾기 위해 많은 시간을 소비되는 것을 방지하고 원하는 충전소에 대한 위치와 정보를 손쉽게 얻을 수 있는 서비스를 제공합니다.
+<iframe width="1176" height="662" src="https://www.youtube.com/embed/7a52nfqQFlw" title="데스크탑 시연영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 ## 2.주요 기능
 ### [공통]
 - 로그인
